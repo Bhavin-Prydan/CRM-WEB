@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block homeactive %} active {% endblock homeactive %}
+{% block body %}
+
+
+<div class="container-fluid" style="background-color: #f5f8fa">
+    <div class="text-center">
+        <h1 style="letter-spacing: 3px;color: #2e3f50;">WELCOME TO PRYDAN CRM</h1>
+    </div>
+</div>
+
+
+<script>
+
+    window.onload = function () {
+
+        var isLogin = localStorage.getItem("isLogin")
+        if (isLogin != "true") {
+            // $(".authentication-btn").html("<a href='/crm_login'>Login</a>");
+            window.location = "/crm_login"
+        }
+
+
+        var Msg = sessionStorage.getItem("Msg");
+        if (Msg) {
+            showToast(Msg);
+            sessionStorage.removeItem("Msg");
+        }
+
+        // function SignOut() {
+        //     alert("logout")
+        //     localStorage.setItem("isLogin", "false");
+        //     // window.location = "/crm_login";
+
+        // }
+
+    };
+</script>
+{% endblock %}

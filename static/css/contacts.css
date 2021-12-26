@@ -1,0 +1,344 @@
+.dropdown-menu {
+    /* min-width: 20px !important; */
+}
+
+.actbtn:hover>.dropdown-menu {
+    display: block !important;
+}
+
+.actbtn>.dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none !important;
+}
+
+
+
+.contact-tabs a {
+    -webkit-font-smoothing: auto;
+    font-family: 'Avenir Next W02', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 28px;
+    color: rgb(51, 71, 91);
+}
+
+.contact-tabs a:hover {
+    -webkit-font-smoothing: auto;
+    font-family: 'Avenir Next W02', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 28px;
+    color: #0091ae;
+}
+
+.p-bottom-5 {
+    padding-bottom: 20px !important;
+}
+
+.p-left-0 {
+    padding-left: 0 !important;
+}
+
+.p-top-0,
+.p-y-0 {
+    padding-top: 0 !important;
+}
+
+.dvTLVb {
+    margin: 0px;
+}
+
+.loiGuo {
+    padding: 12px 0px 0px 12px;
+}
+
+.width-100 {
+    width: 100% !important;
+}
+
+.cBGfwK {
+    display: flex;
+}
+
+.oBwUy {
+    display: inline-flex;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.private-search-control {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.private-form__control {
+    padding: 9px 10px;
+    border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    font-size: 16px;
+    transition: all .15s ease-out;
+    background-color: #f5f8fa;
+    color: #33475b;
+    display: block;
+    height: 40px;
+    line-height: 22px;
+    text-align: left;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.private-search-control__input {
+    padding-right: 44px;
+}
+
+.private-search-control__foreground {
+    bottom: 1px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.private-search-control__foreground {
+    bottom: 1px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 1px;
+}
+
+.private-icon {
+    display: inline-block;
+    user-select: none;
+    white-space: nowrap !important;
+    word-break: normal !important;
+}
+
+.private-search-control__icon {
+    color: #0091ae;
+    font-size: 16px;
+    line-height: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-top: 12px;
+    pointer-events: none;
+}
+
+/* .private-icon__ {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: spacesword !important;
+    font-feature-settings: "liga";
+    font-variant: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+} */
+.private-icon__ {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: spacesword !important;
+    font-feature-settings: "liga";
+    font-variant: normal;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.hrDWnP {
+    font: inherit !important;
+}
+
+.private-icon {
+    display: inline-block;
+    user-select: none;
+    white-space: nowrap !important;
+    word-break: normal !important;
+}
+
+.private-form__meta {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.private-form__messages {
+    display: flex;
+    flex-direction: column;
+}
+
+.p-left-3 {
+    padding-left: 12px !important;
+}
+
+.cglPDM {
+    display: inline-flex;
+    height: 40px;
+}
+
+.m-right-3 {
+    margin-right: 12px !important;
+}
+
+.gqLBrs {
+    display: inline-flex;
+}
+
+.private-button--default {
+    font-size: 14px;
+    line-height: 16px;
+    padding: 11px 24px;
+}
+
+.private-button--tertiary-light {
+    background-color: #eaf0f6;
+    border-color: #cbd6e2;
+    color: #506e91;
+}
+
+.private-button--tertiary-light:hover {
+    background-color: #eaf0f6;
+    border-color: #cbd6e2;
+    color: #506e91;
+}
+
+.private-button--default {
+    font-size: 14px;
+    line-height: 16px;
+    /* padding: 11px 24px; */
+    font-family: Avenir Next W02, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+/* .private-button {
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;
+    font-family: Avenir Next W02, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: all .15s ease-out;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+} */
+thead th {
+    font-family: "Avenir Next W02", Helvetica, Arial, sans-serif;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+    background-color: rgb(245, 248, 250) !important;
+    color: rgb(51, 71, 91) !important;
+    height: 44px !important;
+    padding: 8px 24px 4px !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    vertical-align: middle !important;
+    cursor: pointer;
+}
+
+td {
+
+    height: 2.5rem !important;
+    padding-bottom: 0.15rem !important;
+    padding-top: 0.15rem !important;
+    font-size: 14px !important;
+    border-color: rgb(223, 227, 235) !important;
+    border-style: solid !important;
+    border-width: 1px 0px 0px !important;
+    line-height: normal !important;
+    vertical-align: middle !important;
+}
+
+td a {
+    color: #0091ae;
+}
+
+/* filter-drop */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.show {
+    display: block;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 30px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+    }
+}
+
+.private-modal__header {
+    background-color: #00bda5;
+    background-image: linear-gradient(-303deg, #00a4bd, #00afb2 56%, #00bda5);
+    color: #fff;
+}
+
+label {
+    color: #00a4bd;
+}

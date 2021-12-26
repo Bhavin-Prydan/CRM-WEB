@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<link rel="stylesheet" href="{% static 'css/contact_form.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.js"></script>
+
+<body oncontextmenu='return false' class='snippet-body'>
+    <!-- JQUERY STEP -->
+
+    <div class="wrapper">
+        <form id="cform" name="cform" method="post">
+            <div id="wizard">
+                <!-- SECTION 1 -->
+                <h4></h4>
+                <section>
+                    <input type="hidden" value="{{Pid}}" id="Pid" name="Pid">
+                    <div class="form-row">
+                        <input type="text" class="form-control required" placeholder="First Name" id="FirstName"
+                            name="FirstName">
+
+                        <input type="text" class="form-control required mt-1" placeholder="Middle Name" id="MiddleName"
+                            name="MiddleName">
+                        <input type="text" class="form-control required mt-1" placeholder="Last Name" id="LastName"
+                            name="LastName">
+                    </div>
+                    <div class="form-row">
+                        <select class="form-control tbtn required" id="Etype"
+                            name="EmailIDF[EmailTypeIDF][EmailTypeID]">
+                            <option disabled selected>Email Type</option>
+                        </select>
+                        <input type="hidden" id="EmailID" name="EmailIDF[EmailID]">
+                        <input type="email" class="form-control required mt-1" placeholder="Enter Your Email" id="Email"
+                            name="EmailIDF[EmailAddress]">
+                    </div>
+                    <div class="form-row">
+
+
+                        <!-- <div class="input-group phone-input"> -->
+
+                        <select class="form-control tbtn required" id="Ptype"
+                            name="PhoneIDF[PhoneTypeIDF][PhoneTypeID]">
+                            <option disabled selected>Phone Type</option>
+                        </select>
+
+                        <select class="form-control tbtn required mt-1"
+                            name="PhoneIDF[CodeIDF][CountryCodeIDF][CountryCodeID]" id="Ctype">
+                            <option disabled selected>Country</option>
+                        </select>
+
+                        <!-- <select class="form-control tbtn mt-1" id="Ccode" name="Ccode" style="padding-right:0px ">
+                            <option disabled selected>Code</option>
+                        </select> -->
+                        <input type="hidden" id="CodeID" name="PhoneIDF[CodeIDF][CodeID]">
+
+                        <input type="text" class="form-control tbtn mt-1" id="Ccode"
+                            name="PhoneIDF[CodeIDF][CountryCode]" style="padding-right:0px " placeholder="Country Code"
+                            readonly />
+                        <input type="hidden" id="PhoneID" name="PhoneIDF[PhoneID]">
+                        <input type="number" id="Pnumber" name="PhoneIDF[PhoneNo]" class="form-control required mt-1"
+                            placeholder="Enter your Phone No. *99999 99999" />
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <select class="form-control tbtn required" id="Gcode" name="Gcode">
+                            <option disabled selected>Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row" id="floatContainer" style="position: relative;">
+                        <label id="dobL" style="position: absolute;padding: 6px 0px 0px 12px;font-size: 15px;
+                        color: #6c757d;">DOB</label>
+                        <input type="date" class="form-control required" name="DOB" id="DOB" placeholder="DOB"
+                            style=" padding:0 0 0px 60px;">
+                    </div>
+                    <div class="form-row">
+                        <select class="form-control tbtn required" id="SuffixIDF" name="SuffixIDF[SuffixID]">
+                            <option disabled selected>Suffix Type</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <select class="form-control tbtn required" id="PersonType" name="PersonTypeIDF[PersonTypeID]">
+                            <option disabled selected>Person Type</option>
+                        </select>
+                    </div>
+                </section>
+                <!-- SECTION 2 -->
+                <h4></h4>
+                <section>
+                    <div class="form-row" style="margin-bottom: 18px">
+
+                        <input type="hidden" id="Address" name="AddressIDF[AddressID]">
+
+                        <select class="form-control tbtn required" id="AType"
+                            name="AddressIDF[AddressTypeIDF][AddressTypeID]" style="max-width: 30%">
+                            <option disabled selected>Address Type</option>
+
+                        </select>
+                        <textarea name="AddressIDF[Address]" id="Add" class="form-control required mt-1"
+                            placeholder="Address" style="height: 108px"></textarea>
+                    </div>
+                    <div class="form-row"> <input type="text" class="form-control required" id="City"
+                            name="AddressIDF[City]" placeholder="City"> </div>
+                    <div class="form-row"> <input type="text" class="form-control required" id="District"
+                            name="AddressIDF[District]" placeholder="District"> </div>
+                    <div class="form-row"> <input type="text" class="form-control required" id="Stat"
+                            name="AddressIDF[State]" placeholder="Stat"> </div>
+                    <div class="form-row"> <input type="text" class="form-control required" id="Country"
+                            name="AddressIDF[Country]" placeholder="Country"> </div>
+                    <div class="form-row"> <input type="number" class="form-control required" id="ZipCode"
+                            name="AddressIDF[PinCode]" placeholder="Pin Code"> </div>
+
+                </section>
+
+
+                <!-- SECTION 3 -->
+                <h4></h4>
+                <section>
+
+                    <div class="form-row">
+                        <input type="hidden" id="CompanyID" name="CompanyIDF[CompanyID]">
+                        <input type="text" class="form-control required" name="CompanyIDF[CompanyName]" id="CompanyName"
+                            placeholder="Company Name"> </div>
+                    <div class="form-row"> <input type="text" class="form-control required" name="CompanyIDF[GSTINNo]"
+                            id="Gst" placeholder="GST NO."> </div>
+                    <div class="form-row"> <input type="text" class="form-control required"
+                            name="CompanyIDF[Headquarter]" id="Headquarter" placeholder="Headquarter"> </div>
+                    <div class="form-row">
+                        <textarea name="CompanyIDF[WebsiteURL]" id="WebsiteURL" class="form-control required"
+                            placeholder="Website URL" style="height: 45px"></textarea>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 18px">
+                        <textarea name="CompanyIDF[About]" id="Aboutc" class="form-control required"
+                            placeholder="About Company" style="height: 45px"></textarea>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 18px">
+                        <textarea name="CompanyIDF[Speciality]" id="Speciality" class="form-control required"
+                            placeholder="Speciality" style="height: 45px"></textarea>
+                    </div>
+                    <div class="form-row" id="floatContainer" style="position: relative;">
+                        <label id="dobL" style="position: absolute;padding: 6px 0px 0px 12px;font-size: 15px;
+                                    color: #6c757d;">Founded</label>
+                        <input type="date" class="form-control required " id="Foundate" name="CompanyIDF[Founded]"
+                            placeholder="Founded" style=" padding:0 0 0px 100px;">
+                    </div>
+                    <div class="form-row">
+
+                        <input type="number" id="rev" name="CompanyIDF[AnnualRevenue]" class="form-control required "
+                            placeholder="Annual Revenue">
+                    </div>
+                    <div class="form-row">
+                        <input type="hidden" id="HeadCountID" name="CompanyIDF[HeadcountIDF][HeadCountID]">
+                        <select class="form-control required tbtn" id="HeadCountType"
+                            name="CompanyIDF[HeadcountIDF][HeadCountTypeIDF][HeadCountTypeID]">
+                            <option disabled selected>Head Count Type</option>
+
+                        </select>
+                        <input type="number" id="HeadCount" name="CompanyIDF[HeadcountIDF][HeadCountRange]"
+                            class="form-control required mt-1" placeholder="Head Count">
+
+                    </div>
+
+                    <div class="form-row">
+                        <select class="form-control required tbtn" id="CompanyType"
+                            name="CompanyIDF[CompanyTypeIDF][CompanyTypeID]">
+                            <option disabled selected>Company Type</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <select class="form-control required tbtn" id="IndustryType"
+                            name="CompanyIDF[IndustryIDF][IndustryID]">
+                            <option disabled selected>Industry Type</option>
+
+                        </select>
+                    </div>
+                </section>
+                <!-- SECTION 4 -->
+                <!-- <h4></h4>
+            <section> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                    <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                    <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> </svg>
+                <p class="success">Contact Create Successfully...</p>
+            </section> -->
+            </div>
+        </form>
+    </div>
+    <script>
+        // $(function () {
+        //     $(document.body).on('click', '.changeType', function () {
+        //         $(this).closest('.phone-input').find('.type-text').text($(this).text());
+        //         $(this).closest('.phone-input').find('.type-input').val($(this).data('type-value'));
+        //     });
+        // });
+    </script>
+    <script src="{% static 'js/contact_form.js' %}"></script>
+    <script>
+        var isLogin = localStorage.getItem("isLogin")
+        if (isLogin != "true") {
+            window.location = "/crm_login"
+        }
+        var Msg = sessionStorage.getItem("Msg");
+        if (Msg) {
+            showToast(Msg);
+            sessionStorage.removeItem("Msg");
+        }
+        var Pid = document.getElementById('Pid').value;
+        // console.log(Pid)
+        document.addEventListener('DOMContentLoaded', function (event) {
+            event.preventDefault();
+
+            if (Pid) {
+                fetch(url + '/PersonDetailApi/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+                    .then((response) => {
+                        if (response.status >= 200 && response.status <= 299) {
+                            return response.json();
+                        } else {
+                            throw Error(response.statusText);
+                        }
+                    })
+                    .then((myJson) => {
+                        console.log(myJson);
+                        document.getElementById("FirstName").value = myJson[0]["FirstName"];
+                        document.getElementById("MiddleName").value = myJson[0]["MiddleName"];
+                        document.getElementById("LastName").value = myJson[0]["LastName"];
+
+                        document.getElementById("Etype").selectedIndex = myJson[0]["EmailIDF"]["EmailTypeIDF"]["EmailTypeID"];
+                        document.getElementById("Email").value = myJson[0]["EmailIDF"]["EmailAddress"];
+                        document.getElementById("EmailID").value = myJson[0]["EmailIDF"]["EmailID"];
+
+                        document.getElementById("Ptype").selectedIndex = myJson[0]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
+                        document.getElementById("Ctype").selectedIndex = myJson[0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
+                        document.getElementById("CodeID").value = myJson[0]["PhoneIDF"]["CodeIDF"]["CodeID"];
+                        document.getElementById("Ccode").value = myJson[0]["PhoneIDF"]["CodeIDF"]["CountryCode"];
+                        document.getElementById("Pnumber").value = myJson[0]["PhoneIDF"]["PhoneNo"];
+                        document.getElementById("PhoneID").value = myJson[0]["PhoneIDF"]["PhoneID"];
+                        document.getElementById("Gcode").value = myJson[0]["Gender"];
+                        document.getElementById("DOB").value = myJson[0]["DOB"];
+                        document.getElementById("SuffixIDF").selectedIndex = myJson[0]["SuffixIDF"]["SuffixID"];
+                        document.getElementById("PersonType").selectedIndex = myJson[0]["PersonTypeIDF"]["PersonTypeID"];
+                        document.getElementById("AType").selectedIndex = myJson[0]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
+                        document.getElementById("Address").value = myJson[0]["AddressIDF"]["AddressID"];
+                        document.getElementById("Add").value = myJson[0]["AddressIDF"]["Address"];
+                        document.getElementById("City").value = myJson[0]["AddressIDF"]["City"];
+                        document.getElementById("District").value = myJson[0]["AddressIDF"]["District"];
+                        document.getElementById("Stat").value = myJson[0]["AddressIDF"]["State"];
+                        document.getElementById("Country").value = myJson[0]["AddressIDF"]["Country"];
+                        document.getElementById("ZipCode").value = myJson[0]["AddressIDF"]["PinCode"];
+
+                        document.getElementById("CompanyID").value = myJson[0]["CompanyIDF"]["CompanyID"];
+                        document.getElementById("CompanyName").value = myJson[0]["CompanyIDF"]["CompanyName"];
+                        document.getElementById("Gst").value = myJson[0]["CompanyIDF"]["GSTINNo"];
+                        document.getElementById("Headquarter").value = myJson[0]["CompanyIDF"]["Headquarter"];
+                        document.getElementById("WebsiteURL").value = myJson[0]["CompanyIDF"]["WebsiteURL"];
+                        document.getElementById("Aboutc").value = myJson[0]["CompanyIDF"]["About"];
+                        document.getElementById("Speciality").value = myJson[0]["CompanyIDF"]["Specialities"];
+                        document.getElementById("Foundate").value = myJson[0]["CompanyIDF"]["Founded"];
+                        document.getElementById("rev").value = myJson[0]["CompanyIDF"]["AnnualRevenue"];
+                        document.getElementById("HeadCountType").selectedIndex = myJson[0]["CompanyIDF"]["HeadcountIDF"]["HeadCountTypeIDF"]["HeadCountTypeID"];
+                        document.getElementById("HeadCount").value = myJson[0]["CompanyIDF"]["HeadcountIDF"]["HeadCountRange"];
+                        document.getElementById("HeadCountID").value = myJson[0]["CompanyIDF"]["HeadcountIDF"]["HeadCountID"];
+                        document.getElementById("CompanyType").selectedIndex = myJson[0]["CompanyIDF"]["CompanyTypeIDF"]["CompanyTypeID"];
+                        document.getElementById("IndustryType").selectedIndex = myJson[0]["CompanyIDF"]["IndustryIDF"]["IndustryID"];
+                    });
+            }
+
+        });
+        // for dropdown values
+        // for Email Type
+        // let Pid = {{ Pid }}
+        let AToken = localStorage.getItem("accessToken");
+        const url = "http://127.0.0.1:5000/api";
+        fetch(url + '/stblEmailType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('Etype');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="EmailIDF[EmailTypeIDF][EmailTypeID]" value="' + myJson[i]['EmailTypeID'] + '">' + myJson[i]['EmailType'] + '</option>';
+                }
+            });
+        // for Phone Type
+        fetch(url + '/stblPhoneType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                var ele = document.getElementById('Ptype');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="PhoneIDF[PhoneTypeIDF][PhoneTypeID]" value="' + myJson[i]['PhoneTypeID'] + '">' + myJson[i]['PhoneType'] + '</option>';
+                }
+            });
+        // for Country Type
+        fetch(url + '/stblCountryCodeType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                var country = document.getElementById('Ctype');
+                for (var i = 0; i < myJson.length; i++) {
+                    country.innerHTML = country.innerHTML +
+                        '<option name="PhoneIDF[CodeIDF][CountryCodeIDF][CountryCodeID]" value="' + myJson[i]['CountryCodeID'] + '">' + myJson[i]['CountryName'] + '</option>';
+                }
+
+                // for Country Code 
+                fetch(url + '/tblCountryCode/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+                    .then((response) => {
+                        if (response.status >= 200 && response.status <= 299) {
+                            return response.json();
+                        } else {
+                            throw Error(response.statusText);
+                        }
+                    })
+                    .then((myJson) => {
+                        // console.log(myJson)
+                        country.onchange = function () {
+                            // console.log(country.value);
+                            var ele = document.getElementById('Ccode');
+                            // console.log(country.value);
+                            for (var i = 0; i < myJson.length; i++) {
+
+                                if (country.value == myJson[i]['CountryCodeIDF']['CountryCodeID']) {
+
+                                    // ele.innerHTML =
+                                    // '<option selected value="' + myJson[i]['CodeID'] + '">' + myJson[i]['CountryCode'] + '</option>';
+                                    document.getElementById("CodeID").value = myJson[i]['CodeID'];
+                                    document.getElementById("Ccode").value = myJson[i]['CountryCode'];
+                                }
+
+                            }
+                        }
+                    });
+            });
+
+        // for Suffix Type 
+        fetch(url + '/stblSuffixType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('SuffixIDF');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="SuffixIDF[SuffixID]"  value="' + myJson[i]['SuffixID'] + '">' + myJson[i]['SuffixType'] + '</option>';
+
+                }
+            });
+        // for Person Type 
+        fetch(url + '/stblPersonType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('PersonType');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="PersonTypeIDF[PersonTypeID]" value="' + myJson[i]['PersonTypeID'] + '">' + myJson[i]['PersonType'] + '</option>';
+
+                }
+            });
+        // for Address Type 
+        fetch(url + '/stblAddressType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('AType');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="AddressIDF[AddressTypeIDF][AddressTypeID]"  value="' + myJson[i]['AddressTypeID'] + '">' + myJson[i]['AddressType'] + '</option>';
+
+                }
+            });
+        // for  Head Count Type 
+        fetch(url + '/stblHeadCountType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('HeadCountType');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="CompanyIDF[HeadcountIDF][HeadCountTypeIDF][HeadCountTypeID]"  value="' + myJson[i]['HeadCountTypeID'] + '">' + myJson[i]['HeadCountType'] + '</option>';
+
+                }
+            });
+        // for  Company Type 
+        fetch(url + '/stblCompanyType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('CompanyType');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="CompanyIDF[CompanyTypeIDF][CompanyTypeID]" value="' + myJson[i]['CompanyTypeID'] + '">' + myJson[i]['CompanyType'] + '</option>';
+
+                }
+            });
+        // for Industry Type 
+        fetch(url + '/stblIndustryType/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson)
+                var ele = document.getElementById('IndustryType');
+                for (var i = 0; i < myJson.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="CompanyIDF[IndustryIDF][IndustryID]" value="' + myJson[i]['IndustryID'] + '">' + myJson[i]['IndustryType'] + '</option>';
+                }
+            });
+
+
+
+
+            // fetch(url, { mode: 'cors', method: 'post', body: JSON.stringify(value), headers: { "Content-type": "application/json; charset=UTF-8" } })
+            //     .then((response) => {
+            //         return response.json();
+            //     })
+            //     .then((myJson) => {
+            //         $('#exampleInputname').val('');
+            //         $('#exampleInputroll').val('');
+            //         $('#exampleInputcity').val('');
+            //         showToast(" Data Created... ");
+            //         // console.log(myJson);
+            //         // alert('Data Created...');
+            //     });
+
+
+    </script>
+    {% endblock body %}

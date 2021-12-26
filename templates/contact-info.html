@@ -1,0 +1,1002 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+    .accordion>.card>.card-header {
+        border-radius: 0;
+        margin-bottom: 0;
+    }
+
+    .a-btn:focus {
+        border: none;
+        box-shadow: 0 0 0 0.2rem #fff;
+        ;
+        outline: 0;
+    }
+
+    .a-btn:hover {
+        text-decoration: underline;
+    }
+
+    .dropdown-item:focus {
+        background-color: aliceblue;
+    }
+
+    .Abtn:focus {
+        border: 0 !important;
+        background-color: aliceblue !important;
+        outline: none !important;
+
+    }
+
+
+    .dropdown-item:hover {
+        color: #0091ae;
+
+    }
+
+    .accordion .card-header:after {
+        font-family: 'FontAwesome';
+        content: "\f078";
+        float: left;
+        margin-right: 7px;
+        font-size: 12px;
+        font-weight: 100;
+    }
+
+    .accordion .card-header.collapsed:after {
+        /* symbol for "collapsed" panels */
+        content: "\f077";
+    }
+
+    .form-group-cInfo {
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .cInfo-label {
+        position: absolute;
+        /* top: 50%; */
+        left: 0px;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        font-size: 13px;
+        color: #333;
+        pointer-events: none;
+        -webkit-transition: all 0.15s ease-out 0s;
+        transition: all 0.15s ease-out 0s;
+        top: 5px;
+        font-size: 13px;
+        color: #3A75BC;
+    }
+
+    .cInfo {
+
+
+        display: inline-block;
+        /* font-family: "Titillium Web", Arial, Tahoma; */
+        padding: 1px 10px;
+        margin: 10px 0 0 0;
+        font-size: 14px;
+        background: none;
+        border: 0;
+        border-bottom: 1px solid #adb5bd;
+        color: #2e3f50 !important;
+        box-shadow: none;
+        outline: none;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        box-shadow: none !important;
+        width: 100%
+    }
+
+    /* .cInfo:focus+.cInfo-label,
+    .cInfo.has-value+.cInfo-label,
+    textarea:focus+.cInfo-label,
+    textarea.has-value+.cInfo-label {
+        top: 5px;
+        font-size: 13px;
+        color: #3A75BC;
+    } */
+
+    /* textarea:focus+.cInfo-label,
+    textarea.has-value+.cInfo-label {
+        top: 30px;
+    } */
+
+    .cInfo:focus::-webkit-cInfo-placeholder {
+        color: transparent;
+    }
+
+    .jsRpyj {
+        max-width: 360px;
+        transition: width 0.2s ease 0s;
+        width: 180px;
+    }
+
+    .private-search-control {
+        display: inline-block;
+        position: relative;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    .private-search-control__input {
+        padding-right: 44px;
+    }
+
+    .private-form__control--on-dark {
+        background-color: #fff;
+    }
+
+
+    .private-form__control {
+        /* padding: 9px 10px; */
+        border-radius: 3px;
+        border: 1px solid #cbd6e2;
+        font-size: 16px;
+        transition: all .15s ease-out;
+        background-color: #f5f8fa;
+        color: #33475b;
+        display: block;
+        height: 40px;
+        line-height: 22px;
+        text-align: left;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    .private-search-control__foreground {
+        bottom: 1px;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 1px;
+    }
+
+    .private-icon {
+        display: inline-block;
+        user-select: none;
+        white-space: nowrap !important;
+        word-break: normal !important;
+    }
+
+    .private-search-control__icon {
+        color: #0091ae;
+        font-size: 16px;
+        line-height: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
+        margin-top: 12px;
+        pointer-events: none;
+    }
+
+    .project-tab {
+        margin-top: 20px;
+
+    }
+
+    .project-tab #tabs {
+        background: #007b5e;
+        color: #eee;
+    }
+
+    .project-tab #tabs h6.section-title {
+        color: #eee;
+    }
+
+    .project-tab #tabs .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        color: #0091ae;
+        background-color: transparent;
+        border-color: transparent transparent #f3f3f3;
+        border-bottom: 3px solid #2e3f50 !important;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .project-tab .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: #0091ae;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .project-tab .nav-link:hover {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: #2e3f50;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .call-btn:hover {
+        background-color: #f5f8fa !important;
+    }
+
+    .call1 {
+
+        padding-left: 350px
+    }
+
+
+    @media screen and (max-width: 1200px) {
+        .call1 {
+
+            padding-left: 210px
+        }
+    }
+
+
+    .Callcard .card-header:after {
+        font-family: 'FontAwesome';
+        content: "\f078";
+        float: left;
+        font-size: 12px;
+        padding-top: 3px;
+        font-weight: 100;
+    }
+
+    .Callcard .card-header.collapsed:after {
+        /* symbol for "collapsed" panels */
+        content: "\f077";
+    }
+
+    .callH {
+        background-color: #fff;
+        border-bottom: 0;
+
+    }
+
+    .callA {
+        background-color: #f5f8fa;
+        font-weight: 600;
+        font-size: 13px;
+        /* border-bottom: 1px solid #adb5bd; */
+
+    }
+</style>
+<div class="container-fluid pl-0 ">
+
+    <div class="row  ml-0">
+        <div class="col-md-3 pl-0 pr-0 ml-0"
+            style="overflow:auto;height:608px ; border-right: 1px solid rgb(203, 214, 226)" !improtant>
+            <div class="cd1 p-3">
+                <div class="">
+                    <a href="/contacts" class="float-left" style="color: #0091ae;font-size: 16px;font-weight: 600;"
+                        !important>
+                        <i class=" fa fa-angle-left" aria-hidden="true"></i>
+                        Contacts
+                    </a>
+                    <div class="dropdown float-right ">
+                        <button class="btn dropdown-toggle p-0 a-btn"
+                            style="color: #0091ae;font-size: 16px;font-weight: 400;" type="button"
+                            data-toggle="dropdown">Action
+                            <span class="caret"></span></button>
+                        <ul class="dropdown-menu m-0 ">
+                            <li><a href="/contact_form/{{Pid}}" class="dropdown-item d-focus">Edit</a></li>
+                            <li><button class="dropdown-item Abtn" id="DContact"
+                                    onclick="Delete_Contact()">Delete</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="cd2 mt-5 row ml-2 mr-0 mb-3">
+
+                <div class="mr-3">
+                    <img class="rounded-circle" id="avatar" src="{% static 'img/default-100.jpg' %}"
+                        style="width:95px;height: 95px">
+
+                </div>
+                <div class="" style="color: #4a6784">
+                    <h6 class="" style="font-size: 35px" id="CAH1"></h6>
+                    <p id="CFN" class="mb-0" style="font-size: 13px"> </p>
+                    <p class="mb-0" style="font-size: 14px;" id="CAC"></p>
+                    <p id="CAemail" style="font-size: 14px;"></p>
+                </div>
+
+            </div>
+
+            <div class="text-center mt-2 mb-3">
+                <ul style="padding-left:0px" !important>
+
+                    <li style="list-style:None;
+                    display: inline-block;
+    max-width: 10%; margin: 0px 20px 0px 20px">
+
+                        <button class="btn rounded-circle" style="background-color: #eaf0f6;
+                    border-color: #cbd6e2;
+                    color: #506e91;padding: 2px 7px;text-overflow: clip;" !important>
+                            <i class="fa fa-phone"></i>
+                        </button>
+                        <small>Call</small>
+                    </li>
+                    <li style="list-style:None;
+                    display: inline-block;
+    max-width: 10%; margin: 0px 20px 0px 20px">
+
+                        <button class="btn rounded-circle" style="background-color: #eaf0f6;
+                    border-color: #cbd6e2;
+                    color: #506e91;padding: 2px 7px;text-overflow: clip;" !important>
+                            <i class="fa fa-envelope"></i>
+                        </button>
+                        <small>Email</small>
+                    </li>
+                    <li style="list-style:None;
+                    display: inline-block;
+    max-width: 10%; margin: 0px 20px 0px 20px">
+
+                        <button class="btn rounded-circle" style="background-color: #eaf0f6;
+                    border-color: #cbd6e2;
+                    color: #506e91;padding: 2px 7px;text-overflow: clip;" !important>
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <small>Note</small>
+                    </li>
+
+
+
+                </ul>
+            </div>
+            <!-- <hr style="border-top: 1px solid rgb(203, 214, 226);"> -->
+            <div class="" style="">
+                <div class=" card mb-0 "
+                    style=" border-top: 1px solid rgb(203, 214, 226);border-bottom: 0;border-right:0;background-color: #f5f8fa">
+                    <div id="accordion" class="DCard accordion">
+                        <!-- <div class="card-header collapsed callA " aria-expanded="true" data-toggle="collapse"
+                            href="#collapseOne" style="">
+                            <a class="card-title text-dark ">
+                                About This Contact
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="card-body collapse show" style="padding:10px"
+                            data-parent="#accordion">
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Fname" name="Fname" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">First Name</label>
+                            </div>
+                            <div class="form-group-cInfo">
+
+                                <input class="cInfo" id="Mname" name="Mname" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Middle Name</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Lname" name="Lname" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Last Name</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="email" name="email" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Email</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Phone NO." name="Phone NO." type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Phone Number</label>
+                            </div>
+                        </div> -->
+
+                        <!-- <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                            href="#collapseTwo">
+                            <a class="card-title text-dark ">
+                                Website Activity
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
+                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                                aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
+                                of them accusamus labore sustainable VHS.
+                            </p>
+                        </div> -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-6 mr-0 pr-0 pl-0 ml-0"
+            style="background-color: #f5f8fa;overflow:auto;height:608px;border-right: 1px solid rgb(203, 214, 226)"
+            !important>
+            <div class="container-fluid">
+
+                <div class="mt-3">
+                    <div class="TimelineSearchInput__MaxWidthDiv-djx7to-0 jsRpyj">
+                        <div class="private-search-control"><input type="search"
+                                class="form-control private-form__control private-search-control__input private-form__control--on-dark"
+                                placeholder="Search activities" value=""><span
+                                class="private-search-control__foreground"><span>
+                                    <span class="private-icon private-icon__low private-search-control__icon"
+                                        data-icon-name="search"><span aria-hidden="true"
+                                            class="UIIcon__IconContent-sc-19bmf3-0 fouKFK"></span><i
+                                            class="fa fa-search"></i>
+
+                                    </span>
+                        </div>
+                    </div>
+
+                    <section id="tabs" class="project-tab">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <nav>
+                                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link " id="nav-home-tab" data-toggle="tab"
+                                                href="#nav-home" role="tab" aria-controls="nav-home"
+                                                aria-selected="true">Activity</a>
+
+                                            <a class="nav-item nav-link active" id="nav-call-tab" data-toggle="tab"
+                                                href="#nav-call" role="tab" aria-controls="nav-home"
+                                                aria-selected="true">Calls</a>
+                                            <a class="nav-item nav-link " id="nav-email-tab" data-toggle="tab"
+                                                href="#nav-email" role="tab" aria-controls="nav-home"
+                                                aria-selected="true">Email</a>
+                                            <a class="nav-item nav-link " id="nav-note-tab" data-toggle="tab"
+                                                href="#nav-note" role="tab" aria-controls="nav-home"
+                                                aria-selected="true">Notes</a>
+                                            <a class="nav-item nav-link " id="nav-task-tab" data-toggle="tab"
+                                                href="#nav-task" role="tab" aria-controls="nav-home"
+                                                aria-selected="true">Tasks</a>
+
+
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content mt-3" id="nav-tabContent">
+                                        <div class="tab-pane fade show " id="nav-home" role="tabpanel"
+                                            aria-labelledby="nav-home-tab">
+                                            <div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade show active" id="nav-call" role="tabpanel"
+                                            aria-labelledby="nav-profile-tab">
+                                            <div>
+
+                                                <div class="call1" style="">
+
+                                                    <a href="" class="btn btn-outline-light call-btn"
+                                                        style="background-color: #eaf0f6;
+                                                     border-color: #cbd6e2;
+                                                     color: #506e91;font-size: 14px;line-height: 14px;padding: 8px 16px;">Make
+                                                        a Phone Call</a>
+                                                    <a href="" class="btn btn-outline-light call-btn mx-2"
+                                                        style="background-color: #eaf0f6;
+                                                        border-color: #cbd6e2;
+                                                        color: #506e91;font-size: 14px;line-height: 14px;padding: 8px 16px;">Log Call</a>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <p class="" style="font-size: 16px;color:black">December 2021</p>
+
+                                                    <div id="Callcard" class="Callcard"
+                                                        style=" 
+                                                        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);border-redius:3px;">
+                                                        <div class="card mb-0" style="border: none;">
+                                                            <div class="card-header collapsed callH"
+                                                                data-toggle="collapse" href="#Callone">
+                                                                <a class="card-title text-dark ml-2"
+                                                                    style="font-size: 14px">
+                                                                    <strong>Call</strong> from Bhavin Asodariya
+                                                                </a>
+                                                                <small class="float-right" style="color: #516f90">Dec
+                                                                    3,2021 at 5:51
+                                                                    PM</small>
+                                                            </div>
+
+                                                            <div id="Callone" class="card-body collapse"
+                                                                data-parent="#Callcard">
+                                                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high
+                                                                    life accusamus terry richardson ad
+                                                                    squid. 3 wolf moon officia aute, non cupidatat
+                                                                    skateboard dolor brunch. Food truck
+                                                                    quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
+                                                                    tempor, sunt
+                                                                    aliqua put a bird on it squid single-origin coffee
+                                                                    nulla assumenda shoreditch et. Nihil
+                                                                    anim keffiyeh helvetica, craft beer labore wes
+                                                                    anderson cred nesciunt sapiente ea
+                                                                    proident. Ad vegan excepteur butcher vice lomo.
+                                                                    Leggings occaecat
+                                                                    craft beer farm-to-table, raw denim aesthetic synth
+                                                                    nesciunt you probably haven't heard
+                                                                    of them accusamus labore sustainable VHS.
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane show fade" id="nav-email" role="tabpanel"
+                                            aria-labelledby="nav-contact-tab">
+                                            <div></div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-note" role="tabpanel"
+                                            aria-labelledby="nav-contact-tab">
+                                            <div></div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-task" role="tabpanel"
+                                            aria-labelledby="nav-contact-tab">
+                                            <div></div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mr-0 pr-0 pl-0" style="overflow:auto;height:608px" !improtant>
+            <div class="">
+                <div id="accordion" class="accordion">
+                    <div class="OtherCard  card mb-0" style="   border-top: 1px solid rgb(203, 214, 226);border-bottom: 0;border-right:0;background-color: #f5f8fa
+                 ">
+
+                        <!-- <div class=" card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                            href="#d3c1">
+                            <a class="card-title text-dark ">
+                                Company Details
+                            </a>
+                        </div>
+                        <div id="d3c1" class="card-body collapse" data-parent="#accordion">
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Cname" name="Cname" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Company Name</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Website URL</label>
+                            </div>
+                            <div class="form-group-cInfo">
+
+                                <input class="cInfo" id="Headquarter" name="Headquarter" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Headquarter</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Founded" name="Founded" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Founded</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="CompanyType" name="CompanyType" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Company Type</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="IndustryType" name="IndustryType" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Industry Type</label>
+                            </div> -->
+                    </div>
+
+
+                    <!-- <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d3c2">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Address Details
+                        </a>
+                    </div>
+                    <div id="d3c2" class="card-body collapse" data-parent="#accordion">
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="AddressType" name="AddressType" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Address Type</label>
+                        </div>
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="Address" name="Address" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Address</label>
+                        </div>
+                        <div class="form-group-cInfo">
+
+                            <input class="cInfo" id="City" name="City" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">City</label>
+                        </div>
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="District" name="District" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">District</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="State" name="State" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">State</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="Country" name="Country" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Country</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="PinCode" name="PinCode" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">PinCode</label>
+                        </div>
+
+                    </div> -->
+
+                    <!-- <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d3c3">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Contact Details
+                        </a>
+                    </div>
+                    <div id="d3c3" class="card-body collapse" data-parent="#accordion">
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="PhoneType" name="PhoneType" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Phone Type</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Country Name</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="CountryCode" name="CountryCode" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Country Code</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="PhoneNo" name="PhoneNo" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Phone Number</label>
+                        </div>
+                    </div> -->
+
+                    <!-- 
+                        <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                            href="#d3c4">
+                            <a class="card-title text-dark " style="font-weight: 500">
+                                Website Activity
+                            </a>
+                        </div>
+                        <div id="d3c4" class="card-body collapse" data-parent="#accordion">
+                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
+                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
+                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
+                                aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
+                                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+                                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
+                                craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
+                                of them accusamus labore sustainable VHS.
+                            </p>
+                        </div> -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+    $('.cInfo,textarea').val("");
+    $('.form-group-cInfo .cInfo, .form-group-cInfo textarea').focusout(function () {
+        var text_val = $(this).val();
+        if (text_val === "") {
+            // console.log("empty!");
+            $(this).removeClass('has-value');
+        } else {
+            $(this).addClass('has-value');
+        }
+    });
+
+    let AToken = localStorage.getItem("accessToken");
+    const url = "http://127.0.0.1:5000/api";
+    let Pid = {{ Pid }};
+    // console.log(Pid)
+    document.addEventListener('DOMContentLoaded', function (event) {
+        event.preventDefault();
+        fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                console.log(myJson);
+                if (myJson["Photo"]) {
+                    document.getElementById("avatar").src = 'http://127.0.0.1:5000' + myJson['Photo']['Photo'];
+                }
+                document.getElementById("CAH1").innerHTML = myJson['Entity']["ShortName"];
+                document.getElementById("CFN").innerHTML = '(' + myJson['Entity']["FullName"] + ')';
+                if (myJson["Company"]) {
+
+                    document.getElementById("CAC").innerHTML = 'Work at ' + myJson["Company"]["CompanyName"];
+                }
+                // console.log(typeof (myJson))
+                Pdv = '';
+                if (myJson["Person"]) {
+
+                    Pdv += `
+                        <div class="card-header collapsed callA" aria-expanded="true" data-toggle="collapse"
+                            href="#collapseOne" style="">
+                            <a class="card-title text-dark ">
+                                Person Details
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="card-body collapse " style="padding:10px"
+                            data-parent="#accordion">
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Fname" name="Fname" value="${myJson['Person']['FirstName']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">First Name</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Mname" name="Mname" value="${myJson['Person']['MiddleName']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Middle Name</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="Lname" name="Lname" value="${myJson['Person']['LastName']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Last Name</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="DOB" name="DOB" value="${myJson['Person']['DOB']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">DOB</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="Gender" name="Gender" value="${myJson['Person']['Gender']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Gender</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="Person Type" name="Person Type" value="${myJson['Person']['PersonTypeIDF']['PersonType']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Person Type</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="SuffixType" name="SuffixType" value="${myJson['Person']['SuffixIDF']['SuffixType']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Suffix Type</label>
+                                </div>
+                        </div>
+
+                        `
+
+                    $(".DCard").html(Pdv);
+                }
+
+                // Pdv = '';
+                if (myJson['Company']) {
+                    Pdv += `
+                    <div class=" card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                            href="#d3c1">
+                            <a class="card-title text-dark ">
+                                Company Details
+                            </a>
+                        </div>
+                        <div id="d3c1" class="card-body collapse" data-parent="#accordion">
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Cname" name="Cname" value="${myJson['Company']['CompanyName']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Company Name</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" value="${myJson['Company']['GSTINNo']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">GSTIN Number</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" value="${myJson['Company']['AnnualRevenue']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Annual Revenue</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" value="${myJson['Company']['About']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">About</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" value="${myJson['Company']['Specialities']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Specialities</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" value="${myJson['Company']['WebsiteURL']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Website URL</label>
+                            </div>
+                            <div class="form-group-cInfo">
+
+                                <input class="cInfo" id="Headquarter" name="Headquarter" value="${myJson['Company']['Headquarter']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Headquarter</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Founded" name="Founded" type="text" value="${myJson['Company']['Founded']}" readonly>
+                                <label class="cInfo-label" for="yourname">Founded</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="CompanyType" name="CompanyType" type="text" value="${myJson['Company']['HeadcountIDF']['HeadCountTypeIDF']['HeadCountType']}" readonly>
+                                <label class="cInfo-label" for="yourname">HeadCount Type</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="Founded" name="Founded" type="text" value="${myJson['Company']['HeadcountIDF']['HeadCountRange']}" readonly>
+                                <label class="cInfo-label" for="yourname">HeadCountRange</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="CompanyType" name="CompanyType" type="text" value="${myJson['Company']['CompanyTypeIDF']['CompanyType']}" readonly>
+                                <label class="cInfo-label" for="yourname">Company Type</label>
+                            </div>
+                            <div class="form-group-cInfo">
+                                <input class="cInfo" id="IndustryType" name="IndustryType" type="text" value="${myJson['Company']['IndustryIDF']['IndustryType']}" readonly>
+                                <label class="cInfo-label" for="yourname">Industry Type</label>
+                            </div>
+                    `
+                    $(".DCard").html(Pdv);
+                }
+
+                Odv = '';
+
+                if (myJson['Address']) {
+                    myJson['Address'].map((add, i) => {
+
+                        Odv += `
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d3c2">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Address Details
+                        </a>
+                    </div>
+                    <div id="d3c2" class="card-body collapse" data-parent="#accordion">
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="AddressType" name="AddressType" value="${add['AddressIDF']['AddressTypeIDF']['AddressType']}" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Address Type</label>
+                        </div>
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="Address" name="Address" value="${add['AddressIDF']['Address']}" type="text" readonly>
+                            <label class="cInfo-label" for="yourname">Address</label>
+                        </div>
+                        <div class="form-group-cInfo">
+
+                            <input class="cInfo" id="City" name="City" type="text" readonly value="${add['AddressIDF']['City']}" >
+                            <label class="cInfo-label" for="yourname">City</label>
+                        </div>
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="District" name="District" type="text" readonly value="${add['AddressIDF']['District']}">
+                            <label class="cInfo-label" for="yourname">District</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="State" name="State" type="text" readonly value="${add['AddressIDF']['State']}">
+                            <label class="cInfo-label" for="yourname">State</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="Country" name="Country" type="text" readonly value="${add['AddressIDF']['Country']}">
+                            <label class="cInfo-label" for="yourname">Country</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="PinCode" name="PinCode" type="text" readonly value="${add['AddressIDF']['PinCode']}">
+                            <label class="cInfo-label" for="yourname">PinCode</label>
+                        </div>
+
+                    </div>
+
+                    `
+                    })
+                    $(".OtherCard").html(Odv);
+
+                }
+                if (myJson['Phone']) {
+                    myJson['Phone'].map((ph, i) => {
+
+                        Odv += `
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d3c3">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Contact Details
+                        </a>
+                    </div>
+                    <div id="d3c3" class="card-body collapse" data-parent="#accordion">
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="PhoneType" name="PhoneType" type="text" readonly value="${ph['PhoneIDF']['PhoneTypeIDF']['PhoneType']}">
+                            <label class="cInfo-label" for="yourname">Phone Type</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly value="${ph['PhoneIDF']['CodeIDF']['CountryCodeIDF']['CountryName']}">
+                            <label class="cInfo-label" for="yourname">Country Name</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="CountryCode" name="CountryCode" type="text" readonly value="${ph['PhoneIDF']['CodeIDF']['CountryCode']}">
+                            <label class="cInfo-label" for="yourname">Country Code</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="PhoneNo" name="PhoneNo" type="text" readonly value="${ph['PhoneIDF']['PhoneNo']}">
+                            <label class="cInfo-label" for="yourname">Phone Number</label>
+                        </div>
+                    </div>
+                `
+                        $(".OtherCard").html(Odv);
+                    })
+                }
+                if (myJson['Email']) {
+                    myJson['Email'].map((em, i) => {
+                        Odv += `
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d4c4">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Email Details
+                        </a>
+                    </div>
+                    <div id="d4c4" class="card-body collapse" data-parent="#accordion">
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="EmailType" name="EmailType" type="text" readonly value="${em['EmailIDF']['EmailTypeIDF']['EmailType']}">
+                            <label class="cInfo-label" for="yourname">Email Type</label>
+                        </div>
+
+                        <div class="form-group-cInfo">
+                            <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly value="${em['EmailIDF']['EmailAddress']}">
+                            <label class="cInfo-label" for="yourname">Country Name</label>
+                        </div>
+                    </div>
+                `
+                        $(".OtherCard").html(Odv);
+                    })
+                }
+
+                if (myJson['SocialMedia']) {
+                    myJson['SocialMedia'].map((sm, i) => {
+
+                        Odv += `
+                <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                    href="#d5c5">
+                    <a class="card-title text-dark " style="font-weight: 500">
+                        Social Media Details
+                    </a>
+                </div>
+                <div id="d5c5" class="card-body collapse" data-parent="#accordion">
+                    <div class="form-group-cInfo">
+                        <input class="cInfo" id="EmailType" name="EmailType" type="text" readonly value="${sm['SocialMediaIDF']['SocialMediaTypeIDF']['SocialMediaType']}">
+                        <label class="cInfo-label" for="yourname">Social Media Type</label>
+                    </div>
+
+                    <div class="form-group-cInfo">
+                        <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly value="${sm['SocialMediaIDF']['url']}">
+                        <label class="cInfo-label" for="yourname">URL</label>
+                    </div>
+                </div>
+                `
+                        $(".OtherCard").html(Odv);
+                    })
+                }
+
+            });
+
+    });
+
+    function Delete_Contact() {
+        // return confirm('Are you sure to delete this Contact ?')
+        var result = confirm('Are you sure to delete this Contact ?');
+        if (result) {
+            //Logic to delete the item
+            // alert("deleted");
+            fetch(url + '/PersonDetailApi/' + Pid, { mode: 'cors', method: 'delete', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
+                .then((response) => {
+                    // if (response.status == 200) {
+                    return response.json();
+                    // } else {
+                    // throw Error(response.statusText);
+                    // }
+                })
+                .then((myJson) => {
+                    sessionStorage.setItem("Msg", "Delete Contact SucessFully");
+                    window.location = "/contacts"
+                    // console.log(myJson);
+                })
+            // .catch((error) => {
+            //     // Handle the error
+            //     showToast(error + "/n" + "Try Again ");
+            // });
+            sessionStorage.setItem("Msg", "Delete Contact SucessFully");
+
+            window.location = "/contacts"
+        }
+    };
+</script>
+{% endblock body %}

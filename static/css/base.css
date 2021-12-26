@@ -1,0 +1,235 @@
+.dropdown-menu {
+
+    /* min-width: 15rem !important; */
+
+}
+
+.dropdown:hover>.dropdown-menu {
+    /* display: block !important; */
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.userpreferences {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgb(203, 214, 226);
+}
+
+.userpreferences .nav-avatar {
+    width: 52px;
+    height: 52px;
+    /* left: 0px;
+    top: 5px;
+    margin: 0px; */
+}
+
+.userpreferences .user-info-name {
+    color: rgb(51, 71, 91);
+    font-weight: 600;
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+.userpreferences .user-info-email {
+    color: rgb(124, 152, 182);
+    font-size: 12px;
+    line-height: 20px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+.user-info-preferences {
+    color: #0091ae;
+}
+
+.user-info-preferences:hover {
+
+    text-decoration: underline;
+}
+
+.userpreferences .user-info-preferences {
+    font-size: 13px;
+    line-height: 27px;
+}
+
+#hs-nav-v4 .accountexpansion .userpreferences .user-info {
+    padding-left: 58px;
+    margin-top: 8px;
+}
+
+#userPreferences {
+    -webkit-text-size-adjust: 100%;
+    white-space: nowrap;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    font-family: Avenir Next W02, Avenir Next, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: none;
+    text-shadow: 0 0 1px transparent;
+    box-sizing: border-box;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    position: relative;
+}
+
+.navAccountMenu-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    font-size: 12px;
+}
+
+.navAccountMenu-bottom a,
+.navAccountSwitcher-all a,
+.user-info-preferences {
+    color: #0091ae;
+    text-decoration: none;
+}
+
+.navAccount-getting-started-progress-container {
+    border-bottom: 1px solid #cbd6e2;
+    padding: 20px;
+    display: block;
+    text-decoration: none;
+    color: #0091ae;
+
+}
+
+.navAccount-getting-started-header {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-decoration: none;
+    color: #0091ae;
+}
+
+.navAccount-getting-started-progress-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    text-decoration: none;
+    color: #0091ae;
+
+
+}
+
+.navAccount-getting-started-progress-container .getting-started-progress-bar {
+    width: 100%;
+    background-color: #eaf0f6;
+    height: 15px;
+}
+
+.getting-started-progress-bar {
+    background: #fff;
+    border-radius: 3px;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.getting-started-progress-bar>span {
+    background-image: linear-gradient(89deg, #00bda5, #00a4bd);
+    border-radius: 3px;
+    display: block;
+    height: 14px;
+    transition: width .6s ease;
+}
+
+.dropdown-item:focus{
+    background-color:aliceblue !important;
+}
+.dropdown-item{
+    color: #33475b;
+    display: block;
+    font-size: 14px;
+}
+.dropdown-item:hover {
+    color: #0091ae;
+    display: block;
+    font-size: 14px;
+}
+
+.account-extras {
+    line-height: 20px;
+    list-style-type: none;
+    padding: 15px 20px;
+    border-bottom: 1px solid #cbd6e2;
+
+}
+
+.account-extras li {
+    padding: 5px 0;
+}
+
+.account-extras a {
+    color: #33475b;
+    display: block;
+    font-size: 14px;
+}
+.account-extras a:focus {
+        background-color:aliceblue !important;
+}
+.account-extras a:hover {
+    color: #0091ae;
+    display: block;
+    font-size: 14px;
+}
+
+#toast {
+    min-width: 300px;
+    position: fixed;
+    bottom: 30px;
+    left: 45%;
+    margin-left: -120px;
+    background: #333;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+    font-size: 18px;
+    visibility: hidden;
+    box-shadow: 0px 0px 100px #000;
+}
+
+#toast.display {
+    visibility: visible;
+    animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}

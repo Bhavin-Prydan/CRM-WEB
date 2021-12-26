@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prydan-CRM</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+</head>
+
+<body style="background-color: #ffffff;color: #0091ae">
+    <nav class="navbar navbar-expand-md navbar-dark " style="background-color: #2e3f50;height: 54px;font-size: 14px">
+        <a class="navbar-brand" href="#">
+            <img src="{% static 'img/logo.jpeg' %}" class="rounded-circle" width="30" height="30" alt="">
+        </a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {% block homeactive %} {% endblock homeactive %}">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item {% block contactactive %} {% endblock contactactive %}">
+                    <a class="nav-link " href="/contacts">Contacts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Marketing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Sales</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Reports</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 mr-auto">
+                <input class="form-control " style="height: 30px;border-start-end-radius:30px" type="search"
+                    placeholder="Search" aria-label="Search">
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0 btn-sm " type="submit">Search</button> -->
+
+                <button class="btn my-sm-0 btn-md p-0" id="button-holder" type="submit"><i class="fa fa-search"
+                        style="color: aliceblue"></i></button>
+            </form>
+
+            <ul class="navbar-nav  dropdown">
+                <li class="nav-item dropdown ">
+                    <a href="#" class="nav-link dropdown-toggle mbtn" id="mbtn" data-toggle="dropdown">
+                        <!-- <i class="fa fa-user" aria-hidden="true"></i><span class="caret"></span> -->
+                        <img src="{% static 'img/default-100.jpg' %}" class="rounded-circle" style="width:32px"
+                            alt="Cinque Terre">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right " id="nav-d1" style="">
+                        <div class="userpreferences">
+                            <a data-tracking="click" id="userPreferences" class="" href="#" aria-expanded="true">
+
+                                <img class="nav-avatar rounded-circle mr-2" src="{% static 'img/default-100.jpg' %}">
+                                <div class="user-info">
+                                    <div class="user-info-name" id="user-info-name"> </div>
+                                    <div class="user-info-email" id="user-info-email">
+                                    </div>
+                                    <div class="user-info-preferences" id="user-info-preferences">Profile &amp;
+                                        Preferences</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- <a class="navAccount-getting-started-progress-container" href="#" data-tracking="click"
+                            id="accountNavGettingStarted">
+                            <div class="navAccount-getting-started-header">Set up your Prydab account</div>
+                            <div class="navAccount-getting-started-progress-text">
+                                <span>Progress...</span>
+                                <span id="getting-started-progress-bar--progress-text">14%</span>
+                            </div>
+                            <div class="getting-started-progress-bar">
+                                <span id="getting-started-progress-bar--progress-hook" style="width: 14%;">
+                                </span></div>
+                        </a>
+
+                        <ul class="account-extras">
+                            <li id="accounts-and-billing">
+                                <a data-tracking="click" id="accountsAndBilling"
+                                    href="https://app-eu1.hubspot.com/account-dashboard/25307685/">Account &amp;
+                                    Billing</a>
+                            </li>
+                            <li id="NavAcademyLC004-Control">
+                                <a data-tracking="click" id="academy"
+                                    href="https://app-eu1.hubspot.com/academy/25307685?LC004=Control">HubSpot
+                                    Academy</a>
+                            </li>
+                            <li id="productsAddons">
+                                <a data-tracking="click" id="productsAddons"
+                                    href="https://app-eu1.hubspot.com/pricing/25307685?upgradeSource=nav-dropdown">Pricing
+                                    &amp; Features</a>
+                            </li>
+                            <li id="productUpdates">
+                                <a data-tracking="click" id="productUpdates"
+                                    href="https://app-eu1.hubspot.com/whats-new/25307685">Product Updates</a>
+                            </li>
+
+                            <li id="trainingAndServices">
+                                <a data-tracking="click" id="trainingAndServices"
+                                    href="https://www.hubspot.com/services">Training &amp; Services</a>
+                            </li>
+                        </ul> -->
+
+                        <div class="navAccountMenu-bottom ">
+
+                            <div class="signout authentication-btn">
+                                <!-- <a data-tracking="click" id="signout" href="/crm_prydan">Sign out</a> -->
+                                <!-- <a class="" href="/crm_login">Login</a> -->
+                            </div>
+                            <div class="privacyPolicy">
+                                <a data-tracking="click" id="privacyPolicy"
+                                    href="https://legal.hubspot.com/privacy-policy">Privacy policy</a></div>
+                        </div>
+
+                    </ul>
+
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div id="toast">This is message</div>
+
+
+    {% block body %}
+    {% endblock %}
+    {% block js %}
+    <script src="{% static 'js/base.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function (event) {
+            var isLogin = localStorage.getItem("isLogin")
+            if (isLogin != "true") {
+                $(".authentication-btn").html("<a  href='/crm_login'>Login</a>");
+                // window.location = "/crm_login"
+
+            } else {
+                $(".authentication-btn").html("<a data-tracking='click' id='signout' href='/crm_login'>Sign out</a>");
+                //         console.log("yupppp")
+            }
+            var Msg = sessionStorage.getItem("Msg");
+            if (Msg) {
+                showToast(Msg);
+                sessionStorage.removeItem("Msg");
+            }
+
+
+            var AToken = localStorage.getItem("accessToken");
+            const url = "http://127.0.0.1:5000/api/userViewSet/";
+            fetch(url, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+                .then((response) => {
+                    // debugger;
+                    // console.log(response.json());
+                    if (response.status >= 200 && response.status <= 299) {
+                        return response.json();
+                    }
+                    else if (response.status == 401) {
+                        // debugger;
+                        return response.json();
+                    }
+                    else {
+                        throw Error(response.statusText);
+                    }
+                })
+                .then((myJson) => {
+                    if (myJson.detail == "Given token not valid for any token type") {
+                        //update rt and at
+
+                        getdata(url).then(response => {
+                            document.getElementById("user-info-name").innerHTML = response[0]["username"];
+                            document.getElementById("user-info-email").innerHTML = response[0]["email"];
+                        });
+
+                    } else {
+                        document.getElementById("user-info-name").innerHTML = myJson[0]["username"];
+                        document.getElementById("user-info-email").innerHTML = myJson[0]["email"];
+                    }
+
+
+                })
+        })
+        function SignOut() {
+            alert("logout")
+            localStorage.setItem("isLogin", "false");
+
+        }
+
+        function showToast(content) {
+            $("#toast").addClass("display");
+            $("#toast").html(content);
+            setTimeout(() => {
+                $("#toast").removeClass("display");
+            }, 3000);
+
+        }
+
+
+        // let AToken = localStorage.getItem("accessToken");
+        // const url = "http://127.0.0.1:5000/api/userViewSet/";
+        // fetch(url, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+        //     .then((response) => {
+        //         if (response.status >= 200 && response.status <= 299) {
+        //             return response.json();
+        //         } else {
+        //             throw Error(response.statusText);
+        //         }
+        //     })
+        //     .then((myJson) => {
+        //         console.log(myJson[0]["username"])
+        //         console.log(myJson[0]["email"])
+        //         document.getElementsByClassName("user-info-name").html = myJson[0]["username"];
+        //         document.getElementById("user-info-email").value = myJson[0]["email"];
+        //     })
+    </script>
+    {% endblock js %}
+
+</body>
+
+</html>

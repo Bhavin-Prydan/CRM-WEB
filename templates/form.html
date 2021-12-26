@@ -1,0 +1,566 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<link rel="stylesheet" href="{% static 'css/contact_form.css' %}">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.js"></script>
+<style>
+    .Fbtn {
+        background-color: #eaf0f6;
+        border-color: #cbd6e2;
+        color: #506e91;
+        font-weight: 500;
+        text-overflow: clip;
+    }
+
+    .Fbtn:hover {
+        background-color: #eaf0f6;
+        border-color: #364b5f;
+        color: #364b5f;
+        font-weight: 500;
+        text-overflow: clip;
+    }
+</style>
+
+<div class="wrapper">
+    <form id="cform" name="cform" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="wizard">
+            <!-- SECTION 1 -->
+            <h4 class="font-weight-bold">Entity Details</h4>
+            <section>
+                <div class="form-row">
+                    <input type="hidden" value="{{Pid}}" id="Pid" name="Pid">
+                    <input type="text" class="form-control " placeholder="Full Name" id="FullName" name="FullName">
+                </div>
+                <div class="form-row">
+                    <input type="text" class="form-control " placeholder="Short Name" id="ShortName" name="ShortName">
+                </div>
+                <!-- <span class="font-weight-bold">Entity Type :</span> -->
+                <!-- <div class="form-row float-right " style="margin-right:150px">
+                    <div class="form-check-inline pr-5">
+                        <label class="form-check-label" id="EntityType">
+                            <input type="radio" class="form-check-input" name="EntityType">Option 1
+                        </label>
+                    </div>
+                </div> -->
+                <div class="form-row">
+
+                    <select class="form-control tbtn  " id="Entitytype" name="EntityType">
+                        <option disabled selected>Entity Type</option>
+                    </select>
+                </div>
+        </div>
+        <!-- for Person Detals -->
+        <div id="dvPerson" style="display: none">
+            <h4>Person Details </h4>
+            <section>
+                <input type="hidden" value="{{Pid}}" id="Pid" name="Pid">
+                <div class="form-row">
+                    <input type="text" class="form-control  " placeholder="First Name" id="FirstName" name="FirstName">
+
+                    <input type="text" class="form-control   mt-1" placeholder="Middle Name" id="MiddleName"
+                        name="MiddleName">
+                    <input type="text" class="form-control   mt-1" placeholder="Last Name" id="LastName"
+                        name="LastName">
+                </div>
+
+
+
+                <div class="form-row">
+                    <select class="form-control tbtn  " id="Gcode" name="Gcode">
+                        <option disabled selected>Gender</option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-row" id="floatContainer" style="position: relative;">
+                    <label id="dobL" style="position: absolute;padding: 6px 0px 0px 12px;font-size: 15px;
+                                    color: #6c757d;">DOB</label>
+                    <input type="date" class="form-control  " name="DOB" id="DOB" placeholder="DOB"
+                        style=" padding:0 0 0px 60px;">
+                </div>
+                <div class="form-row">
+                    <select class="form-control tbtn  " id="SuffixType" name="SuffixType">
+                        <option disabled selected>Suffix Type</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <select class="form-control tbtn  " id="PersonType" name="PersonType">
+                        <option disabled selected>Person Type</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <input type="text" class="form-control  " name="Designation" id="Designation"
+                        placeholder="Designation(**optional)">
+                </div>
+
+
+            </section>
+        </div>
+
+
+        <!-- for Company Detals -->
+        <div id="dvCompany">
+            <section>
+                <button class="btn Fbtn col-md-12" id="btncom" type="button" data-toggle="collapse" data-target="#dvCom"
+                    aria-expanded="false" aria-controls="dvCom">Add Company Details
+                </button>
+                <div id="dvCom" class="collapse mt-2">
+                    <!-- <h4>Company Details </h4> -->
+
+                    <div class="form-row">
+                        <input type="hidden" id="CompanyID" name="CompanyID">
+                        <input type="text" class="form-control  " name="CompanyName" id="CompanyName"
+                            placeholder="Company Name"> </div>
+                    <div class="form-row"> <input type="text" class="form-control " name="GSTINNo" id="Gst"
+                            placeholder="GST NO."> </div>
+                    <div class="form-row"> <input type="text" class="form-control  " name="Headquarter" id="Headquarter"
+                            placeholder="Headquarter"> </div>
+                    <div class="form-row">
+                        <textarea name="WebsiteURL" id="WebsiteURL" class="form-control  " placeholder="Website URL"
+                            style="height: 45px"></textarea>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 18px">
+                        <textarea name="About" id="Aboutc" class="form-control  " placeholder="About Company"
+                            style="height: 45px"></textarea>
+                    </div>
+                    <div class="form-row" style="margin-bottom: 18px">
+                        <textarea name="Speciality" id="Speciality" class="form-control  " placeholder="Speciality"
+                            style="height: 45px"></textarea>
+                    </div>
+                    <div class="form-row" id="floatContainer" style="position: relative;">
+                        <label id="dobL" style="position: absolute;padding: 6px 0px 0px 12px;font-size: 15px;
+                                            color: #6c757d;">Founded</label>
+                        <input type="date" class="form-control   " id="Foundate" name="Founded" placeholder="Founded"
+                            style=" padding:0 0 0px 100px;">
+                    </div>
+                    <div class="form-row">
+
+                        <input type="number" id="rev" name="AnnualRevenue" class="form-control   "
+                            placeholder="Annual Revenue">
+                    </div>
+                    <div class="form-row">
+                        <input type="hidden" id="HeadCountID" name="HeadCountID">
+                        <select class="form-control   tbtn" id="HeadCountType" name="HeadCountType">
+                            <option disabled selected>Head Count Type</option>
+                        </select>
+                        <input type="number" id="HeadCount" name="HeadCountRange" class="form-control   mt-1"
+                            placeholder="Head Count">
+                    </div>
+
+                    <div class="form-row">
+                        <select class="form-control   tbtn" id="CompanyType" name="CompanyType">
+                            <option disabled selected>Company Type</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <select class="form-control   tbtn" id="IndustryType" name="IndustryType">
+                            <option disabled selected>Industry Type</option>
+
+                        </select>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        </section>
+
+        <!-- for Contact Detals -->
+        <section class="mt-2 mb-2">
+
+            <button class="btn Fbtn col-md-12" id="Contactbtn" type="button" data-toggle="collapse"
+                data-target="#dvContact" aria-expanded="false" aria-controls="dvContact">Add Contact
+                Details</button>
+            <div id="dvContact" class="collapse mt-2">
+                <div class="form-row">
+                    <select class="form-control tbtn  " id="EmailType" name="EmailType">
+                        <option disabled selected>Email Type</option>
+                    </select>
+                    <input type="hidden" id="EmailID" name="EmailID">
+                    <input type="email" class="form-control  mt-1" placeholder="Enter Your Email" id="Email"
+                        name="EmailAddress">
+                </div>
+                <div class="form-row">
+
+                    <div class="control-group" id="fields">
+                        <div class="controls">
+                            <div class="entry input-group upload-input-group">
+                                <select class="form-control tbtn  " id="PhoneType" name="PhoneType[]">
+                                    <option disabled selected>Phone Type</option>
+                                </select>
+
+                                <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName[]"
+                                    id="Country">
+                                    <option disabled selected>Country</option>
+                                </select>
+
+                                <input type="hidden" id="CodeID" name="CodeID">
+
+                                <input type="text" class="form-control tbtn " id="CountryCode" name="CountryCode[]"
+                                    style="padding-right:0px " placeholder="Country Code" readonly />
+
+                                <input type="hidden" id="PhoneID" name="PhoneID">
+                                <input type="number" id="PhoneNo" name="PhoneNo[]" class="form-control "
+                                    placeholder="Enter your Phone No. *99999 99999" />
+                                <!-- <button class="btn btn-upload btn-success btn-add" type="button">
+                                    <i class="fa fa-plus"> </i>
+                                </button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class=" form-group">
+                        <div class="">
+                            <div class="control-group" id="fields">
+                                <div class="controls">
+                                    <div class="entry input-group upload-input-group">
+                                        <input class="form-control" name="fields[]" type="file">
+                                        <button class="btn btn-upload btn-success btn-add" type="button">
+                                            <i class="fa fa-plus"> </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                <script>
+                    $(function () {
+                        $(document).on('click', '.btn-add', function (e) {
+                            e.preventDefault();
+                            var controlForm = $('.controls:first'),
+                                currentEntry = $(this).parents('.entry:first'),
+                                newEntry = $(currentEntry.clone()).appendTo(controlForm);
+                            newEntry.find('input').val('');
+                            controlForm.find('.entry:not(:last) .btn-add')
+                                .removeClass('btn-add').addClass('btn-remove')
+                                .removeClass('btn-success').addClass('btn-danger')
+                                .html('<span class="fa fa-trash"> </span>');
+                        }).on('click', '.btn-remove', function (e) {
+                            $(this).parents('.entry:first').remove();
+                            e.preventDefault();
+                            return false;
+                        });
+                    });  
+                </script>
+            </div>
+        </section>
+        <!-- for Social -->
+        <section class="mt-2 mb-2">
+
+            <button class="btn Fbtn col-md-12" id="Socialbtn" type="button" data-toggle="collapse"
+                data-target="#dvSocial" aria-expanded="false" aria-controls="collapseExample">Add SocialMedia
+                Details</button>
+            <div id="dvSocial" class="collapse mt-2">
+                <div class="form-row">
+                    <!-- <input type="hidden" id="HeadCountID" name="CompanyIDF[HeadcountIDF][HeadCountID]"> -->
+                    <select class="form-control   tbtn" id="SocialMediaType" name="SocialMediaType">
+                        <option disabled selected>Social Media Type</option>
+
+                    </select>
+                    <input type="text" id="SocialMediaURL" name="url" class="form-control  mt-1"
+                        placeholder="Social Media URL">
+
+                </div>
+            </div>
+        </section>
+
+        <!-- for Photo -->
+        <style>
+            .btn-success:not(:disabled):not(.disabled).active,
+            .btn-success:not(:disabled):not(.disabled):active,
+            .show>.btn-success.dropdown-toggle {
+                color: #fff;
+                background-color: #0062cc;
+                border-color: #1c7430;
+            }
+
+
+            .input-group>.custom-select:not(:last-child) {
+                background-color: #eaf0f6;
+                border-color: #cbd6e2;
+                color: #506e91;
+            }
+
+            .input-group>.form-control:not(:last-child) {
+                background-color: #eaf0f6;
+                border-color: #cbd6e2;
+                color: #506e91;
+            }
+        </style>
+        <section class="mt-2 mb-2">
+
+            <button class="btn Fbtn col-md-12" id="Photobtn" type="button" data-toggle="collapse" data-target="#dvPhoto"
+                aria-expanded="false" aria-controls="collapseExample">Add Photo</button>
+            <div id="dvPhoto" class="collapse mt-2">
+                <div class="form-row">
+                    <select class="form-control   tbtn" id="PhotoType" name="PhotoType">
+                        <option disabled selected>PhotoType</option>
+
+                    </select>
+                    <!-- <div class=" form-group">
+                        <div class="">
+                            <div class="control-group" id="fields">
+                                <div class="controls">
+                                    <div class="entry input-group upload-input-group">
+                                        <input class="form-control" name="fields[]" type="file">
+                                        <button class="btn btn-upload btn-success btn-add" type="button">
+                                            <i class="fa fa-plus"> </i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <input type="file" id="Photo" name="Photo" class="form-control mt-1" placeholder="Photo">
+
+                </div>
+            </div>
+        </section>
+
+        <!-- for Address -->
+        <section class="mt-2 mb-2">
+            <button class="btn Fbtn col-md-12" id="btnAddress" type="button" data-toggle="collapse"
+                data-target="#dvAddress" aria-expanded="false" aria-controls="dvAddress">Add Address
+            </button>
+            <div id="dvAddress" class="collapse mt-2">
+                <section>
+                    <div class="form-row" style="margin-bottom: 18px">
+
+                        <input type="hidden" id="Address" name="AddressID">
+
+                        <select class="form-control tbtn  " id="AddressType" name="AddressType" style="max-width: 30%">
+                            <option disabled selected>Address Type</option>
+                        </select>
+                        <textarea name="Address" id="Add" class="form-control   mt-1" placeholder="Address"
+                            style="height: 108px"></textarea>
+                    </div>
+                    <div class="form-row"> <input type="text" class="form-control  " id="City" name="City"
+                            placeholder="City"> </div>
+                    <div class="form-row"> <input type="text" class="form-control  " id="District" name="District"
+                            placeholder="District"> </div>
+                    <div class="form-row"> <input type="text" class="form-control  " id="Stat" name="State"
+                            placeholder="Stat"> </div>
+                    <div class="form-row"> <input type="text" class="form-control  " id="Country" name="Country"
+                            placeholder="Country"> </div>
+                    <div class="form-row"> <input type="number" class="form-control  " id="ZipCode" name="PinCode"
+                            placeholder="Pin Code"> </div>
+
+                </section>
+            </div>
+
+        </section>
+
+        <input type="submit" class="btn Fbtn col-md-12 " value="Submit">
+</div>
+</form>
+
+
+</div>
+
+<script>
+
+
+    // function getCountry(selectObject) {
+    //     console.log('changed')
+    //     var value = selectObject.value;
+    //     console.log(value);
+    // }
+    let AToken = localStorage.getItem("accessToken");
+    const url = "http://127.0.0.1:5000/api";
+    document.addEventListener('DOMContentLoaded', function (event) {
+        event.preventDefault();
+
+
+        fetch(url + '/StaticDataApi', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                console.log(myJson);
+                //    for Entity type
+
+                // $("input[type='button']").click(function () {
+                //     var radioValue = $("input[name='gender']:checked").val();
+                //     if (radioValue) {
+                //         alert("Your are a - " + radioValue);
+                //     }
+                // });
+                var ele = document.getElementById('Entitytype');
+                var entity = myJson['Entity_Type']
+                for (var i = 0; i < entity.length; i++) {
+                    ele.innerHTML = ele.innerHTML +
+                        '<option name="Entity_Type[EntityTypeID]"  value="' + entity[i]['EntityTypeID'] + '">' + entity[i]['EntityType'] + '</option>';
+                }
+
+                //    for social media 
+                var social_ele = document.getElementById('SocialMediaType');
+                var Social = myJson['SocialMedia_Type']
+                for (var i = 0; i < Social.length; i++) {
+                    social_ele.innerHTML = social_ele.innerHTML +
+                        '<option name="SocialMediaType"  value="' + Social[i]['SocialMediaTypeID'] + '">' + Social[i]['SocialMediaType'] + '</option>';
+                }
+                //    for photo type 
+                var photo_ele = document.getElementById('PhotoType');
+                var photo = myJson['Photo_Type']
+                for (var i = 0; i < photo.length; i++) {
+                    photo_ele.innerHTML = photo_ele.innerHTML +
+                        '<option name="PhotoType"  value="' + photo[i]['PhotoTypeID'] + '">' + photo[i]['PhotoType'] + '</option>';
+                }
+
+                //    for suffix  
+                var suffix_ele = document.getElementById('SuffixType');
+                var suffix = myJson['Suffix_Type']
+                for (var i = 0; i < suffix.length; i++) {
+                    suffix_ele.innerHTML = suffix_ele.innerHTML +
+                        '<option name="SuffixType"  value="' + suffix[i]['SuffixID'] + '">' + suffix[i]['SuffixType'] + '</option>';
+                }
+
+                //    for PersonType  
+                var person_ele = document.getElementById('PersonType');
+                var person = myJson['Person_Type']
+                for (var i = 0; i < person.length; i++) {
+                    person_ele.innerHTML = person_ele.innerHTML +
+                        '<option name="PersonType"  value="' + person[i]['PersonTypeID'] + '">' + person[i]['PersonType'] + '</option>';
+                }
+
+                //    for HeadCountType  
+                var headc_ele = document.getElementById('HeadCountType');
+                var headc = myJson['HeadCount_Type']
+                for (var i = 0; i < headc.length; i++) {
+                    headc_ele.innerHTML = headc_ele.innerHTML +
+                        '<option name="HeadCountType"  value="' + headc[i]['HeadCountTypeID'] + '">' + headc[i]['HeadCountType'] + '</option>';
+                }
+
+                //    for company type  
+                var company_ele = document.getElementById('CompanyType');
+                var company = myJson['Company_Type']
+                for (var i = 0; i < company.length; i++) {
+                    company_ele.innerHTML = company_ele.innerHTML +
+                        '<option name="CompanyType"  value="' + company[i]['CompanyTypeID'] + '">' + company[i]['CompanyType'] + '</option>';
+                }
+
+                //    for HeadCountType  
+                var industry_ele = document.getElementById('IndustryType');
+                var industry = myJson['Industry_Type']
+                for (var i = 0; i < industry.length; i++) {
+                    industry_ele.innerHTML = industry_ele.innerHTML +
+                        '<option name="IndustryType"  value="' + industry[i]['IndustryID'] + '">' + industry[i]['IndustryType'] + '</option>';
+                }
+
+                //    for Address Type  
+                var adress_ele = document.getElementById('AddressType');
+                var adress = myJson['Address_Type']
+                for (var i = 0; i < adress.length; i++) {
+                    adress_ele.innerHTML = adress_ele.innerHTML +
+                        '<option name="AddressType"  value="' + adress[i]['AddressTypeID'] + '">' + adress[i]['AddressType'] + '</option>';
+                }
+
+                //    for Email Type  
+                var email_ele = document.getElementById('EmailType');
+                var email = myJson['Email_Type']
+                for (var i = 0; i < email.length; i++) {
+                    email_ele.innerHTML = email_ele.innerHTML +
+                        '<option name="EmailType"  value="' + email[i]['EmailTypeID'] + '">' + email[i]['EmailType'] + '</option>';
+                }
+
+                //    for Phone Type  
+                var phone_ele = document.getElementById('PhoneType');
+                var phone = myJson['Phone_Type']
+                for (var i = 0; i < phone.length; i++) {
+                    phone_ele.innerHTML = phone_ele.innerHTML +
+                        '<option name="PhoneType"  value="' + phone[i]['PhoneTypeID'] + '">' + phone[i]['PhoneType'] + '</option>';
+                }
+
+
+                //    for Country  
+                var country_ele = document.getElementById('Country');
+                var country = myJson['Country_Code']
+                for (var i = 0; i < country.length; i++) {
+                    country_ele.innerHTML = country_ele.innerHTML +
+                        '<option name="CountryName"  value="' + country[i]['CountryCodeIDF']['CountryCodeID'] + '">' + country[i]['CountryCodeIDF']['CountryName'] + '</option>';
+                }
+                window.getCountry = function (selectObject) {
+                    var country = myJson['Country_Code']
+
+                    var value = selectObject.value;
+                    console.log(country);
+                    // var Ccode_ele = document.getElementById('CountryCode');
+                    for (var i = 0; i < selectObject.length; i++) {
+                        console.log(country[i]['CountryCodeIDF']['CountryCodeID']);
+                        console.log(selectObject.value)
+                        if (selectObject.value == country[i]['CountryCodeIDF']['CountryCodeID']) {
+                            document.getElementById("CountryCode").value = country[i]['CountryCode'];
+                        }
+                    }
+                }
+                // country_ele.onchange = function () {
+                //     // console.log(country_ele.value);
+                //     for (var i = 0; i < country_ele.length; i++) {
+                //         if (country_ele.value == country[i]['CountryCodeIDF']['CountryCodeID']) {
+                //             document.getElementById("CountryCode").value = country[i]['CountryCode'];
+                //         }
+                //     }
+                // }
+
+            });
+    });
+
+    $(function () {
+        $("#Entitytype").change(function () {
+            if ($(this).val() == "1") {
+                $("#dvPerson").show();
+                // $('#dvCompany').hide();
+
+            } else if ($(this).val() == "2") {
+                $("#dvPerson").hide();
+                // $('#dvCompany').show();
+            }
+        });
+    });
+
+
+    $("#cform").submit(function (e) {
+
+        e.preventDefault();
+
+        var f = document.getElementById("Photo").value;
+        let value = $('#cform').serializeJSON();
+        var input = document.querySelector('input[type="file"]')
+        const keys = Object.keys(value);
+
+        var data = new FormData();
+        for (let i = 0; i < keys.length; i++) {
+            data.append(keys[i], value[keys[i]]);
+        }
+        data.append('Photo', input.files[0])
+
+        // value.Photo = f
+        // console.log(data)
+        fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'post', body: data, headers: { "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status == 201) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+
+            })
+            .then((myJson) => {
+                sessionStorage.setItem("Msg", "Create Contact SucessFully");
+                window.location = "/contacts";
+            }).catch((error) => {
+
+                showToast(error + ", Try Again !");
+
+            });
+    });
+</script>
+{% endblock body %}

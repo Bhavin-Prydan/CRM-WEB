@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block loginactive %} active {% endblock loginactive %}
+
+{% block body %}
+
+<style>
+    .login-box {
+        width: 280px;
+        position: absolute;
+        top: 25%;
+        left: 40%;
+
+        /* transform: translate(-50%, -50%); */
+        justify-content: center;
+
+    }
+
+    .login-box h1 {
+        float: left;
+        font-size: 40px;
+        border-bottom: 6px solid #b0c1d4;
+        margin-bottom: 50px;
+        padding: 13px 0;
+    }
+
+    .textbox {
+        width: 100%;
+        overflow: hidden;
+        font-size: 20px;
+        padding: 8px 0;
+        margin: 8px 0;
+        border-bottom: 1px solid #b0c1d4;
+    }
+
+    .textbox i {
+        width: 26px;
+        float: left;
+        text-align: center;
+    }
+
+    .textbox input {
+        border: none;
+        outline: none;
+        background: none;
+        color: #0091ae;
+        font-size: 18px;
+        width: 80%;
+        float: left;
+        margin: 0 10px;
+    }
+
+    .lbtn {
+        width: 100%;
+        background: none;
+        border: 2px solid #0091ae;
+        color: #0091ae;
+        padding: 5px;
+        font-size: 18px;
+        cursor: pointer;
+        margin: 12px 0;
+    }
+
+    .disabled-link {
+        pointer-events: none;
+    }
+</style>
+<div class="body">
+    <div class="login-box">
+        <h1>Login</h1>
+        <form method="post" class="login_form">
+            {% csrf_token %}
+            <div class="textbox">
+                <i class="fa fa-user"></i>
+                <input type="text" placeholder="Username " name="username" id="exampleInputusername" required>
+            </div>
+
+            <div class="textbox">
+                <i class="fa fa-lock"></i>
+                <input type="password" placeholder="Password" id="exampleInputpassword" name="password" required>
+            </div>
+            <button type="submit" class="lbtn">Submit</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function (event) {
+
+        localStorage.clear();
+        sessionStorage.clear();
+        $(".mbtn").addClass("disabled-link");
+    })
+
+    document.querySelector(".login_form").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const data = new FormData(e.target);
+        // console.log(data.entries());
+        let csrfs = document.querySelectorAll('input[name=csrfmiddlewaretoken]').content;
+        // data.append(csrfs[0].name, csrfs[0].value);
+
+        const value = Object.fromEntries(data.entries());
+        // console.log(JSON.stringify(value));
+
+
+        const url = "http://127.0.0.1:5000/api/token/";
+        fetch(url, { mode: 'cors', method: 'post', body: JSON.stringify(value), headers: { "Content-type": "application/json; charset=UTF-8", } })
+            .then((response) => {
+                if (response.status >= 200 && response.status <= 299) {
+                    console.log(response)
+                    return response.json();
+                } else {
+                    // var er_msg = response.json();
+                    // showToast(er_msg);
+                    // // console.log(error.detail);
+                    throw Error(response.statusText);
+                }
+                // return response.json();
+            })
+            .then((myJson) => {
+                $('#exampleInputusername').val('');
+                $('#exampleInputpassword').val('');
+                // showToast(" ... ");
+                // console.log(myJson)
+
+                if (localStorage.getItem("accessToken") != '') {
+                    localStorage.setItem("accessToken", myJson.access);
+                    localStorage.setItem("refreshToken", myJson.refresh);
+                    localStorage.setItem("isLogin", "true");
+                    sessionStorage.setItem("Msg", "Login SucessFully");
+                    window.location = "/";
+                }
+            })
+            .catch((error) => {
+                // Handle the error
+
+                // console.log(error.detail);
+                $('#exampleInputusername').val('');
+                $('#exampleInputpassword').val('');
+                showToast(error);
+            });
+    });
+
+
+
+</script>
+{% endblock %}
