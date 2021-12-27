@@ -18,7 +18,7 @@ def contacts(request):
 def contact_form(request, Pid=None):
     if Pid:
         # print(Pid)
-        return render(request, 'contact_form.html', {'Pid': Pid})
+        return render(request, 'form.html', {'Pid': Pid})
     else:
         return render(request, 'form.html')
 

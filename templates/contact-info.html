@@ -976,13 +976,11 @@
         if (result) {
             //Logic to delete the item
             // alert("deleted");
-            fetch(url + '/PersonDetailApi/' + Pid, { mode: 'cors', method: 'delete', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'delete', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
                 .then((response) => {
-                    // if (response.status == 200) {
-                    return response.json();
-                    // } else {
-                    // throw Error(response.statusText);
-                    // }
+                    if (response.status == 200) {
+                        return response.json();
+                    }
                 })
                 .then((myJson) => {
                     sessionStorage.setItem("Msg", "Delete Contact SucessFully");
@@ -993,9 +991,9 @@
             //     // Handle the error
             //     showToast(error + "/n" + "Try Again ");
             // });
-            sessionStorage.setItem("Msg", "Delete Contact SucessFully");
+            // sessionStorage.setItem("Msg", "Delete Contact SucessFully");
 
-            window.location = "/contacts"
+            // window.location = "/contacts"
         }
     };
 </script>

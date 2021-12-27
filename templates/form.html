@@ -24,7 +24,7 @@
     }
 </style>
 
-<div class="wrapper">
+<div class="wrapper mb-3">
     <form id="cform" name="cform" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="wizard">
@@ -116,7 +116,7 @@
                         <input type="hidden" id="CompanyID" name="CompanyID">
                         <input type="text" class="form-control  " name="CompanyName" id="CompanyName"
                             placeholder="Company Name"> </div>
-                    <div class="form-row"> <input type="text" class="form-control " name="GSTINNo" id="Gst"
+                    <div class="form-row"> <input type="text" class="form-control " name="GSTINNo" id="GSTINNo"
                             placeholder="GST NO."> </div>
                     <div class="form-row"> <input type="text" class="form-control  " name="Headquarter" id="Headquarter"
                             placeholder="Headquarter"> </div>
@@ -125,7 +125,7 @@
                             style="height: 45px"></textarea>
                     </div>
                     <div class="form-row" style="margin-bottom: 18px">
-                        <textarea name="About" id="Aboutc" class="form-control  " placeholder="About Company"
+                        <textarea name="About" id="About" class="form-control  " placeholder="About Company"
                             style="height: 45px"></textarea>
                     </div>
                     <div class="form-row" style="margin-bottom: 18px">
@@ -135,12 +135,12 @@
                     <div class="form-row" id="floatContainer" style="position: relative;">
                         <label id="dobL" style="position: absolute;padding: 6px 0px 0px 12px;font-size: 15px;
                                             color: #6c757d;">Founded</label>
-                        <input type="date" class="form-control   " id="Foundate" name="Founded" placeholder="Founded"
+                        <input type="date" class="form-control   " id="Founded" name="Founded" placeholder="Founded"
                             style=" padding:0 0 0px 100px;">
                     </div>
                     <div class="form-row">
 
-                        <input type="number" id="rev" name="AnnualRevenue" class="form-control   "
+                        <input type="number" id="AnnualRevenue" name="AnnualRevenue" class="form-control   "
                             placeholder="Annual Revenue">
                     </div>
                     <div class="form-row">
@@ -181,7 +181,7 @@
                         <option disabled selected>Email Type</option>
                     </select>
                     <input type="hidden" id="EmailID" name="EmailID">
-                    <input type="email" class="form-control  mt-1" placeholder="Enter Your Email" id="Email"
+                    <input type="email" class="form-control  mt-1" placeholder="Enter Your Email" id="EmailAddress"
                         name="EmailAddress">
                 </div>
                 <div class="form-row">
@@ -189,22 +189,22 @@
                     <div class="control-group" id="fields">
                         <div class="controls">
                             <div class="entry input-group upload-input-group">
-                                <select class="form-control tbtn  " id="PhoneType" name="PhoneType[]">
+                                <select class="form-control tbtn  " id="PhoneType" name="PhoneType">
                                     <option disabled selected>Phone Type</option>
                                 </select>
 
-                                <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName[]"
+                                <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName"
                                     id="Country">
                                     <option disabled selected>Country</option>
                                 </select>
 
                                 <input type="hidden" id="CodeID" name="CodeID">
 
-                                <input type="text" class="form-control tbtn " id="CountryCode" name="CountryCode[]"
+                                <input type="text" class="form-control tbtn " id="CountryCode" name="CountryCode"
                                     style="padding-right:0px " placeholder="Country Code" readonly />
 
                                 <input type="hidden" id="PhoneID" name="PhoneID">
-                                <input type="number" id="PhoneNo" name="PhoneNo[]" class="form-control "
+                                <input type="number" id="PhoneNo" name="PhoneNo" class="form-control "
                                     placeholder="Enter your Phone No. *99999 99999" />
                                 <!-- <button class="btn btn-upload btn-success btn-add" type="button">
                                     <i class="fa fa-plus"> </i>
@@ -362,17 +362,24 @@
 </div>
 
 <script>
+    var isLogin = localStorage.getItem("isLogin")
+    if (isLogin != "true") {
+        window.location = "/crm_login"
+    }
+    var Msg = sessionStorage.getItem("Msg");
+    if (Msg) {
+        showToast(Msg);
+        sessionStorage.removeItem("Msg");
+    }
 
 
-    // function getCountry(selectObject) {
-    //     console.log('changed')
-    //     var value = selectObject.value;
-    //     console.log(value);
-    // }
     let AToken = localStorage.getItem("accessToken");
     const url = "http://127.0.0.1:5000/api";
+    let Pid = {{ Pid }}
+    // console.log(Pid)
     document.addEventListener('DOMContentLoaded', function (event) {
         event.preventDefault();
+
 
 
         fetch(url + '/StaticDataApi', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
@@ -384,15 +391,8 @@
                 }
             })
             .then((myJson) => {
-                console.log(myJson);
-                //    for Entity type
+                // console.log(myJson);
 
-                // $("input[type='button']").click(function () {
-                //     var radioValue = $("input[name='gender']:checked").val();
-                //     if (radioValue) {
-                //         alert("Your are a - " + radioValue);
-                //     }
-                // });
                 var ele = document.getElementById('Entitytype');
                 var entity = myJson['Entity_Type']
                 for (var i = 0; i < entity.length; i++) {
@@ -511,15 +511,97 @@
                 // }
 
             });
+
+        if (Pid) {
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+                .then((response) => {
+                    if (response.status == 200) {
+                        return response.json();
+                    } else {
+                        throw Error(response.statusText);
+                    }
+                })
+                .then((myJson) => {
+                    console.log(myJson);
+                    // console.log(myJson['Entity']["EntityTypeIDF"]["EntityTypeID"])
+                    document.getElementById("FullName").value = myJson['Entity']["FullName"];
+                    document.getElementById("ShortName").value = myJson['Entity']["ShortName"];
+                    document.getElementById("Entitytype").selectedIndex = myJson['Entity']["EntityTypeIDF"]["EntityTypeID"];
+
+                    if (myJson['Person']) {
+                        $("#dvPerson").show();
+                        document.getElementById("FirstName").value = myJson['Person']["FirstName"];
+                        document.getElementById("MiddleName").value = myJson['Person']["MiddleName"];
+                        document.getElementById("LastName").value = myJson['Person']["LastName"];
+                        document.getElementById("Gcode").value = myJson['Person']["Gender"];
+                        document.getElementById("DOB").value = myJson['Person']["DOB"];
+                        document.getElementById("SuffixType").selectedIndex = myJson['Person']["SuffixIDF"]["SuffixID"];
+                        document.getElementById("PersonType").selectedIndex = myJson['Person']["PersonTypeIDF"]["PersonTypeID"];
+                        document.getElementById("Designation").value = myJson['Person']["Designation"];
+                    } else {
+                        $("#dvPerson").hide();
+
+                    }
+                    if (myJson['Company']) {
+                        document.getElementById("CompanyName").value = myJson['Company']["CompanyName"];
+                        document.getElementById("GSTINNo").value = myJson['Company']["GSTINNo"];
+                        document.getElementById("Headquarter").value = myJson['Company']["Headquarter"];
+                        document.getElementById("WebsiteURL").value = myJson['Company']["WebsiteURL"];
+                        document.getElementById("About").value = myJson['Company']["About"];
+                        document.getElementById("Speciality").value = myJson['Company']["Specialities"];
+                        document.getElementById("Founded").value = myJson['Company']["Founded"];
+                        document.getElementById("AnnualRevenue").value = myJson['Company']["AnnualRevenue"];
+                        document.getElementById("HeadCountType").selectedIndex = myJson['Company']["HeadcountIDF"]["HeadCountTypeIDF"]["HeadCountTypeID"];
+                        document.getElementById("HeadCount").value = myJson['Company']["HeadcountIDF"]["HeadCountRange"];
+                        // document.getElementById("HeadCountID").value = myJson['Company']["HeadcountIDF"]["HeadCountID"];
+                        document.getElementById("CompanyType").selectedIndex = myJson['Company']["CompanyTypeIDF"]["CompanyTypeID"];
+                        document.getElementById("IndustryType").selectedIndex = myJson['Company']["IndustryIDF"]["IndustryID"];
+                    }
+                    if (myJson['Email']) {
+                        document.getElementById("EmailType").selectedIndex = myJson['Email'][0]['EmailIDF']["EmailTypeIDF"]["EmailTypeID"];
+                        document.getElementById("EmailAddress").value = myJson['Email'][0]['EmailIDF']["EmailAddress"];
+                        // document.getElementById("EmailID").value = myJson[0]["EmailIDF"]["EmailID"];
+                    }
+                    if (myJson['Phone']) {
+                        document.getElementById("PhoneType").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
+                        document.getElementById("Country").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
+                        // document.getElementById("CodeID").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CodeID"];
+                        document.getElementById("CountryCode").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCode"];
+                        document.getElementById("PhoneNo").value = myJson['Phone'][0]["PhoneIDF"]["PhoneNo"];
+                        // document.getElementById("PhoneID").value = myJson['Phone'][0]["PhoneIDF"]["PhoneID"];
+                    }
+                    if (myJson['SocialMedia']) {
+                        document.getElementById("SocialMediaType").selectedIndex = myJson['SocialMedia'][0]["SocialMediaIDF"]["SocialMediaTypeIDF"]["SocialMediaTypeID"];
+                        document.getElementById("SocialMediaURL").value = myJson['SocialMedia'][0]["SocialMediaIDF"]["url"];
+                    }
+                    if (myJson['Photo']) {
+                        document.getElementById("PhotoType").selectedIndex = myJson['Photo']["PhotoTypeIDF"]["PhotoTypeID"];
+                        document.getElementById("Photo").src = myJson['Photo']["url"];
+                    }
+                    if (myJson['Address']) {
+                        document.getElementById("AddressType").selectedIndex = myJson['Address'][0]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
+                        document.getElementById("Add").value = myJson['Address'][0]["AddressIDF"]["Address"];
+                        document.getElementById("City").value = myJson['Address'][0]["AddressIDF"]["City"];
+                        document.getElementById("District").value = myJson['Address'][0]["AddressIDF"]["District"];
+                        document.getElementById("Stat").value = myJson['Address'][0]["AddressIDF"]["State"];
+                        document.getElementById("Country").value = myJson['Address'][0]["AddressIDF"]["Country"];
+                        document.getElementById("ZipCode").value = myJson['Address'][0]["AddressIDF"]["PinCode"];
+                    }
+
+                })
+                .catch((error) => {
+                    showToast(error + ", Try Again !");
+                });
+        }
     });
 
     $(function () {
         $("#Entitytype").change(function () {
-            if ($(this).val() == "1") {
+            if ($("#Entitytype").val() == "1") {
                 $("#dvPerson").show();
                 // $('#dvCompany').hide();
 
-            } else if ($(this).val() == "2") {
+            } else if ($("#Entitytype").val() == "2") {
                 $("#dvPerson").hide();
                 // $('#dvCompany').show();
             }
@@ -542,25 +624,52 @@
         }
         data.append('Photo', input.files[0])
 
-        // value.Photo = f
-        // console.log(data)
-        fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'post', body: data, headers: { "Authorization": "Bearer " + AToken } })
-            .then((response) => {
-                if (response.status == 201) {
-                    return response.json();
-                } else {
-                    throw Error(response.statusText);
-                }
+        if (Pid) {
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: JSON.stringify(value), headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+                .then((response) => {
+                    if (response.status == 200) {
 
-            })
-            .then((myJson) => {
-                sessionStorage.setItem("Msg", "Create Contact SucessFully");
-                window.location = "/contacts";
-            }).catch((error) => {
+                        return response.json();
+                    } else {
+                        throw Error(response.statusText);
 
-                showToast(error + ", Try Again !");
+                    }
 
-            });
+                })
+                .then((myJson) => {
+
+                    // console.log(myJson);
+                    sessionStorage.setItem("Msg", "Update Contact SucessFully");
+                    window.location = "/contact_info/" + Pid;
+                }).catch((error) => {
+                    // Handle the error
+
+                    showToast(error + ", Try Again !");
+
+                });
+
+        } else {
+
+            // value.Photo = f
+            // console.log(data)
+            fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'post', body: data, headers: { "Authorization": "Bearer " + AToken } })
+                .then((response) => {
+                    if (response.status == 201) {
+                        return response.json();
+                    } else {
+                        throw Error(response.statusText);
+                    }
+
+                })
+                .then((myJson) => {
+                    sessionStorage.setItem("Msg", "Create Contact SucessFully");
+                    window.location = "/contacts";
+                }).catch((error) => {
+
+                    showToast(error + ", Try Again !");
+
+                });
+        }
     });
 </script>
 {% endblock body %}

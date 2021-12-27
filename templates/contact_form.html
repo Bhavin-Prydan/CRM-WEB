@@ -216,7 +216,7 @@
             event.preventDefault();
 
             if (Pid) {
-                fetch(url + '/PersonDetailApi/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+                fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
                     .then((response) => {
                         if (response.status >= 200 && response.status <= 299) {
                             return response.json();
