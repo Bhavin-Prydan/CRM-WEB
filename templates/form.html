@@ -70,7 +70,7 @@
 
 
                 <div class="form-row">
-                    <select class="form-control tbtn  " id="Gcode" name="Gcode">
+                    <select class="form-control tbtn " id="Gender" name="Gender">
                         <option disabled selected>Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
@@ -129,7 +129,7 @@
                             style="height: 45px"></textarea>
                     </div>
                     <div class="form-row" style="margin-bottom: 18px">
-                        <textarea name="Speciality" id="Speciality" class="form-control  " placeholder="Speciality"
+                        <textarea name="Specialities" id="Specialities" class="form-control  " placeholder="Speciality"
                             style="height: 45px"></textarea>
                     </div>
                     <div class="form-row" id="floatContainer" style="position: relative;">
@@ -194,7 +194,7 @@
                                 </select>
 
                                 <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName"
-                                    id="Country">
+                                    id="CountryName">
                                     <option disabled selected>Country</option>
                                 </select>
 
@@ -256,7 +256,7 @@
                 Details</button>
             <div id="dvSocial" class="collapse mt-2">
                 <div class="form-row">
-                    <!-- <input type="hidden" id="HeadCountID" name="CompanyIDF[HeadcountIDF][HeadCountID]"> -->
+                    <input type="hidden" id="SocialmediaID" name="SocialmediaID">
                     <select class="form-control   tbtn" id="SocialMediaType" name="SocialMediaType">
                         <option disabled selected>Social Media Type</option>
 
@@ -330,7 +330,7 @@
                 <section>
                     <div class="form-row" style="margin-bottom: 18px">
 
-                        <input type="hidden" id="Address" name="AddressID">
+                        <input type="hidden" id="AddID" name="AddressID">
 
                         <select class="form-control tbtn  " id="AddressType" name="AddressType" style="max-width: 30%">
                             <option disabled selected>Address Type</option>
@@ -481,7 +481,7 @@
 
 
                 //    for Country  
-                var country_ele = document.getElementById('Country');
+                var country_ele = document.getElementById('CountryName');
                 var country = myJson['Country_Code']
                 for (var i = 0; i < country.length; i++) {
                     country_ele.innerHTML = country_ele.innerHTML +
@@ -491,7 +491,7 @@
                     var country = myJson['Country_Code']
 
                     var value = selectObject.value;
-                    console.log(country);
+                    // console.log(country);
                     // var Ccode_ele = document.getElementById('CountryCode');
                     for (var i = 0; i < selectObject.length; i++) {
                         console.log(country[i]['CountryCodeIDF']['CountryCodeID']);
@@ -533,9 +533,15 @@
                         document.getElementById("FirstName").value = myJson['Person']["FirstName"];
                         document.getElementById("MiddleName").value = myJson['Person']["MiddleName"];
                         document.getElementById("LastName").value = myJson['Person']["LastName"];
-                        document.getElementById("Gcode").value = myJson['Person']["Gender"];
+                        if (myJson['Person']["Gender"] == 'F') {
+                            document.getElementById("Gender").selectedIndex = 2;
+                        }
+                        else {
+                            document.getElementById("Gender").selectedIndex = 1;
+
+                        }
                         document.getElementById("DOB").value = myJson['Person']["DOB"];
-                        document.getElementById("SuffixType").selectedIndex = myJson['Person']["SuffixIDF"]["SuffixID"];
+                        document.getElementById("SuffixType").value = myJson['Person']["SuffixIDF"]["SuffixID"];
                         document.getElementById("PersonType").selectedIndex = myJson['Person']["PersonTypeIDF"]["PersonTypeID"];
                         document.getElementById("Designation").value = myJson['Person']["Designation"];
                     } else {
@@ -548,39 +554,44 @@
                         document.getElementById("Headquarter").value = myJson['Company']["Headquarter"];
                         document.getElementById("WebsiteURL").value = myJson['Company']["WebsiteURL"];
                         document.getElementById("About").value = myJson['Company']["About"];
-                        document.getElementById("Speciality").value = myJson['Company']["Specialities"];
+                        document.getElementById("Specialities").value = myJson['Company']["Specialities"];
                         document.getElementById("Founded").value = myJson['Company']["Founded"];
                         document.getElementById("AnnualRevenue").value = myJson['Company']["AnnualRevenue"];
                         document.getElementById("HeadCountType").selectedIndex = myJson['Company']["HeadcountIDF"]["HeadCountTypeIDF"]["HeadCountTypeID"];
                         document.getElementById("HeadCount").value = myJson['Company']["HeadcountIDF"]["HeadCountRange"];
-                        // document.getElementById("HeadCountID").value = myJson['Company']["HeadcountIDF"]["HeadCountID"];
+                        document.getElementById("HeadCountID").value = myJson['Company']["HeadcountIDF"]["HeadCountID"];
                         document.getElementById("CompanyType").selectedIndex = myJson['Company']["CompanyTypeIDF"]["CompanyTypeID"];
                         document.getElementById("IndustryType").selectedIndex = myJson['Company']["IndustryIDF"]["IndustryID"];
                     }
                     if (myJson['Email']) {
                         document.getElementById("EmailType").selectedIndex = myJson['Email'][0]['EmailIDF']["EmailTypeIDF"]["EmailTypeID"];
                         document.getElementById("EmailAddress").value = myJson['Email'][0]['EmailIDF']["EmailAddress"];
-                        // document.getElementById("EmailID").value = myJson[0]["EmailIDF"]["EmailID"];
+                        document.getElementById("EmailID").value = myJson['Email'][0]["EmailIDF"]["EmailID"];
                     }
                     if (myJson['Phone']) {
                         document.getElementById("PhoneType").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
-                        document.getElementById("Country").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
-                        // document.getElementById("CodeID").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CodeID"];
+                        document.getElementById("CountryName").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
+                        // console.log(myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"])
+                        document.getElementById("CodeID").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CodeID"];
                         document.getElementById("CountryCode").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCode"];
                         document.getElementById("PhoneNo").value = myJson['Phone'][0]["PhoneIDF"]["PhoneNo"];
-                        // document.getElementById("PhoneID").value = myJson['Phone'][0]["PhoneIDF"]["PhoneID"];
+                        document.getElementById("PhoneID").value = myJson['Phone'][0]["PhoneIDF"]["PhoneID"];
                     }
                     if (myJson['SocialMedia']) {
+                        document.getElementById("SocialmediaID").value = myJson['SocialMedia'][0]["SocialMediaIDF"]["SocialmediaID"];
                         document.getElementById("SocialMediaType").selectedIndex = myJson['SocialMedia'][0]["SocialMediaIDF"]["SocialMediaTypeIDF"]["SocialMediaTypeID"];
                         document.getElementById("SocialMediaURL").value = myJson['SocialMedia'][0]["SocialMediaIDF"]["url"];
                     }
                     if (myJson['Photo']) {
+                        // console.log(myJson['Photo']['Photo']);
                         document.getElementById("PhotoType").selectedIndex = myJson['Photo']["PhotoTypeIDF"]["PhotoTypeID"];
-                        document.getElementById("Photo").src = myJson['Photo']["url"];
+
+                        // document.getElementById("Photo").value = myJson['Photo']['Photo'];
                     }
                     if (myJson['Address']) {
                         document.getElementById("AddressType").selectedIndex = myJson['Address'][0]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
                         document.getElementById("Add").value = myJson['Address'][0]["AddressIDF"]["Address"];
+                        document.getElementById("AddID").value = myJson['Address'][0]["AddressIDF"]["AddressID"];
                         document.getElementById("City").value = myJson['Address'][0]["AddressIDF"]["City"];
                         document.getElementById("District").value = myJson['Address'][0]["AddressIDF"]["District"];
                         document.getElementById("Stat").value = myJson['Address'][0]["AddressIDF"]["State"];
@@ -623,9 +634,10 @@
             data.append(keys[i], value[keys[i]]);
         }
         data.append('Photo', input.files[0])
+        console.log(input.files[0]);
 
         if (Pid) {
-            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: JSON.stringify(value), headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: data, headers: { "Authorization": "Bearer " + AToken } })
                 .then((response) => {
                     if (response.status == 200) {
 
