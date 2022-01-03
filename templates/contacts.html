@@ -269,10 +269,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
         $('#search_contact').on('keyup', function (e) {
             var search_contact = document.getElementById('search_contact').value
             console.log(search_contact)
-            if (search_contact == '') {
-                console.log("null 6 bhai")
 
-            }
             const Surl = `http://127.0.0.1:5000/api/EntitySearchApi/?search=${search_contact}`;
             fetch(Surl, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
                 .then((response) => {

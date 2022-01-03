@@ -51,6 +51,20 @@
         content: "\f077";
     }
 
+    .Ncard:after {
+        font-family: 'FontAwesome';
+        content: "\f078";
+        float: left;
+        margin-right: 7px;
+        font-size: 12px;
+        font-weight: 100;
+    }
+
+    .Ncard.collapsed:after {
+        /* symbol for "collapsed" panels */
+        content: "\f077";
+    }
+
     .form-group-cInfo {
         position: relative;
         margin-top: 10px;
@@ -59,7 +73,7 @@
     .cInfo-label {
         position: absolute;
         /* top: 50%; */
-        left: 0px;
+        left: 15px;
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
@@ -79,7 +93,7 @@
         display: inline-block;
         /* font-family: "Titillium Web", Arial, Tahoma; */
         padding: 1px 10px;
-        margin: 10px 0 0 0;
+        margin: 10px 0 0 17px;
         font-size: 14px;
         background: none;
         border: 0;
@@ -90,7 +104,7 @@
         -webkit-box-shadow: none !important;
         -moz-box-shadow: none !important;
         box-shadow: none !important;
-        width: 100%
+        /* width: 100% */
     }
 
     /* .cInfo:focus+.cInfo-label,
@@ -546,130 +560,54 @@
                 <div id="accordion" class="accordion">
                     <div class="OtherCard  card mb-0" style="   border-top: 1px solid rgb(203, 214, 226);border-bottom: 0;border-right:0;background-color: #f5f8fa
                  ">
-
-                        <!-- <div class=" card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                            href="#d3c1">
-                            <a class="card-title text-dark ">
-                                Company Details
-                            </a>
-                        </div>
-                        <div id="d3c1" class="card-body collapse" data-parent="#accordion">
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="Cname" name="Cname" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Company Name</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="WebsiteURL" name="WebsiteURL" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Website URL</label>
-                            </div>
-                            <div class="form-group-cInfo">
-
-                                <input class="cInfo" id="Headquarter" name="Headquarter" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Headquarter</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="Founded" name="Founded" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Founded</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="CompanyType" name="CompanyType" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Company Type</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="IndustryType" name="IndustryType" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Industry Type</label>
-                            </div> -->
                     </div>
 
-
-                    <!-- <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
                         href="#d3c2">
                         <a class="card-title text-dark " style="font-weight: 500">
                             Address Details
                         </a>
                     </div>
-                    <div id="d3c2" class="card-body collapse" data-parent="#accordion">
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="AddressType" name="AddressType" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Address Type</label>
-                        </div>
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="Address" name="Address" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Address</label>
-                        </div>
-                        <div class="form-group-cInfo">
+                    <div id="d3c2" class="card-body collapse address-card" data-parent="#accordion"
+                        style="background-color: #f5f8fa; padding-top: 5px">
+                    </div>
 
-                            <input class="cInfo" id="City" name="City" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">City</label>
-                        </div>
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="District" name="District" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">District</label>
-                        </div>
 
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="State" name="State" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">State</label>
-                        </div>
-
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="Country" name="Country" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Country</label>
-                        </div>
-
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="PinCode" name="PinCode" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">PinCode</label>
-                        </div>
-
-                    </div> -->
-
-                    <!-- <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
                         href="#d3c3">
                         <a class="card-title text-dark " style="font-weight: 500">
                             Contact Details
                         </a>
                     </div>
-                    <div id="d3c3" class="card-body collapse" data-parent="#accordion">
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="PhoneType" name="PhoneType" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Phone Type</label>
-                        </div>
+                    <div id="d3c3" class="card-body collapse contact-card "
+                        style="background-color: #f5f8fa; padding-top: 5px" data-parent="#accordion" !important>
 
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Country Name</label>
-                        </div>
+                    </div>
 
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="CountryCode" name="CountryCode" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Country Code</label>
-                        </div>
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d4c4">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Email Details
+                        </a>
+                    </div>
+                    <div id="d4c4" class="card-body collapse email-card"
+                        style="background-color: #f5f8fa; padding-top: 5px" data-toggle="collapse"
+                        data-parent="#accordion">
 
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="PhoneNo" name="PhoneNo" type="text" readonly>
-                            <label class="cInfo-label" for="yourname">Phone Number</label>
-                        </div>
-                    </div> -->
+                    </div>
 
-                    <!-- 
-                        <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                            href="#d3c4">
-                            <a class="card-title text-dark " style="font-weight: 500">
-                                Website Activity
-                            </a>
-                        </div>
-                        <div id="d3c4" class="card-body collapse" data-parent="#accordion">
-                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
-                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                                aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
-                                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-                                craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                                of them accusamus labore sustainable VHS.
-                            </p>
-                        </div> -->
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d5c5">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Social Media Details
+                        </a>
+                    </div>
+                    <div id="d5c5" class="card-body collapse social-card" data-toggle="collapse"
+                        data-parent="#accordion" style="background-color: #f5f8fa; padding-top: 5px">
+                    </div>
+
+
+
 
                 </div>
             </div>
@@ -833,17 +771,13 @@
                     myJson['Address'].map((add, i) => {
 
                         Odv += `
-                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                        href="#d3c2">
-                        <a class="card-title text-dark " style="font-weight: 500">
-                            Address Details
-                        </a>
-                    </div>
-                    <div id="d3c2" class="card-body collapse" data-parent="#accordion">
-                        <div class="form-group-cInfo">
+                    
+                        <div class="Ncard form-group-cInfo collapsed" data-toggle="collapse" data-parent=".address-card"
+                        href="#a`+ i + `">
                             <input class="cInfo" id="AddressType" name="AddressType" value="${add['AddressIDF']['AddressTypeIDF']['AddressType']}" type="text" readonly>
                             <label class="cInfo-label" for="yourname">Address Type</label>
                         </div>
+                        <div class="collapse" id="a`+ i + `" data-parent=".address-card">
                         <div class="form-group-cInfo">
                             <input class="cInfo" id="Address" name="Address" value="${add['AddressIDF']['Address']}" type="text" readonly>
                             <label class="cInfo-label" for="yourname">Address</label>
@@ -877,25 +811,21 @@
 
                     `
                     })
-                    $(".OtherCard").html(Odv);
+                    $(".address-card").html(Odv);
 
                 }
+                cdv = ''
                 if (myJson['Phone']) {
                     myJson['Phone'].map((ph, i) => {
 
-                        Odv += `
-                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                        href="#d3c3">
-                        <a class="card-title text-dark " style="font-weight: 500">
-                            Contact Details
-                        </a>
-                    </div>
-                    <div id="d3c3" class="card-body collapse" data-parent="#accordion">
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="PhoneType" name="PhoneType" type="text" readonly value="${ph['PhoneIDF']['PhoneTypeIDF']['PhoneType']}">
+                        cdv += `
+
+                        <div class="Ncard form-group-cInfo collapsed" data-toggle="collapse" data-parent=".contact-card"
+                        href="#c`+ i + `">
+                            <input class="cInfo" style="" id="PhoneType" name="PhoneType" type="text" readonly value="${ph['PhoneIDF']['PhoneTypeIDF']['PhoneType']}">
                             <label class="cInfo-label" for="yourname">Phone Type</label>
                         </div>
-
+                        <div class="collapse" id="c`+ i + `" data-parent=".contact-card">
                         <div class="form-group-cInfo">
                             <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly value="${ph['PhoneIDF']['CodeIDF']['CountryCodeIDF']['CountryName']}">
                             <label class="cInfo-label" for="yourname">Country Name</label>
@@ -910,59 +840,54 @@
                             <input class="cInfo" id="PhoneNo" name="PhoneNo" type="text" readonly value="${ph['PhoneIDF']['PhoneNo']}">
                             <label class="cInfo-label" for="yourname">Phone Number</label>
                         </div>
-                    </div>
+                        </div>
+                        <hr>
                 `
-                        $(".OtherCard").html(Odv);
+                        $(".contact-card").html(cdv);
                     })
                 }
+                Edv = ''
                 if (myJson['Email']) {
                     myJson['Email'].map((em, i) => {
-                        Odv += `
-                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                        href="#d4c4">
-                        <a class="card-title text-dark " style="font-weight: 500">
-                            Email Details
-                        </a>
-                    </div>
-                    <div id="d4c4" class="card-body collapse" data-parent="#accordion">
-                        <div class="form-group-cInfo">
+                        Edv += `
+                   
+                        
+                        <div class="Ncard form-group-cInfo collapsed" data-toggle="collapse" data-parent=".email-card"
+                        href="#e`+ i + `">
                             <input class="cInfo" id="EmailType" name="EmailType" type="text" readonly value="${em['EmailIDF']['EmailTypeIDF']['EmailType']}">
                             <label class="cInfo-label" for="yourname">Email Type</label>
                         </div>
 
-                        <div class="form-group-cInfo">
-                            <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly value="${em['EmailIDF']['EmailAddress']}">
-                            <label class="cInfo-label" for="yourname">Country Name</label>
+                        <div class="collapse" id="e`+ i + `" data-parent=".email-card">
+                        <div class="form-group-cInfo" >
+                            <input class="cInfo" id="EmailAddress" name="EmailAddress" type="text" readonly value="${em['EmailIDF']['EmailAddress']}">
+                            <label class="cInfo-label" for="yourname">EmailAddress</label>
                         </div>
-                    </div>
+                        </div>
+                    
                 `
-                        $(".OtherCard").html(Odv);
+                        $(".email-card").html(Edv);
                     })
                 }
-
+                Sdv = ''
                 if (myJson['SocialMedia']) {
                     myJson['SocialMedia'].map((sm, i) => {
 
-                        Odv += `
-                <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                    href="#d5c5">
-                    <a class="card-title text-dark " style="font-weight: 500">
-                        Social Media Details
-                    </a>
-                </div>
-                <div id="d5c5" class="card-body collapse" data-parent="#accordion">
-                    <div class="form-group-cInfo">
-                        <input class="cInfo" id="EmailType" name="EmailType" type="text" readonly value="${sm['SocialMediaIDF']['SocialMediaTypeIDF']['SocialMediaType']}">
+                        Sdv += `
+               
+                    <div class="Ncard form-group-cInfo collapsed" data-toggle="collapse" data-parent=".social-card"
+                        href="#s`+ i + `">
+                        <input class="cInfo" id="SocialType" name="SocialType" type="text" readonly value="${sm['SocialMediaIDF']['SocialMediaTypeIDF']['SocialMediaType']}">
                         <label class="cInfo-label" for="yourname">Social Media Type</label>
                     </div>
-
+                    <div class="collapse" id="s`+ i + `" data-parent=".social-card">
                     <div class="form-group-cInfo">
-                        <input class="cInfo" id="CountryName" name="CountryName" type="text" readonly value="${sm['SocialMediaIDF']['url']}">
+                        <input class="cInfo" id="URL" name="URL" type="text" readonly value="${sm['SocialMediaIDF']['url']}">
                         <label class="cInfo-label" for="yourname">URL</label>
                     </div>
-                </div>
+                    </div>
                 `
-                        $(".OtherCard").html(Odv);
+                        $(".social-card").html(Sdv);
                     })
                 }
 

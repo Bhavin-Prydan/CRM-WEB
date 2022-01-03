@@ -22,6 +22,11 @@
         font-weight: 500;
         text-overflow: clip;
     }
+
+    .form-row {
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
 </style>
 
 <div class="wrapper mb-3">
@@ -70,7 +75,7 @@
 
 
                 <div class="form-row">
-                    <select class="form-control tbtn  " id="Gcode" name="Gcode">
+                    <select class="form-control tbtn " id="Gender" name="Gender">
                         <option disabled selected>Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
@@ -129,7 +134,7 @@
                             style="height: 45px"></textarea>
                     </div>
                     <div class="form-row" style="margin-bottom: 18px">
-                        <textarea name="Speciality" id="Speciality" class="form-control  " placeholder="Speciality"
+                        <textarea name="Specialities" id="Specialities" class="form-control  " placeholder="Speciality"
                             style="height: 45px"></textarea>
                     </div>
                     <div class="form-row" id="floatContainer" style="position: relative;">
@@ -176,75 +181,145 @@
                 data-target="#dvContact" aria-expanded="false" aria-controls="dvContact">Add Contact
                 Details</button>
             <div id="dvContact" class="collapse mt-2">
-                <div class="form-row">
-                    <select class="form-control tbtn  " id="EmailType" name="EmailType">
-                        <option disabled selected>Email Type</option>
-                    </select>
-                    <input type="hidden" id="EmailID" name="EmailID">
-                    <input type="email" class="form-control  mt-1" placeholder="Enter Your Email" id="EmailAddress"
-                        name="EmailAddress">
-                </div>
-                <div class="form-row">
 
+                <div class="form-row">
                     <div class="control-group" id="fields">
-                        <div class="controls">
-                            <div class="entry input-group upload-input-group">
-                                <select class="form-control tbtn  " id="PhoneType" name="PhoneType">
-                                    <option disabled selected>Phone Type</option>
+                        <div class="controls" style="min-width: 600px" id="EcloneDiv">
+                            <div class="mb-1 input-group upload-input-group" id="EcloneId">
+
+                                <select class="form-control tbtn" id="EmailType_1" name="EmailType[]">
+                                    <option disabled selected>Email Type</option>
                                 </select>
-
-                                <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName"
-                                    id="Country">
-                                    <option disabled selected>Country</option>
-                                </select>
-
-                                <input type="hidden" id="CodeID" name="CodeID">
-
-                                <input type="text" class="form-control tbtn " id="CountryCode" name="CountryCode"
-                                    style="padding-right:0px " placeholder="Country Code" readonly />
-
-                                <input type="hidden" id="PhoneID" name="PhoneID">
-                                <input type="number" id="PhoneNo" name="PhoneNo" class="form-control "
-                                    placeholder="Enter your Phone No. *99999 99999" />
-                                <!-- <button class="btn btn-upload btn-success btn-add" type="button">
+                                <input type="hidden" id="EmailID_1" name="EmailID[]">
+                                <input type="email" class="form-control " placeholder="Enter Your Email"
+                                    id="EmailAddress_1" name="EmailAddress[]">
+                                <button class="btn btn-upload btn-success Ebtn-add " onclick="addEmail()"
+                                    style="padding: 3px 8px;" type="button">
                                     <i class="fa fa-plus"> </i>
-                                </button> -->
+                                </button>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- <div class=" form-group">
-                        <div class="">
-                            <div class="control-group" id="fields">
-                                <div class="controls">
-                                    <div class="entry input-group upload-input-group">
-                                        <input class="form-control" name="fields[]" type="file">
-                                        <button class="btn btn-upload btn-success btn-add" type="button">
-                                            <i class="fa fa-plus"> </i>
-                                        </button>
-                                    </div>
-                                </div>
+                <script>
+                    var emailTypeData = []
+                    var ECloneDiv = $("#EcloneDiv");
+                    var i = $("#EcloneId").length + 1;
+
+                    window.addEmail = function () {
+                        var EmailHtml = `<div class="entry mb-1 input-group upload-input-group " id="EcloneId">
+                            <select class="form-control tbtn  " id="EmailType_`+ i + `" name="EmailType[]">
+                                <option disabled selected>Email Type</option>`
+                        for (let j = 0; j < emailTypeData.length; j++) {
+                            EmailHtml += '<option name="EmailType"  value="' + emailTypeData[j]['EmailTypeID'] + '">' + emailTypeData[j]['EmailType'] + '</option>'
+                        }
+                        EmailHtml += `  </select>`
+                        EmailHtml += `<input type="hidden" id="EmailID_` + i + `" name="EmailID[]" value='0'>
+                                <input type="email" class="form-control  " placeholder="Enter Your Email"
+                                    id="EmailAddress_`+ i + `" name="EmailAddress[]">
+                                    <button class="btn btn-upload btn-danger mb-1" onclick="removeCont(this);" style="padding: 4px 8px" type="button">
+                                        <i class="fa fa-trash"> </i>
+                                    </button>
+                                </div>`;
+
+
+                        $(EmailHtml).appendTo(ECloneDiv);
+                        i++;
+                        return false;
+
+                    }
+                </script>
+
+
+                <!-- for Phone Number -->
+                <div class="form-row">
+
+                    <div class="control-group" id="fields">
+                        <div class="controls " id="cloneDiv">
+                            <div class="entry mb-1 input-group upload-input-group " id="cloneId">
+
+                                <select class="form-control tbtn" id="PhoneType_1" name="PhoneType[]">
+                                    <option disabled selected>Phone Type</option>
+                                </select>
+
+                                <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName[]"
+                                    id="CountryName_1">
+                                    <option disabled selected>Country</option>
+                                </select>
+
+                                <input type="hidden" id="CodeID_1" name="CodeID[]">
+
+                                <input type="text" class="form-control tbtn " id="CountryCode_1" name="CountryCode[]"
+                                    style="padding-right:0px " placeholder="Country Code" readonly />
+
+                                <input type="hidden" id="PhoneID_1" name="PhoneID[]" value='0'>
+                                <input type="number" id="PhoneNo_1" name="PhoneNo[]" class="form-control"
+                                    placeholder="Enter your Phone No. *99999 99999" />
+                                <button class="btn btn-upload btn-success btn-add" onclick="addPhone()"
+                                    style="padding: 3px 8px;" type="button">
+                                    <i class="fa fa-plus"> </i>
+                                </button>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                </div>
                 <script>
-                    $(function () {
-                        $(document).on('click', '.btn-add', function (e) {
-                            e.preventDefault();
-                            var controlForm = $('.controls:first'),
-                                currentEntry = $(this).parents('.entry:first'),
-                                newEntry = $(currentEntry.clone()).appendTo(controlForm);
-                            newEntry.find('input').val('');
-                            controlForm.find('.entry:not(:last) .btn-add')
-                                .removeClass('btn-add').addClass('btn-remove')
-                                .removeClass('btn-success').addClass('btn-danger')
-                                .html('<span class="fa fa-trash"> </span>');
-                        }).on('click', '.btn-remove', function (e) {
-                            $(this).parents('.entry:first').remove();
-                            e.preventDefault();
-                            return false;
-                        });
-                    });  
+                    var phoneTypeData = [];
+
+
+                    var CloneDiv = $("#cloneDiv");
+                    var i = $("#cloneId").length + 1;
+
+                    // $(function () {
+
+                    // $(".btn-add").click(function (e) {
+                    window.addPhone = function () {
+                        // e.preventDefault();
+                        // console.log(PhoneData)
+
+                        var phoneHTML = `<div class="entry input-group upload-input-group " id="p_scents">
+                                    <select class="form-control tbtn" id="PhoneType_`+ i + `" name="PhoneType[]">
+                                       <option disabled selected>Phone Type</option>`;
+
+                        for (let j = 0; j < phoneTypeData.length; j++) {
+                            phoneHTML += '<option name="PhoneType"  value="' + phoneTypeData[j]['PhoneTypeID'] + '">' + phoneTypeData[j]['PhoneType'] + '</option>';
+                        }
+                        phoneHTML += `</select>
+                
+                                    <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName[]" id="CountryName_`+ i + `">
+                                        <option disabled selected>Country</option>`;
+                        for (let i = 0; i < countryData.length; i++) {
+                            phoneHTML +=
+                                '<option name="CountryName"  value="' + countryData[i]['CountryCodeIDF']['CountryCodeID'] + '">' + countryData[i]['CountryCodeIDF']['CountryName'] + '</option>';
+                        }
+                        phoneHTML += `</select>
+                
+                                    <input type="hidden" id="CodeID_`+ i + `" name="CodeID[]" value='0'>
+
+                                    <input type="text" class="form-control tbtn " id="CountryCode_`+ i + `" name="CountryCode[]"
+                                        style="padding-right:0px " placeholder="Country Code" readonly />
+                
+                                    <input type="hidden" id="PhoneID_`+ i + `" name="PhoneID[]" value='0'>
+                                    <input type="number" id="PhoneNo_`+ i + `" name="PhoneNo[]" class="form-control"
+                                        placeholder="Enter your Phone No. *99999 99999" />
+                                    <button class="btn btn-upload btn-danger mb-1" onclick="removeCont(this);" style="padding: 4px 8px" type="button">
+                                        <i class="fa fa-trash"> </i>
+                                    </button>
+                                </div>`;
+
+
+                        $(phoneHTML).appendTo(CloneDiv);
+                        i++;
+                        return false;
+                    }
+                    // });
+                    function removeCont(_this) {
+                        if (i > 1) {
+                            $(_this).parent().remove();
+                            i--;
+                        }
+                    }
                 </script>
             </div>
         </section>
@@ -256,16 +331,54 @@
                 Details</button>
             <div id="dvSocial" class="collapse mt-2">
                 <div class="form-row">
-                    <!-- <input type="hidden" id="HeadCountID" name="CompanyIDF[HeadcountIDF][HeadCountID]"> -->
-                    <select class="form-control   tbtn" id="SocialMediaType" name="SocialMediaType">
-                        <option disabled selected>Social Media Type</option>
+                    <div class="controls" style="min-width: 600px" id="ScloneDiv">
+                        <div class="mb-1 input-group upload-input-group" id="ScloneId">
 
-                    </select>
-                    <input type="text" id="SocialMediaURL" name="url" class="form-control  mt-1"
-                        placeholder="Social Media URL">
+                            <input type="hidden" id="SocialmediaID_1" name="SocialmediaID[]" value="0">
+                            <select class="form-control   tbtn" id="SocialMediaType_1" name="SocialMediaType[]">
+                                <option disabled selected>Social Media Type</option>
 
+                            </select>
+                            <input type="text" id="SocialMediaURL_1" name="url[]" class="form-control"
+                                placeholder="Social Media URL">
+                            <button class="btn btn-upload btn-success Sbtn-add " onclick="addSocial()"
+                                style="padding: 3px 8px;" type="button">
+                                <i class="fa fa-plus"> </i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <script>
+                var socialTypeData = []
+                var SCloneDiv = $("#ScloneDiv");
+                var i = $("#ScloneId").length + 1;
+
+                window.addSocial = function () {
+                    console.log(i);
+                    var SocialHtml = `<div class="mb-1 input-group upload-input-group" id="ScloneId">
+                        <input type="hidden" id="SocialmediaID_` + i + `" name="SocialmediaID[]" value='0'>
+                        <select class="form-control   tbtn" id="SocialMediaType_` + i + `" name="SocialMediaType[]">
+                            <option disabled selected>Social Media Type</option>`
+                    for (let j = 0; j < socialTypeData.length; j++) {
+                        SocialHtml +=
+                            '<option name="SocialMediaType"  value="' + socialTypeData[j]['SocialMediaTypeID'] + '">' + socialTypeData[j]['SocialMediaType'] + '</option>';
+                    }
+                    SocialHtml += `  </select>`
+                    SocialHtml += `<input type="text" id="SocialMediaURL_` + i + `" name="url[]" class="form-control  "
+                                placeholder="Social Media URL">
+                                    <button class="btn btn-upload btn-danger " onclick="removeCont(this);" style="padding: 4px 8px" type="button">
+                                        <i class="fa fa-trash"> </i>
+                                    </button>
+                                </div>`;
+
+
+                    $(SocialHtml).appendTo(SCloneDiv);
+                    i++;
+                    return false;
+
+                }
+            </script>
         </section>
 
         <!-- for Photo -->
@@ -328,26 +441,134 @@
             </button>
             <div id="dvAddress" class="collapse mt-2">
                 <section>
-                    <div class="form-row" style="margin-bottom: 18px">
+                    <div class="controls" style="min-width: 600px" id="AcloneDiv">
+                        <div class=" mb-5" id="AcloneId">
+                            <div class="form-row mb-2">
+                                <input type="hidden" id="AddID_1" name="AddressID[]" value="0">
+                                <div class="col-4">
+                                    <select class="form-control tbtn  " id="AddressType_1" name="AddressType[]">
+                                        <option disabled selected>Address Type</option>
+                                    </select>
+                                </div>
+                                <div class="col-8">
+                                    <textarea name="Address[]" id="Add_1" class="form-control " placeholder="Address"
+                                        style="height: 108px"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row mb-2">
+                                <div class="col">
 
-                        <input type="hidden" id="Address" name="AddressID">
+                                    <input type="text" class="form-control" id="City_1" name="City[]"
+                                        placeholder="City">
+                                </div>
 
-                        <select class="form-control tbtn  " id="AddressType" name="AddressType" style="max-width: 30%">
-                            <option disabled selected>Address Type</option>
-                        </select>
-                        <textarea name="Address" id="Add" class="form-control   mt-1" placeholder="Address"
-                            style="height: 108px"></textarea>
+                                <div class="col">
+
+                                    <input type="text" class="form-control  " id="District_1" name="District[]"
+                                        placeholder="District">
+                                </div>
+                                <div class="col">
+
+                                    <input type="text" class="form-control" id="State_1" name="State[]"
+                                        placeholder="State">
+                                </div>
+                            </div>
+                            <div class="form-row mb-2">
+                                <div class="col-5">
+                                    <input type="text" class="form-control   " id="Country_1" name="Country[]"
+                                        placeholder="Country">
+                                </div>
+                                <div class="col-5">
+
+                                    <input type="number" class="form-control   " id="ZipCode_1" name="PinCode[]"
+                                        placeholder="Pin Code">
+                                </div>
+                                <div class="col text-center">
+
+                                    <button class="btn btn-upload btn-success Sbtn-add " onclick="addAddress()"
+                                        style="padding: 3px 8px;" type="button">
+                                        <i class=" fa fa-plus"> </i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-row"> <input type="text" class="form-control  " id="City" name="City"
-                            placeholder="City"> </div>
-                    <div class="form-row"> <input type="text" class="form-control  " id="District" name="District"
-                            placeholder="District"> </div>
-                    <div class="form-row"> <input type="text" class="form-control  " id="Stat" name="State"
-                            placeholder="Stat"> </div>
-                    <div class="form-row"> <input type="text" class="form-control  " id="Country" name="Country"
-                            placeholder="Country"> </div>
-                    <div class="form-row"> <input type="number" class="form-control  " id="ZipCode" name="PinCode"
-                            placeholder="Pin Code"> </div>
+                    <script>
+                        var addTypeData = []
+                        var ACloneDiv = $("#AcloneDiv");
+                        var i = $("#AcloneId").length + 1;
+
+                        window.addAddress = function () {
+                            console.log(i);
+                            var AddHtml = ` <div class=" mb-5" id="AcloneId">
+                            <div class="form-row mb-2">
+                                <input type="hidden" id="AddID_` + i + `" name="AddressID[]" value="0">
+                                <div class="col-4">
+                                    <select class="form-control tbtn  " id="AddressType_` + i + `" name="AddressType[]" style="">
+                                        <option disabled selected>Address Type</option>
+                                    `
+
+                            for (let j = 0; j < addTypeData.length; j++) {
+                                AddHtml +=
+                                    '<option name="AddressType"  value="' + addTypeData[j]['AddressTypeID'] + '">' + addTypeData[j]['AddressType'] + '</option>'
+                            }
+
+                            AddHtml += `</select>
+                                </div>
+                                <div class="col-8">
+                                    <textarea name="Address[]" id="Add_` + i + `" class="form-control " placeholder="Address"
+                                        style="height: 108px"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-row mb-2">
+                                <div class="col">
+
+                                    <input type="text" class="form-control" id="City_` + i + `" name="City[]" placeholder="City">
+                                </div>
+
+                                <div class="col">
+
+                                    <input type="text" class="form-control  " id="District_` + i + `" name="District[]"
+                                        placeholder="District">
+                                </div>
+                                <div class="col">
+
+                                    <input type="text" class="form-control" id="State_` + i + `" name="State[]" placeholder="State">
+                                </div>
+                            </div>
+                            <div class="form-row mb-2">
+                                <div class="col-5">
+                                    <input type="text" class="form-control   " id="Country_` + i + `" name="Country[]"
+                                        placeholder="Country">
+                                </div>
+                                <div class="col-5">
+
+                                    <input type="number" class="form-control   " id="ZipCode_` + i + `" name="PinCode[]"
+                                        placeholder="Pin Code">
+                                </div>
+                                <div class="col text-center">
+
+                                        <button class="btn btn-upload btn-danger " onclick="removeAdd(this);" style="padding: 4px 8px" type="button">
+                                        <i class="fa fa-trash"> </i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>`;
+
+
+                            $(AddHtml).appendTo(ACloneDiv);
+                            i++;
+                            return false;
+
+                        }
+
+                        function removeAdd(_this) {
+                            if (i > 1) {
+                                $(_this).closest('#AcloneId').remove();
+                                i--;
+                            }
+                        }
+                    </script>
 
                 </section>
             </div>
@@ -391,7 +612,7 @@
                 }
             })
             .then((myJson) => {
-                // console.log(myJson);
+                console.log(myJson);
 
                 var ele = document.getElementById('Entitytype');
                 var entity = myJson['Entity_Type']
@@ -401,12 +622,14 @@
                 }
 
                 //    for social media 
-                var social_ele = document.getElementById('SocialMediaType');
-                var Social = myJson['SocialMedia_Type']
-                for (var i = 0; i < Social.length; i++) {
-                    social_ele.innerHTML = social_ele.innerHTML +
-                        '<option name="SocialMediaType"  value="' + Social[i]['SocialMediaTypeID'] + '">' + Social[i]['SocialMediaType'] + '</option>';
+                socialTypeData = myJson['SocialMedia_Type']
+                window.SocialTypeDetails = function (social_ele) {
+                    for (var i = 0; i < socialTypeData.length; i++) {
+                        social_ele.innerHTML = social_ele.innerHTML +
+                            '<option name="SocialMediaType"  value="' + socialTypeData[i]['SocialMediaTypeID'] + '">' + socialTypeData[i]['SocialMediaType'] + '</option>';
+                    }
                 }
+                SocialTypeDetails(document.getElementById('SocialMediaType_1'))
                 //    for photo type 
                 var photo_ele = document.getElementById('PhotoType');
                 var photo = myJson['Photo_Type']
@@ -450,66 +673,68 @@
                 //    for HeadCountType  
                 var industry_ele = document.getElementById('IndustryType');
                 var industry = myJson['Industry_Type']
-                for (var i = 0; i < industry.length; i++) {
+                for (let i = 0; i < industry.length; i++) {
                     industry_ele.innerHTML = industry_ele.innerHTML +
                         '<option name="IndustryType"  value="' + industry[i]['IndustryID'] + '">' + industry[i]['IndustryType'] + '</option>';
                 }
 
                 //    for Address Type  
-                var adress_ele = document.getElementById('AddressType');
-                var adress = myJson['Address_Type']
-                for (var i = 0; i < adress.length; i++) {
-                    adress_ele.innerHTML = adress_ele.innerHTML +
-                        '<option name="AddressType"  value="' + adress[i]['AddressTypeID'] + '">' + adress[i]['AddressType'] + '</option>';
+                addTypeData = myJson['Address_Type']
+                window.AddtypeDetails = function (add_ele) {
+                    for (let i = 0; i < addTypeData.length; i++) {
+                        add_ele.innerHTML = add_ele.innerHTML +
+                            '<option name="AddressType"  value="' + addTypeData[i]['AddressTypeID'] + '">' + addTypeData[i]['AddressType'] + '</option>';
+                    }
                 }
+                AddtypeDetails(document.getElementById('AddressType_1'));
+
 
                 //    for Email Type  
-                var email_ele = document.getElementById('EmailType');
-                var email = myJson['Email_Type']
-                for (var i = 0; i < email.length; i++) {
-                    email_ele.innerHTML = email_ele.innerHTML +
-                        '<option name="EmailType"  value="' + email[i]['EmailTypeID'] + '">' + email[i]['EmailType'] + '</option>';
+                emailTypeData = myJson['Email_Type']
+                window.EmailtypeDetails = function (email_ele) {
+                    for (let i = 0; i < emailTypeData.length; i++) {
+                        email_ele.innerHTML = email_ele.innerHTML +
+                            '<option name="EmailType"  value="' + emailTypeData[i]['EmailTypeID'] + '">' + emailTypeData[i]['EmailType'] + '</option>';
+                    }
                 }
-
-                //    for Phone Type  
-                var phone_ele = document.getElementById('PhoneType');
-                var phone = myJson['Phone_Type']
-                for (var i = 0; i < phone.length; i++) {
-                    phone_ele.innerHTML = phone_ele.innerHTML +
-                        '<option name="PhoneType"  value="' + phone[i]['PhoneTypeID'] + '">' + phone[i]['PhoneType'] + '</option>';
-                }
+                EmailtypeDetails(document.getElementById('EmailType_1'));
 
 
-                //    for Country  
-                var country_ele = document.getElementById('Country');
-                var country = myJson['Country_Code']
-                for (var i = 0; i < country.length; i++) {
-                    country_ele.innerHTML = country_ele.innerHTML +
-                        '<option name="CountryName"  value="' + country[i]['CountryCodeIDF']['CountryCodeID'] + '">' + country[i]['CountryCodeIDF']['CountryName'] + '</option>';
+                // for Phone
+                phoneTypeData = myJson['Phone_Type'];
+                window.PhonetypeDetails = function (phone_ele) {
+                    var phone = myJson['Phone_Type']
+                    // console.log(phone_ele)
+                    for (let i = 0; i < phone.length; i++) {
+                        phone_ele.innerHTML = phone_ele.innerHTML +
+                            '<option name="PhoneType"  value="' + phone[i]['PhoneTypeID'] + '">' + phone[i]['PhoneType'] + '</option>';
+                    }
                 }
+                PhonetypeDetails(document.getElementById('PhoneType_1'));
+
+
+                //    for Country Code
+                countryData = myJson['Country_Code']
+                window.PhoneCountry = function (C_ele) {
+                    for (var i = 0; i < countryData.length; i++) {
+                        C_ele.innerHTML = C_ele.innerHTML +
+                            '<option name="CountryName"  value="' + countryData[i]['CountryCodeIDF']['CountryCodeID'] + '">' + countryData[i]['CountryCodeIDF']['CountryName'] + '</option>';
+                    }
+                }
+
+                PhoneCountry(document.getElementById('CountryName_1'));
                 window.getCountry = function (selectObject) {
-                    var country = myJson['Country_Code']
+                    let countryData = myJson['Country_Code']
 
-                    var value = selectObject.value;
-                    console.log(country);
-                    // var Ccode_ele = document.getElementById('CountryCode');
-                    for (var i = 0; i < selectObject.length; i++) {
-                        console.log(country[i]['CountryCodeIDF']['CountryCodeID']);
-                        console.log(selectObject.value)
-                        if (selectObject.value == country[i]['CountryCodeIDF']['CountryCodeID']) {
-                            document.getElementById("CountryCode").value = country[i]['CountryCode'];
+                    for (var i = 0; i < countryData.length; i++) {
+
+                        let selectedCntId = $(selectObject).attr("id").split("_");
+
+                        if (selectObject.value == countryData[i]['CountryCodeIDF']['CountryCodeID']) {
+                            document.getElementById('CountryCode_' + selectedCntId[1]).value = countryData[i]['CountryCode'];
                         }
                     }
                 }
-                // country_ele.onchange = function () {
-                //     // console.log(country_ele.value);
-                //     for (var i = 0; i < country_ele.length; i++) {
-                //         if (country_ele.value == country[i]['CountryCodeIDF']['CountryCodeID']) {
-                //             document.getElementById("CountryCode").value = country[i]['CountryCode'];
-                //         }
-                //     }
-                // }
-
             });
 
         if (Pid) {
@@ -533,9 +758,15 @@
                         document.getElementById("FirstName").value = myJson['Person']["FirstName"];
                         document.getElementById("MiddleName").value = myJson['Person']["MiddleName"];
                         document.getElementById("LastName").value = myJson['Person']["LastName"];
-                        document.getElementById("Gcode").value = myJson['Person']["Gender"];
+                        if (myJson['Person']["Gender"] == 'F') {
+                            document.getElementById("Gender").selectedIndex = 2;
+                        }
+                        else {
+                            document.getElementById("Gender").selectedIndex = 1;
+
+                        }
                         document.getElementById("DOB").value = myJson['Person']["DOB"];
-                        document.getElementById("SuffixType").selectedIndex = myJson['Person']["SuffixIDF"]["SuffixID"];
+                        document.getElementById("SuffixType").value = myJson['Person']["SuffixIDF"]["SuffixID"];
                         document.getElementById("PersonType").selectedIndex = myJson['Person']["PersonTypeIDF"]["PersonTypeID"];
                         document.getElementById("Designation").value = myJson['Person']["Designation"];
                     } else {
@@ -548,44 +779,91 @@
                         document.getElementById("Headquarter").value = myJson['Company']["Headquarter"];
                         document.getElementById("WebsiteURL").value = myJson['Company']["WebsiteURL"];
                         document.getElementById("About").value = myJson['Company']["About"];
-                        document.getElementById("Speciality").value = myJson['Company']["Specialities"];
+                        document.getElementById("Specialities").value = myJson['Company']["Specialities"];
                         document.getElementById("Founded").value = myJson['Company']["Founded"];
                         document.getElementById("AnnualRevenue").value = myJson['Company']["AnnualRevenue"];
                         document.getElementById("HeadCountType").selectedIndex = myJson['Company']["HeadcountIDF"]["HeadCountTypeIDF"]["HeadCountTypeID"];
                         document.getElementById("HeadCount").value = myJson['Company']["HeadcountIDF"]["HeadCountRange"];
-                        // document.getElementById("HeadCountID").value = myJson['Company']["HeadcountIDF"]["HeadCountID"];
+                        document.getElementById("HeadCountID").value = myJson['Company']["HeadcountIDF"]["HeadCountID"];
                         document.getElementById("CompanyType").selectedIndex = myJson['Company']["CompanyTypeIDF"]["CompanyTypeID"];
                         document.getElementById("IndustryType").selectedIndex = myJson['Company']["IndustryIDF"]["IndustryID"];
                     }
                     if (myJson['Email']) {
-                        document.getElementById("EmailType").selectedIndex = myJson['Email'][0]['EmailIDF']["EmailTypeIDF"]["EmailTypeID"];
-                        document.getElementById("EmailAddress").value = myJson['Email'][0]['EmailIDF']["EmailAddress"];
-                        // document.getElementById("EmailID").value = myJson[0]["EmailIDF"]["EmailID"];
+                        var EmailData = myJson['Email']
+                        for (let i = 0; i < EmailData.length; i++) {
+                            if (EmailData.length > (i + 1)) {
+                                addEmail();
+                            }
+                            let j = i + 1;
+                            document.getElementById("EmailType_" + j).selectedIndex = myJson['Email'][i]['EmailIDF']["EmailTypeIDF"]["EmailTypeID"];
+                            document.getElementById("EmailAddress_" + j).value = myJson['Email'][i]['EmailIDF']["EmailAddress"];
+                            document.getElementById("EmailID_" + j).value = myJson['Email'][i]["EmailIDF"]["EmailID"];
+                        }
                     }
+
                     if (myJson['Phone']) {
-                        document.getElementById("PhoneType").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
-                        document.getElementById("Country").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
-                        // document.getElementById("CodeID").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CodeID"];
-                        document.getElementById("CountryCode").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCode"];
-                        document.getElementById("PhoneNo").value = myJson['Phone'][0]["PhoneIDF"]["PhoneNo"];
-                        // document.getElementById("PhoneID").value = myJson['Phone'][0]["PhoneIDF"]["PhoneID"];
+
+                        var PhoneData = myJson['Phone'];
+
+                        for (let i = 0; i < PhoneData.length; i++) {
+                            // console.log(i)
+                            if (PhoneData.length > (i + 1)) {
+                                addPhone();
+                            }
+                            let j = i + 1;
+                            document.getElementById("PhoneType_" + j).selectedIndex = myJson['Phone'][i]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
+                            document.getElementById("CountryName_" + j).selectedIndex = myJson['Phone'][i]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
+                            // console.log(document.getElementById("CodeID_" + j))
+                            document.getElementById("CodeID_" + j).value = myJson['Phone'][i]["PhoneIDF"]["CodeIDF"]["CodeID"];
+
+                            document.getElementById("CountryCode_" + j).value = myJson['Phone'][i]["PhoneIDF"]["CodeIDF"]["CountryCode"];
+
+                            document.getElementById("PhoneNo_" + j).value = myJson['Phone'][i]["PhoneIDF"]["PhoneNo"];
+                            document.getElementById("PhoneID_" + j).value = myJson['Phone'][i]["PhoneIDF"]["PhoneID"];
+
+                        }
+
                     }
                     if (myJson['SocialMedia']) {
-                        document.getElementById("SocialMediaType").selectedIndex = myJson['SocialMedia'][0]["SocialMediaIDF"]["SocialMediaTypeIDF"]["SocialMediaTypeID"];
-                        document.getElementById("SocialMediaURL").value = myJson['SocialMedia'][0]["SocialMediaIDF"]["url"];
+                        var SocialData = myJson['SocialMedia']
+                        // console.log('1');
+                        for (let i = 0; i < SocialData.length; i++) {
+                            if (SocialData.length > (i + 1)) {
+                                addSocial();
+                            }
+                            let j = i + 1;
+
+                            document.getElementById("SocialmediaID_" + j).value = myJson['SocialMedia'][i]["SocialMediaIDF"]["SocialmediaID"];
+                            document.getElementById("SocialMediaType_" + j).selectedIndex = myJson['SocialMedia'][i]["SocialMediaIDF"]["SocialMediaTypeIDF"]["SocialMediaTypeID"];
+                            document.getElementById("SocialMediaURL_" + j).value = myJson['SocialMedia'][i]["SocialMediaIDF"]["url"];
+                            // console.log('2');
+
+                        }
+
                     }
                     if (myJson['Photo']) {
+                        // console.log(myJson['Photo']['Photo']);
                         document.getElementById("PhotoType").selectedIndex = myJson['Photo']["PhotoTypeIDF"]["PhotoTypeID"];
-                        document.getElementById("Photo").src = myJson['Photo']["url"];
+
+                        // document.getElementById("Photo").value = myJson['Photo']['Photo'];
                     }
                     if (myJson['Address']) {
-                        document.getElementById("AddressType").selectedIndex = myJson['Address'][0]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
-                        document.getElementById("Add").value = myJson['Address'][0]["AddressIDF"]["Address"];
-                        document.getElementById("City").value = myJson['Address'][0]["AddressIDF"]["City"];
-                        document.getElementById("District").value = myJson['Address'][0]["AddressIDF"]["District"];
-                        document.getElementById("Stat").value = myJson['Address'][0]["AddressIDF"]["State"];
-                        document.getElementById("Country").value = myJson['Address'][0]["AddressIDF"]["Country"];
-                        document.getElementById("ZipCode").value = myJson['Address'][0]["AddressIDF"]["PinCode"];
+                        var AddData = myJson['Address']
+                        for (let i = 0; i < AddData.length; i++) {
+                            if (AddData.length > (i + 1)) {
+                                addAddress();
+                            }
+                            let j = i + 1;
+                            console.log(document.getElementById("AddressType_" + j))
+                            document.getElementById("AddressType_" + j).selectedIndex = myJson['Address'][i]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
+                            document.getElementById("Add_" + j).value = myJson['Address'][i]["AddressIDF"]["Address"];
+                            document.getElementById("AddID_" + j).value = myJson['Address'][i]["AddressIDF"]["AddressID"];
+                            document.getElementById("City_" + j).value = myJson['Address'][i]["AddressIDF"]["City"];
+                            document.getElementById("District_" + j).value = myJson['Address'][i]["AddressIDF"]["District"];
+                            document.getElementById("State_" + j).value = myJson['Address'][i]["AddressIDF"]["State"];
+                            document.getElementById("Country_" + j).value = myJson['Address'][i]["AddressIDF"]["Country"];
+                            document.getElementById("ZipCode_" + j).value = myJson['Address'][i]["AddressIDF"]["PinCode"];
+                        }
                     }
 
                 })
@@ -623,9 +901,10 @@
             data.append(keys[i], value[keys[i]]);
         }
         data.append('Photo', input.files[0])
+        // console.log(input.files[0]);
 
         if (Pid) {
-            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: JSON.stringify(value), headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: data, headers: { "Authorization": "Bearer " + AToken } })
                 .then((response) => {
                     if (response.status == 200) {
 
@@ -651,7 +930,7 @@
         } else {
 
             // value.Photo = f
-            // console.log(data)
+            // console.log(value)
             fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'post', body: data, headers: { "Authorization": "Bearer " + AToken } })
                 .then((response) => {
                     if (response.status == 201) {
