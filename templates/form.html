@@ -243,8 +243,13 @@
                                     <option disabled selected>Phone Type</option>
                                 </select>
 
+<<<<<<< HEAD
                                 <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName[]"
                                     id="CountryName_1">
+=======
+                                <select class="form-control tbtn" onchange="getCountry(this)" name="CountryName"
+                                    id="CountryName">
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                                     <option disabled selected>Country</option>
                                 </select>
 
@@ -331,6 +336,7 @@
                 Details</button>
             <div id="dvSocial" class="collapse mt-2">
                 <div class="form-row">
+<<<<<<< HEAD
                     <div class="controls" style="min-width: 600px" id="ScloneDiv">
                         <div class="mb-1 input-group upload-input-group" id="ScloneId">
 
@@ -347,6 +353,16 @@
                             </button>
                         </div>
                     </div>
+=======
+                    <input type="hidden" id="SocialmediaID" name="SocialmediaID">
+                    <select class="form-control   tbtn" id="SocialMediaType" name="SocialMediaType">
+                        <option disabled selected>Social Media Type</option>
+
+                    </select>
+                    <input type="text" id="SocialMediaURL" name="url" class="form-control  mt-1"
+                        placeholder="Social Media URL">
+
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                 </div>
             </div>
             <script>
@@ -462,7 +478,11 @@
                                         placeholder="City">
                                 </div>
 
+<<<<<<< HEAD
                                 <div class="col">
+=======
+                        <input type="hidden" id="AddID" name="AddressID">
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
 
                                     <input type="text" class="form-control  " id="District_1" name="District[]"
                                         placeholder="District">
@@ -713,6 +733,7 @@
                 PhonetypeDetails(document.getElementById('PhoneType_1'));
 
 
+<<<<<<< HEAD
                 //    for Country Code
                 countryData = myJson['Country_Code']
                 window.PhoneCountry = function (C_ele) {
@@ -720,10 +741,19 @@
                         C_ele.innerHTML = C_ele.innerHTML +
                             '<option name="CountryName"  value="' + countryData[i]['CountryCodeIDF']['CountryCodeID'] + '">' + countryData[i]['CountryCodeIDF']['CountryName'] + '</option>';
                     }
+=======
+                //    for Country  
+                var country_ele = document.getElementById('CountryName');
+                var country = myJson['Country_Code']
+                for (var i = 0; i < country.length; i++) {
+                    country_ele.innerHTML = country_ele.innerHTML +
+                        '<option name="CountryName"  value="' + country[i]['CountryCodeIDF']['CountryCodeID'] + '">' + country[i]['CountryCodeIDF']['CountryName'] + '</option>';
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                 }
 
                 PhoneCountry(document.getElementById('CountryName_1'));
                 window.getCountry = function (selectObject) {
+<<<<<<< HEAD
                     let countryData = myJson['Country_Code']
 
                     for (var i = 0; i < countryData.length; i++) {
@@ -732,6 +762,18 @@
 
                         if (selectObject.value == countryData[i]['CountryCodeIDF']['CountryCodeID']) {
                             document.getElementById('CountryCode_' + selectedCntId[1]).value = countryData[i]['CountryCode'];
+=======
+                    var country = myJson['Country_Code']
+
+                    var value = selectObject.value;
+                    // console.log(country);
+                    // var Ccode_ele = document.getElementById('CountryCode');
+                    for (var i = 0; i < selectObject.length; i++) {
+                        console.log(country[i]['CountryCodeIDF']['CountryCodeID']);
+                        console.log(selectObject.value)
+                        if (selectObject.value == country[i]['CountryCodeIDF']['CountryCodeID']) {
+                            document.getElementById("CountryCode").value = country[i]['CountryCode'];
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                         }
                     }
                 }
@@ -789,6 +831,7 @@
                         document.getElementById("IndustryType").selectedIndex = myJson['Company']["IndustryIDF"]["IndustryID"];
                     }
                     if (myJson['Email']) {
+<<<<<<< HEAD
                         var EmailData = myJson['Email']
                         for (let i = 0; i < EmailData.length; i++) {
                             if (EmailData.length > (i + 1)) {
@@ -799,9 +842,15 @@
                             document.getElementById("EmailAddress_" + j).value = myJson['Email'][i]['EmailIDF']["EmailAddress"];
                             document.getElementById("EmailID_" + j).value = myJson['Email'][i]["EmailIDF"]["EmailID"];
                         }
+=======
+                        document.getElementById("EmailType").selectedIndex = myJson['Email'][0]['EmailIDF']["EmailTypeIDF"]["EmailTypeID"];
+                        document.getElementById("EmailAddress").value = myJson['Email'][0]['EmailIDF']["EmailAddress"];
+                        document.getElementById("EmailID").value = myJson['Email'][0]["EmailIDF"]["EmailID"];
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                     }
 
                     if (myJson['Phone']) {
+<<<<<<< HEAD
 
                         var PhoneData = myJson['Phone'];
 
@@ -840,6 +889,20 @@
 
                         }
 
+=======
+                        document.getElementById("PhoneType").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
+                        document.getElementById("CountryName").selectedIndex = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
+                        // console.log(myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"])
+                        document.getElementById("CodeID").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CodeID"];
+                        document.getElementById("CountryCode").value = myJson['Phone'][0]["PhoneIDF"]["CodeIDF"]["CountryCode"];
+                        document.getElementById("PhoneNo").value = myJson['Phone'][0]["PhoneIDF"]["PhoneNo"];
+                        document.getElementById("PhoneID").value = myJson['Phone'][0]["PhoneIDF"]["PhoneID"];
+                    }
+                    if (myJson['SocialMedia']) {
+                        document.getElementById("SocialmediaID").value = myJson['SocialMedia'][0]["SocialMediaIDF"]["SocialmediaID"];
+                        document.getElementById("SocialMediaType").selectedIndex = myJson['SocialMedia'][0]["SocialMediaIDF"]["SocialMediaTypeIDF"]["SocialMediaTypeID"];
+                        document.getElementById("SocialMediaURL").value = myJson['SocialMedia'][0]["SocialMediaIDF"]["url"];
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                     }
                     if (myJson['Photo']) {
                         // console.log(myJson['Photo']['Photo']);
@@ -848,6 +911,7 @@
                         // document.getElementById("Photo").value = myJson['Photo']['Photo'];
                     }
                     if (myJson['Address']) {
+<<<<<<< HEAD
                         var AddData = myJson['Address']
                         for (let i = 0; i < AddData.length; i++) {
                             if (AddData.length > (i + 1)) {
@@ -864,6 +928,16 @@
                             document.getElementById("Country_" + j).value = myJson['Address'][i]["AddressIDF"]["Country"];
                             document.getElementById("ZipCode_" + j).value = myJson['Address'][i]["AddressIDF"]["PinCode"];
                         }
+=======
+                        document.getElementById("AddressType").selectedIndex = myJson['Address'][0]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
+                        document.getElementById("Add").value = myJson['Address'][0]["AddressIDF"]["Address"];
+                        document.getElementById("AddID").value = myJson['Address'][0]["AddressIDF"]["AddressID"];
+                        document.getElementById("City").value = myJson['Address'][0]["AddressIDF"]["City"];
+                        document.getElementById("District").value = myJson['Address'][0]["AddressIDF"]["District"];
+                        document.getElementById("Stat").value = myJson['Address'][0]["AddressIDF"]["State"];
+                        document.getElementById("Country").value = myJson['Address'][0]["AddressIDF"]["Country"];
+                        document.getElementById("ZipCode").value = myJson['Address'][0]["AddressIDF"]["PinCode"];
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
                     }
 
                 })
@@ -901,7 +975,11 @@
             data.append(keys[i], value[keys[i]]);
         }
         data.append('Photo', input.files[0])
+<<<<<<< HEAD
         // console.log(input.files[0]);
+=======
+        console.log(input.files[0]);
+>>>>>>> 9d1c0a89b694af257993dcac743050f069a32884
 
         if (Pid) {
             fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: data, headers: { "Authorization": "Bearer " + AToken } })
