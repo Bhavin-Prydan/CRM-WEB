@@ -364,54 +364,6 @@
                 <div class=" card mb-0 "
                     style=" border-top: 1px solid rgb(203, 214, 226);border-bottom: 0;border-right:0;background-color: #f5f8fa">
                     <div id="accordion" class="DCard accordion">
-                        <!-- <div class="card-header collapsed callA " aria-expanded="true" data-toggle="collapse"
-                            href="#collapseOne" style="">
-                            <a class="card-title text-dark ">
-                                About This Contact
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="card-body collapse show" style="padding:10px"
-                            data-parent="#accordion">
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="Fname" name="Fname" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">First Name</label>
-                            </div>
-                            <div class="form-group-cInfo">
-
-                                <input class="cInfo" id="Mname" name="Mname" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Middle Name</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="Lname" name="Lname" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Last Name</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="email" name="email" type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Email</label>
-                            </div>
-                            <div class="form-group-cInfo">
-                                <input class="cInfo" id="Phone NO." name="Phone NO." type="text" readonly>
-                                <label class="cInfo-label" for="yourname">Phone Number</label>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
-                            href="#collapseTwo">
-                            <a class="card-title text-dark ">
-                                Website Activity
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
-                            <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                                squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck
-                                quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt
-                                aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil
-                                anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat
-                                craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                                of them accusamus labore sustainable VHS.
-                            </p>
-                        </div> -->
 
                     </div>
                 </div>
@@ -901,7 +853,7 @@
         if (result) {
             //Logic to delete the item
             // alert("deleted");
-            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'delete', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'delete', body: data, headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
                 .then((response) => {
                     if (response.status == 200) {
                         return response.json();
@@ -916,9 +868,7 @@
             //     // Handle the error
             //     showToast(error + "/n" + "Try Again ");
             // });
-            // sessionStorage.setItem("Msg", "Delete Contact SucessFully");
 
-            // window.location = "/contacts"
         }
     };
 </script>

@@ -69,8 +69,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 <section class="mt-3 container">
     <nav>
         <div class="nav nav-tabs contact-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" style=" " id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                role="tab" aria-controls="nav-home" aria-selected="true">All contacts</a>
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true">All contacts</a>
             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
                 aria-controls="nav-profile" aria-selected="false">My contacts</a>
             <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
@@ -143,11 +143,18 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                                     aria-expanded="false">
                                     Action
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
+                                <ul class="dropdown-menu m-0 ">
+                                    <li><button class="dropdown-item Abtn" id="EContact"
+                                            onclick="Edit_Contact()">Edit</button></li>
+                                    <li><button class="dropdown-item Abtn" id="DContact"
+                                            onclick="Delete_Contacts()">Delete</button>
+                                    </li>
+                                </ul>
+                                <!-- <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
                                     <a class="dropdown-item" href="#">Action</a>
                                     <a class="dropdown-item" href="#">Another action</a>
                                     <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
+                                </div> -->
 
                             </div>
                             <div class="dropdown col-md-4">
@@ -173,7 +180,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                     <div class="">
                         <div class="">
                             <div class="sresult" style="overflow-x:auto;">
-                                <table class="table table-bordered table-condensed table-hover text-center"
+                                <table class="table table-bordered table-condensed table-hover text-left"
                                     id="contactTable">
                                     <thead>
                                         <tr>
@@ -191,7 +198,6 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                                         </tr>
                                     </thead>
                                     <tbody class="Cbody">
-
 
                                     </tbody>
                                 </table>
@@ -222,6 +228,54 @@ border-color: #ff7a59;color: #fff">Create contact</a>
             showToast(Msg);
             sessionStorage.removeItem("Msg");
         }
+        window.Edit_Contact = function () {
+            // let Eid = $("input[name='EntityID[]']:checked").val();
+            let Eid = []
+            $.each($("input[name='EntityID[]']:checked"), function () {
+                Eid.push($(this).val());
+            });
+            if (Eid == "") {
+                showToast("Select Entity ");
+            } else if (Eid.length > 1) {
+                showToast("Select only one Entity");
+            } else {
+                window.location = '/contact_form/' + Eid
+            }
+        }
+
+        window.Delete_Contacts = function () {
+            let EntityIDs = [];
+            $.each($("input[name='EntityID[]']:checked"), function () {
+                EntityIDs.push($(this).val());
+            });
+            if (EntityIDs == "") {
+                showToast(" Select Entity");
+            } else {
+
+                var result = confirm('Are you sure to delete this Contact ?');
+                if (result) {
+                    //Logic to delete the item
+                    // alert("deleted");
+                    fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'delete', body: JSON.stringify(EntityIDs), headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
+                        .then((response) => {
+                            if (response.status == 200) {
+                                return response.json();
+                            }
+                        })
+                        .then((myJson) => {
+                            showToast("Delete Contacts SucessFully");
+                            // window.location = "/contacts"
+                            // console.log(myJson);
+                        })
+                    // .catch((error) => {
+                    //     // Handle the error
+                    //     showToast(error + "/n" + "Try Again ");
+                    // });
+
+                }
+                console.log(EntityIDs)
+            }
+        }
 
 
         let AToken = localStorage.getItem("accessToken");
@@ -243,7 +297,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                 <tr>
                     <td>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input"
+                            <input type="checkbox" name="EntityID[]"  value="${entity.EntityID}" class="custom-control-input"
                             id="customCheck${index + 1}">
                             <label class="custom-control-label" for="customCheck${index + 1}"></label>
                             </div>
@@ -297,7 +351,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                 <tr>
                     <td>
                         <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input"
+                            <input type="checkbox" name="EntityID[]" value="${entity.EntityID}" class="custom-control-input"
                             id="customCheck${ index + 1}">
                             <label class="custom-control-label" for="customCheck${index + 1}"></label>
                             </div>
@@ -317,6 +371,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                     }
                 });
         })
+
+
 
     })
 
