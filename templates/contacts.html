@@ -31,14 +31,12 @@
                         Action
                     </button>
                     <div class="dropdown-menu account-extras pr-0 pl-0" style="top:130%" aria-labelledby="dactioin">
-
                         <a class="dropdown-item" href="#">Edit Properties</a>
                         <a class="dropdown-item" href="#">Manage Duplicates</a>
                         <a class="dropdown-item" href="#">Restore Reecords</a>
                     </div>
 
                 </span>
-
                 <a href="" class="btn btn-outline-danger " style="background-color: #fff;
                 border-color: #ff7a59;
                 color: #ff7a53;font-size: 12px;
@@ -53,15 +51,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 
 
         </div>
-        <!-- <script>
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "50%";
-            }
 
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-            }
-        </script> -->
 
 </div>
 </section>
@@ -71,10 +61,10 @@ border-color: #ff7a59;color: #fff">Create contact</a>
         <div class="nav nav-tabs contact-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
                 aria-controls="nav-home" aria-selected="true">All contacts</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+            <!-- <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
                 aria-controls="nav-profile" aria-selected="false">My contacts</a>
             <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
-                aria-controls="nav-contact" aria-selected="false">Unassigned contacts</a>
+                aria-controls="nav-contact" aria-selected="false">Unassigned contacts</a> -->
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent" style="border-top:1px solid rgb(255, 255, 255);">
@@ -118,7 +108,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 
 
                         <div class="row ml-auto">
-                            <div class="dropdown col-md-4">
+                            <!--     <div class="dropdown col-md-4">
                                 <button onclick="myFunction()"
                                     class="dropbtn btn private-button--tertiary-light private-button private-button--default">Creat
                                     date</button>
@@ -135,8 +125,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                                     <a href="#support">Support</a>
                                     <a href="#tools">Tools</a>
                                 </div>
-                            </div>
-                            <div class=" dropdown col-md-4 ">
+                            </div> -->
+                            <div class=" dropdown col-md-4 ml-auto mr-3">
                                 <button
                                     class="btn dropdown-toggle private-button--tertiary-light private-button private-button--default"
                                     type="button" id="dropdownActionButton" data-toggle="dropdown" aria-haspopup="true"
@@ -150,11 +140,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                                             onclick="Delete_Contacts()">Delete</button>
                                     </li>
                                 </ul>
-                                <!-- <div class="dropdown-menu" aria-labelledby="dropdownActionButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div> -->
+
 
                             </div>
                             <div class="dropdown col-md-4">
@@ -179,9 +165,9 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 
                     <div class="">
                         <div class="">
-                            <div class="sresult" style="overflow-x:auto;">
+                            <div class="sresult">
                                 <table class="table table-bordered table-condensed table-hover text-left"
-                                    id="contactTable">
+                                    id="contactTable" style="overflow-x:auto;">
                                     <thead>
                                         <tr>
                                             <th scope="">
@@ -194,7 +180,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                                             <th scope="col" onclick="sortTable(0)"> NAME</th>
                                             <th scope="col" onclick="sortTable(1)">EMAIL</th>
                                             <th scope="col">PHONE NUMBER</th>
-                                            <th scope="">CREATE DATE</th>
+                                            <th scope="col">STATUS</th>
+                                            <th scope="col">CREATED DATE</th>
                                         </tr>
                                     </thead>
                                     <tbody class="Cbody">
@@ -207,8 +194,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                 </section>
             </div>
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+        <!-- <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div> -->
     </div>
 
 
@@ -217,17 +204,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
 
-        var isLogin = localStorage.getItem("isLogin")
-        if (isLogin != "true") {
-            // $(".authentication-btn").html("<a href='/crm_login'>Login</a>");
+        IsLogin();
 
-            window.location = "/crm_login"
-        }
-        var Msg = sessionStorage.getItem("Msg");
-        if (Msg) {
-            showToast(Msg);
-            sessionStorage.removeItem("Msg");
-        }
         window.Edit_Contact = function () {
             // let Eid = $("input[name='EntityID[]']:checked").val();
             let Eid = []
@@ -243,6 +221,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
             }
         }
 
+        const url = "http://127.0.0.1:5000/api";
+
         window.Delete_Contacts = function () {
             let EntityIDs = [];
             $.each($("input[name='EntityID[]']:checked"), function () {
@@ -251,7 +231,6 @@ border-color: #ff7a59;color: #fff">Create contact</a>
             if (EntityIDs == "") {
                 showToast(" Select Entity");
             } else {
-
                 var result = confirm('Are you sure to delete this Contact ?');
                 if (result) {
                     //Logic to delete the item
@@ -263,23 +242,22 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                             }
                         })
                         .then((myJson) => {
-                            showToast("Delete Contacts SucessFully");
-                            // window.location = "/contacts"
+                            sessionStorage.setItem("Msg", "Delete Contacts SucessFully");
+                            window.location = "/contacts"
                             // console.log(myJson);
                         })
                     // .catch((error) => {
                     //     // Handle the error
                     //     showToast(error + "/n" + "Try Again ");
                     // });
-
                 }
-                console.log(EntityIDs)
+                // console.log(EntityIDs)
             }
         }
 
 
         let AToken = localStorage.getItem("accessToken");
-        const url = "http://127.0.0.1:5000/api";
+        // const url = "http://127.0.0.1:5000/api";
         fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
             .then((response) => {
                 if (response.status == 200) {
@@ -292,25 +270,33 @@ border-color: #ff7a59;color: #fff">Create contact</a>
                 console.log(myJson)
                 let ctable = '';
                 myJson.map((entity, index) => {
-                    // console.log(entity.FullName)
+                    // console.log(entity)
+
+
                     ctable += `
                 <tr>
                     <td>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="EntityID[]"  value="${entity.EntityID}" class="custom-control-input"
+                        <div class="custom-control custom-checkbox text-center">
+                            <input type="checkbox" name="EntityID[]"  value="${entity.EntityID}" class="text-center custom-control-input"
                             id="customCheck${index + 1}">
                             <label class="custom-control-label" for="customCheck${index + 1}"></label>
                             </div>
                         </td>
-                        <td><a href="/contact_info/${entity.EntityID}">
-                            
-                            <img class="rounded-circle" id="avatar" src="http://127.0.0.1:5000${entity.Photo}"
-                        style="width:28px;height: 28px">    ${entity.FullName}</a> </td>
-                        <td><a > ${entity.EmailIDF.EmailAddress}</a> </td>
-                        <td><a > ${entity.PhoneIDF.PhoneNo}</a> </td>
+                       
+                        `
+                    if (entity.Photo == null) {
+                        ctable += ` <td> <a href="/contact_info/${entity.EntityID}">  <img class="rounded-circle mr-2" id="avatar" src="{% static 'img/default-100.jpg' %}"
+                        style="width:28px;height: 28px">${entity.FullName}</a>  </td> `
+                    } else {
+                        ctable += ` <td><a href="/contact_info/${entity.EntityID}">  <img class="rounded-circle mr-2" id="avatar" src="${entity.Photo}"
+                        style="width:28px;height: 28px">${entity.FullName}</a>   </td>`
+                    }
+                    ctable += `  <td><a > ${entity.EmailIDF.EmailAddress}</a> </td>
+                        <td class='text-center'><a > ${entity.PhoneIDF.PhoneNo}</a> </td>
+                        <td class='text-center'><a > ${entity.StatusIDF.Status}</a> </td>
                        
                     
-                        <td>${entity.CreatedAT}</td>
+                        <td class='text-center'>${entity.CreatedAT}</td>
                 </tr>
                             `
 
@@ -322,13 +308,11 @@ border-color: #ff7a59;color: #fff">Create contact</a>
         // console.log(input)
         $('#search_contact').on('keyup', function (e) {
             var search_contact = document.getElementById('search_contact').value
-            console.log(search_contact)
+            // console.log(search_contact)
 
             const Surl = `http://127.0.0.1:5000/api/EntitySearchApi/?search=${search_contact}`;
             fetch(Surl, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
                 .then((response) => {
-                    // if (response.status == 404) {
-                    // }
                     return response.json()
 
                 })
@@ -338,7 +322,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 
                     if (Object.keys(data).length === 0) {
                         $(".Cbody").html("<tr> <td colspan='7'><h3 class='text-center' style='color:#0091ae;'> Invalid Search...</h3></td> </tr>")
-                        console.log("empty...")
+                        // console.log("empty...")
                     }
                     else {
 
@@ -349,35 +333,37 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 
                             ctable += `
                 <tr>
-                    <td>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" name="EntityID[]" value="${entity.EntityID}" class="custom-control-input"
+                        <td>
+                        <div class="custom-control custom-checkbox text-center">
+                            <input type="checkbox" name="EntityID[]" value="${entity.EntityID}" class=" custom-control-input"
                             id="customCheck${ index + 1}">
                             <label class="custom-control-label" for="customCheck${index + 1}"></label>
                             </div>
                             </td>
-                            <td><a href="/contact_info/${entity.EntityID}"><img class="rounded-circle" id="avatar" src="http://127.0.0.1:5000${entity.Photo.Photo}"
-                        style="width:28px;height: 28px"> ${entity.FullName}</a> </td>
-                            
-                    
+
+                        `
+                            if (entity.Photo.Photo == null) {
+                                ctable += ` <td> <a href="/contact_info/${entity.EntityID}">  <img class="rounded-circle mr-2" id="avatar" src="{% static 'img/default-100.jpg' %}"
+                        style="width:28px;height: 28px">${entity.FullName}</a>  </td> `
+                            } else {
+                                ctable += ` <td><a href="/contact_info/${entity.EntityID}">  <img class="rounded-circle mr-2" id="avatar" src="${entity.Photo.Photo}"
+                        style="width:28px;height: 28px">${entity.FullName}</a>   </td>`
+                            }
+                            ctable += `
                         <td>${entity.Email.EmailIDF.EmailAddress}</td>
-                        <td>${entity.Phone.PhoneIDF.PhoneNo}</td>
-                        <td>${entity.CreatedAT}</td>
-                            </tr >
+                        <td class='text-center'>${entity.Phone.PhoneIDF.PhoneNo}</td>
+                        <td class='text-center'><a > ${entity.Person.StatusIDF.Status}</a> </td>
+
+                        <td class='text-center'>${entity.CreatedAT}</td>
+                </tr >
                         `
                         })
-
                         $(".Cbody").html(ctable);
                     }
                 });
         })
 
-
-
     })
-
-
-
 
 </script>
 

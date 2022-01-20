@@ -1,12 +1,11 @@
 refreshToken = localStorage.getItem("refreshToken")
 
 function getdata(url) {
-    return fetch('http://127.0.0.1:5000/api/token/refresh/', { mode: 'cors', method: 'post', headers: { "Content-type": "application/json; charset=UTF-8" }, body: JSON.stringify({ refresh: refreshToken }) })
+    return fetch(url + '/token/refresh/', { mode: 'cors', method: 'post', headers: { "Content-type": "application/json; charset=UTF-8" }, body: JSON.stringify({ refresh: refreshToken }) })
         .then((response) => {
             if (response.status >= 200) {
                 return response.json();
             } else {
-
                 return response.json();
             }
         })
@@ -19,7 +18,7 @@ function getdata(url) {
             localStorage.setItem("accessToken", myJson.access);
             AToken = localStorage.getItem("accessToken");
 
-            return fetch(url, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            return fetch(url + '/userViewSet/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
                 .then((response) => {
                     // debugger;
                     // console.log(response.json());
@@ -35,9 +34,6 @@ function getdata(url) {
                     }
                 })
                 .then((myJson) => {
-                    // console.log("/api/userViewSet/ recalled!!!")
-                    // console.log(myJson)
-
                     return myJson;
                 })
         })

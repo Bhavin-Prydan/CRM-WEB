@@ -3,6 +3,8 @@
 
 {% block body %}
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.js"></script>
 <style>
     .accordion>.card>.card-header {
         border-radius: 0;
@@ -355,12 +357,10 @@
                         <small>Note</small>
                     </li>
 
-
-
                 </ul>
             </div>
             <!-- <hr style="border-top: 1px solid rgb(203, 214, 226);"> -->
-            <div class="" style="">
+            <div>
                 <div class=" card mb-0 "
                     style=" border-top: 1px solid rgb(203, 214, 226);border-bottom: 0;border-right:0;background-color: #f5f8fa">
                     <div id="accordion" class="DCard accordion">
@@ -433,20 +433,63 @@
                                                      border-color: #cbd6e2;
                                                      color: #506e91;font-size: 14px;line-height: 14px;padding: 8px 16px;">Make
                                                         a Phone Call</a>
-                                                    <a href="" class="btn btn-outline-light call-btn mx-2"
+                                                    <a href="#callLog" id="two" data-toggle="collapse"
+                                                        class="btn button btn-outline-light call-btn mx-2"
                                                         style="background-color: #eaf0f6;
                                                         border-color: #cbd6e2;
                                                         color: #506e91;font-size: 14px;line-height: 14px;padding: 8px 16px;">Log Call</a>
-                                                </div>
-                                                <div class="mt-3">
-                                                    <p class="" style="font-size: 16px;color:black">December 2021</p>
+                                                    <div id="callLog" class="collapse">
+                                                        <div class="card">
+                                                            <form name="clogform" id="clogform" method="post">
+                                                                {% csrf_token %}
 
-                                                    <div id="Callcard" class="Callcard"
+                                                                <div class="card-header text-center font-weight-bold">
+                                                                    Call Details</div>
+                                                                <div class="card-body">
+                                                                    <!-- <h4 class="card-title">Card title</h4> -->
+                                                                    <div class="form-row my-2">
+                                                                        <input type="datetime-local"
+                                                                            class="form-control tbtn" id="date"
+                                                                            name="date">
+
+                                                                    </div>
+                                                                    <div class="form-row my-2">
+                                                                        <select class="form-control tbtn"
+                                                                            id="StatusCall" name="Status">
+                                                                            <option disabled selected>Status</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-row" style="margin-bottom: 18px">
+                                                                        <textarea name="AboutCall" id="AboutCall"
+                                                                            class="form-control  "
+                                                                            placeholder="Write about Call..."
+                                                                            style="height: 65px"></textarea>
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary btn-small" style="background-color: #eaf0f6;
+                                                                        border-color: #cbd6e2;
+                                                                        color: #506e91;
+                                                                        font-size: 14px;
+                                                                        line-height: 14px;
+                                                                        padding: 8px 16px;">Submit</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-3 CallLogs">
+                                                    <!-- <p class="" style="font-size: 16px;color:black">December 2021</p> -->
+                                                    <!-- <div id="Callcard" class="Callcard"
                                                         style=" 
                                                         box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);border-redius:3px;">
                                                         <div class="card mb-0" style="border: none;">
                                                             <div class="card-header collapsed callH"
-                                                                data-toggle="collapse" href="#Callone">
+                                                                data-toggle="collapse" href="#Callone"
+                                                                style="cursor: pointer;">
                                                                 <a class="card-title text-dark ml-2"
                                                                     style="font-size: 14px">
                                                                     <strong>Call</strong> from Bhavin Asodariya
@@ -477,7 +520,7 @@
                                                             </div>
 
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -554,13 +597,20 @@
                             Social Media Details
                         </a>
                     </div>
+
                     <div id="d5c5" class="card-body collapse social-card" data-toggle="collapse"
                         data-parent="#accordion" style="background-color: #f5f8fa; padding-top: 5px">
                     </div>
-
-
-
-
+                    <div class="card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
+                        href="#d6c6">
+                        <a class="card-title text-dark " style="font-weight: 500">
+                            Documents
+                        </a>
+                    </div>
+                    <div id="d6c6" class="card-body collapse " data-toggle="collapse" data-parent="#accordion"
+                        style="background-color: #f5f8fa; padding-top: 5px">
+                        <a href='' target="_blank" id="documentLink">Click to show Document</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -580,13 +630,55 @@
             $(this).addClass('has-value');
         }
     });
+    const url = "http://127.0.0.1:5000/api";
 
     let AToken = localStorage.getItem("accessToken");
-    const url = "http://127.0.0.1:5000/api";
+    // const url = "http://127.0.0.1:5000/api";
+    // console.log(url)
     let Pid = {{ Pid }};
     // console.log(Pid)
+
     document.addEventListener('DOMContentLoaded', function (event) {
         event.preventDefault();
+        IsLogin();
+
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('date').value = now.toISOString().slice(0, 16);
+
+        fetch(url + '/tblDocument/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                console.log(myJson);
+                document.getElementById('documentLink').href = myJson['Document']
+
+            });
+
+        fetch(url + '/stblStatus', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                // console.log(myJson);
+                // for status
+                var status_ele = document.getElementById('StatusCall');
+                var Status = myJson
+                for (var i = 0; i < Status.length; i++) {
+                    status_ele.innerHTML = status_ele.innerHTML +
+                        '<option value="' + Status[i]['Status'] + '">' + Status[i]['Status'] + '</option>';
+                }
+            });
+
         fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
             .then((response) => {
                 if (response.status >= 200 && response.status <= 299) {
@@ -598,7 +690,7 @@
             .then((myJson) => {
                 console.log(myJson);
                 if (myJson["Photo"]) {
-                    document.getElementById("avatar").src = 'http://127.0.0.1:5000' + myJson['Photo']['Photo'];
+                    document.getElementById("avatar").src = myJson['Photo']['Photo'];
                 }
                 document.getElementById("CAH1").innerHTML = myJson['Entity']["ShortName"];
                 document.getElementById("CFN").innerHTML = '(' + myJson['Entity']["FullName"] + ')';
@@ -609,7 +701,6 @@
                 // console.log(typeof (myJson))
                 Pdv = '';
                 if (myJson["Person"]) {
-
                     Pdv += `
                         <div class="card-header collapsed callA" aria-expanded="true" data-toggle="collapse"
                             href="#collapseOne" style="">
@@ -623,7 +714,7 @@
                                 <input class="cInfo" id="Fname" name="Fname" value="${myJson['Person']['FirstName']}" type="text" readonly>
                                 <label class="cInfo-label" for="yourname">First Name</label>
                             </div>
-                            <div class="form-group-cInfo">
+                            <div class="form-group-cInfo person-card">
                                 <input class="cInfo" id="Mname" name="Mname" value="${myJson['Person']['MiddleName']}" type="text" readonly>
                                 <label class="cInfo-label" for="yourname">Middle Name</label>
                                 </div>
@@ -647,7 +738,54 @@
                                 <input class="cInfo" id="SuffixType" name="SuffixType" value="${myJson['Person']['SuffixIDF']['SuffixType']}" type="text" readonly>
                                 <label class="cInfo-label" for="yourname">Suffix Type</label>
                                 </div>
-                        </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="Status" name="Status" value="${myJson['Person']['StatusIDF']['Status']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Status</label>
+                                </div>
+                                <div class="form-group-cInfo">`
+                    if (myJson['Person']['UpdatedBy'] != null) {
+
+                        Pdv += `<input class="cInfo" id="Status" name="Status" value="${myJson['Person']['UpdatedBy']['username']}" type="text" readonly>`
+                    } else {
+                        Pdv += `<input class="cInfo" id="Status" name="Status" value="${myJson['Person']['UpdatedBy']}" type="text" readonly>`
+
+                    } Pdv += `<label class="cInfo-label" for="yourname">Updated By</label>
+                                </div><div class="form-group-cInfo">`
+
+                    Pdv += `<input class="cInfo" id="Status" name="Status" value="${myJson['Person']['Designation']}" type="text" readonly>`
+                    Pdv += `<label class="cInfo-label" for="yourname">Designation</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="Experiance" name="Experiance" value="${myJson['Person']['Experiance']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">Experiance</label>
+                                </div>
+                                <div class="form-group-cInfo">
+                                <input class="cInfo" id="About" name="About" value="${myJson['Person']['AboutPerson']}" type="text" readonly>
+                                <label class="cInfo-label" for="yourname">About</label>
+                                </div>
+                                <div class=" form-group-cInfo ""
+                                    >
+                                <label class="cInfo-label" for="yourname">Skills</label>
+                                </div>`
+                    if (myJson["Skill"] != null) {
+
+                        myJson["Skill"].map((skill, i) => {
+
+
+                            Pdv += `
+                        
+                        <div class="">
+                            <input class="cInfo" id="Address" name="Address" value="${skill['SkillIDF']['Skill']}" type="text" readonly>
+                        </div>`
+                        })
+                    } else {
+                        Pdv += `
+                        
+                        <div class="">
+                            <input class="cInfo" id="Address" name="Address" value="${myJson["Skill"]}" type="text" readonly>
+                        </div>`
+                    }
+                    Pdv += ` </div>
 
                         `
 
@@ -656,6 +794,7 @@
 
                 // Pdv = '';
                 if (myJson['Company']) {
+
                     Pdv += `
                     <div class=" card-header collapsed callA" data-toggle="collapse" data-parent="#accordion"
                             href="#d3c1">
@@ -758,13 +897,10 @@
                             <input class="cInfo" id="PinCode" name="PinCode" type="text" readonly value="${add['AddressIDF']['PinCode']}">
                             <label class="cInfo-label" for="yourname">PinCode</label>
                         </div>
-
                     </div>
-
                     `
                     })
                     $(".address-card").html(Odv);
-
                 }
                 cdv = ''
                 if (myJson['Phone']) {
@@ -792,9 +928,7 @@
                             <input class="cInfo" id="PhoneNo" name="PhoneNo" type="text" readonly value="${ph['PhoneIDF']['PhoneNo']}">
                             <label class="cInfo-label" for="yourname">Phone Number</label>
                         </div>
-                        </div>
-                        <hr>
-                `
+                        </div>`
                         $(".contact-card").html(cdv);
                     })
                 }
@@ -802,7 +936,6 @@
                 if (myJson['Email']) {
                     myJson['Email'].map((em, i) => {
                         Edv += `
-                   
                         
                         <div class="Ncard form-group-cInfo collapsed" data-toggle="collapse" data-parent=".email-card"
                         href="#e`+ i + `">
@@ -826,7 +959,6 @@
                     myJson['SocialMedia'].map((sm, i) => {
 
                         Sdv += `
-               
                     <div class="Ncard form-group-cInfo collapsed" data-toggle="collapse" data-parent=".social-card"
                         href="#s`+ i + `">
                         <input class="cInfo" id="SocialType" name="SocialType" type="text" readonly value="${sm['SocialMediaIDF']['SocialMediaTypeIDF']['SocialMediaType']}">
@@ -842,18 +974,14 @@
                         $(".social-card").html(Sdv);
                     })
                 }
-
             });
-
     });
 
     function Delete_Contact() {
-        // return confirm('Are you sure to delete this Contact ?')
         var result = confirm('Are you sure to delete this Contact ?');
         if (result) {
             //Logic to delete the item
-            // alert("deleted");
-            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'delete', body: data, headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
+            fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'delete', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
                 .then((response) => {
                     if (response.status == 200) {
                         return response.json();
@@ -862,14 +990,127 @@
                 .then((myJson) => {
                     sessionStorage.setItem("Msg", "Delete Contact SucessFully");
                     window.location = "/contacts"
-                    // console.log(myJson);
                 })
             // .catch((error) => {
             //     // Handle the error
             //     showToast(error + "/n" + "Try Again ");
             // });
-
         }
     };
+    // console.log(url)
+    function fatchCallDetails() {
+
+        fetch(url + '/tblEntityCallDetails/' + Pid, { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
+            .then((response) => {
+                if (response.status == 200) {
+                    return response.json();
+                } else {
+                    throw Error(response.statusText);
+                }
+            })
+            .then((myJson) => {
+                console.log(myJson);
+                if (myJson) {
+                    Logs = ''
+                    myJson.map((log, i) => {
+                        Logs += ` <div id="Callcard" class="Callcard my-3"
+                                                        style=" 
+                                                        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);border-redius:3px;">
+                                                        <div class="card mb-0" style="border: none;">
+                                                            <div class="card-header collapsed callH"
+                                                                data-toggle="collapse" href="#Call`+ i + `"
+                                                                style="cursor: pointer;">
+                                                                <a class="card-title text-dark ml-2"
+                                                                    style="font-size: 14px">
+                                                                    <strong>Created By </strong>  ${log['CreatedBY']['username']}
+                                                                </a>
+                                                                <small class="float-right" style="color: #516f90">${log['Date']}
+                                                                    </small>
+                                                            </div>
+
+                                                            <div id="Call`+ i + `" class="card-body collapse"
+                                                                data-parent="#Callcard">
+                                                                <p class='font-weight-bold mb-1 '>Status : ${log['StatusIDF']['Status']}</p>
+                                                                <p><span class='font-weight-bold'>About Call : </span>  ${log['AboutCall']}</p>
+                                                                    <a class="card-link float-right" id=" ${log['EntityCallDetailsID']}" onclick="Delete_CallLog(${log['EntityCallDetailsID']})" href='#'><i class="fa fa-trash" style="font-size:20px"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>`
+                    })
+                    $(".CallLogs").html(Logs);
+                }
+            });
+    }
+    fatchCallDetails()
+
+    // for delete call log
+    function Delete_CallLog(Cid) {
+        var result = confirm('Are you sure to delete this Call Log ?');
+        console.log(Cid)
+        if (result) {
+            //Logic to delete the item
+            fetch(url + '/tblEntityCallDetails/' + Cid, { mode: 'cors', method: 'delete', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": ("Bearer " + AToken) } })
+                .then((response) => {
+                    if (response.status == 200) {
+                        return response.json();
+                    }
+                })
+                .then((myJson) => {
+                    console.log(myJson)
+                    sessionStorage.setItem("Msg", "Delete Call Log SucessFully");
+                    window.location = "/contact_info/" + Pid;
+                })
+        }
+    }
+    // for create call details
+    $("#clogform").submit(function (e) {
+        e.preventDefault();
+        let date = $.trim($('#date').val())
+        let AboutCall = $.trim($('#AboutCall').val())
+        let Status = $('#StatusCall').val()
+
+        if (date == "" || date == null) {
+            showToast("Please date and time Select");
+        } else if (Status == null) {
+            showToast("Please Select status");
+        } else if (AboutCall == "" || AboutCall == null) {
+            showToast("About Call can't be blank");
+        } else {
+
+            // $('#callLog').collapse('hide')
+            let value = $('#clogform').serializeJSON();
+            const keys = Object.keys(value);
+
+            var data = new FormData();
+            for (let i = 0; i < keys.length; i++) {
+                data.append(keys[i], value[keys[i]]);
+            }
+            data.append('EntityID', Pid)
+            // console.log(data)
+            // tblEntityCallDetails
+            fetch(url + '/tblEntityCallDetails', { mode: 'cors', method: 'post', body: data, headers: { "Authorization": "Bearer " + AToken } })
+                .then((response) => {
+                    if (response.status == 200) {
+                        return response.json();
+                    } else {
+                        throw Error(response.statusText);
+                    }
+
+                })
+                .then((myJson) => {
+                    sessionStorage.setItem("Msg", "Create Call Log SucessFully");
+                    window.location = "/contact_info/" + Pid;
+                    // document.getElementById("clogform").reset();
+                    // showToast("Create Call Log SucessFully");
+
+                }).catch((error) => {
+
+                    showToast(error + ", Try Again !");
+
+                });
+        }
+
+
+    });
 </script>
 {% endblock body %}

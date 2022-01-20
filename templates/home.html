@@ -1,39 +1,38 @@
 {% extends 'base.html' %}
 {% block homeactive %} active {% endblock homeactive %}
 {% block body %}
+<style>
+    .bg-cover {
+        background-attachment: static;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin-bottom: 0 !important;
+        border-radius: 0 !important;
+    }
+</style>
 
 
-<div class="container-fluid" style="background-color: #f5f8fa">
-    <div class="text-center">
-        <h1 style="letter-spacing: 3px;color: #2e3f50;">WELCOME TO PRYDAN CRM</h1>
+
+<div>
+    <div class="jumbotron j col-md-12 bg-cover"
+        style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url(/static/img/bg-home.jpg);height: 609px;">
+        <div class="container text-center">
+            <h1 class="display-4" style="letter-spacing: 3px;color: #d5d8db;font-weight: 600;">WELCOME TO PRYDAN
+            </h1>
+            <div class="mt-5">
+                <a href="/contacts" class="btn btn-outline-light">Manage CRM</a>
+            </div>
+
+        </div>
     </div>
 </div>
 
 
+
 <script>
-
     window.onload = function () {
-
-        var isLogin = localStorage.getItem("isLogin")
-        if (isLogin != "true") {
-            // $(".authentication-btn").html("<a href='/crm_login'>Login</a>");
-            window.location = "/crm_login"
-        }
-
-
-        var Msg = sessionStorage.getItem("Msg");
-        if (Msg) {
-            showToast(Msg);
-            sessionStorage.removeItem("Msg");
-        }
-
-        // function SignOut() {
-        //     alert("logout")
-        //     localStorage.setItem("isLogin", "false");
-        //     // window.location = "/crm_login";
-
-        // }
-
+        IsLogin();
     };
 </script>
 {% endblock %}

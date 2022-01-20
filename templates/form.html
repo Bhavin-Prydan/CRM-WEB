@@ -6,6 +6,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.serializeJSON/3.2.1/jquery.serializejson.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 <style>
     .Fbtn {
         background-color: #eaf0f6;
@@ -43,14 +45,7 @@
                 <div class="form-row">
                     <input type="text" class="form-control " placeholder="Short Name" id="ShortName" name="ShortName">
                 </div>
-                <!-- <span class="font-weight-bold">Entity Type :</span> -->
-                <!-- <div class="form-row float-right " style="margin-right:150px">
-                    <div class="form-check-inline pr-5">
-                        <label class="form-check-label" id="EntityType">
-                            <input type="radio" class="form-check-input" name="EntityType">Option 1
-                        </label>
-                    </div>
-                </div> -->
+
                 <div class="form-row">
 
                     <select class="form-control tbtn  " id="Entitytype" name="EntityType">
@@ -93,11 +88,50 @@
                         <option disabled selected>Suffix Type</option>
                     </select>
                 </div>
+
                 <div class="form-row">
                     <select class="form-control tbtn  " id="PersonType" name="PersonType">
                         <option disabled selected>Person Type</option>
                     </select>
                 </div>
+
+                <div class="form-row">
+                    <select class="form-control tbtn  " id="Experiance" name="Experiance">
+                        <option disabled selected>Experiance</option>
+                        <option value="1 Year">1 Year</option>
+                        <option value="2 Year">2 Year</option>
+                        <option value="3 Year">3 Year</option>
+                        <option value="4 Year">4 Year</option>
+                        <option value="5 Year">5 Year</option>
+                        <option value="6 Year">6 Year</option>
+                        <option value="7 Year">7 Year</option>
+                        <option value="8 Year">8 Year</option>
+                        <option value="9 Year">9 Year</option>
+                        <option value="10 Year">10 Year</option>
+                    </select>
+                </div>
+                <div class="mb-3 ">
+                    <label class="mr-2 col-md-2">Skills : </label>
+                    <span id='otext'></span>
+                    <select class="form-control tbtn col-md-6" id="Skill" name="Skill[]" placeholder="Select Skills"
+                        multiple>
+                        <!-- <option id="Other" value="others">Other</option> -->
+                    </select>
+
+                    <!-- <input type="text" name="OtherSkill" placeholder="Add other skill"> -->
+                </div>
+
+                <div class="form-row">
+                    <select class="form-control tbtn" id="Status" name="Status">
+                        <option disabled selected>Status</option>
+                    </select>
+                </div>
+
+                <div class="form-row" style="margin-bottom: 18px">
+                    <textarea name="AboutPerson" id="AboutPerson" class="form-control  "
+                        placeholder="About Person(**Optional)" style="height: 45px"></textarea>
+                </div>
+
                 <div class="form-row">
                     <input type="text" class="form-control  " name="Designation" id="Designation"
                         placeholder="Designation(**optional)">
@@ -156,7 +190,6 @@
                         <input type="number" id="HeadCount" name="HeadCountRange" min="1" class="form-control   mt-1"
                             placeholder="Head Count">
                     </div>
-
                     <div class="form-row">
                         <select class="form-control   tbtn" id="CompanyType" name="CompanyType">
                             <option disabled selected>Company Type</option>
@@ -218,7 +251,7 @@
                         EmailHtml += `<input type="hidden" id="EmailID_` + i + `" name="EmailID[]" value='0'>
                                 <input type="email" class="form-control  " placeholder="Enter Your Email"
                                     id="EmailAddress_`+ i + `" name="EmailAddress[]">
-                                    <button class="btn btn-upload btn-danger mb-1" onclick="removeCont(this);" style="padding: 4px 8px" type="button">
+                                    <button class="btn btn-upload btn-danger mb-1" onclick="removeEmail(this);" style="padding: 4px 8px" type="button">
                                         <i class="fa fa-trash"> </i>
                                     </button>
                                 </div>`;
@@ -227,7 +260,13 @@
                         $(EmailHtml).appendTo(ECloneDiv);
                         i++;
                         return false;
+                    }
 
+                    function removeEmail(_this) {
+                        if (i > 1) {
+                            $(_this).parent().remove();
+                            i--;
+                        }
                     }
                 </script>
 
@@ -239,25 +278,24 @@
                         <div class="controls " id="cloneDiv">
                             <div class="entry mb-1 input-group " id="cloneId">
 
-                                <select class="form-control tbtn ml-2" id="PhoneType_1" name="PhoneType[]">
+                                <select class="form-control tbtn " id="PhoneType_1" name="PhoneType[]">
                                     <option disabled selected>Phone Type</option>
                                 </select>
 
-                                <select class="form-control tbtn ml-2" onchange="getCountry(this)" name="CountryName[]"
+                                <select class="form-control tbtn " onchange="getCountry(this)" name="CountryName[]"
                                     id="CountryName_1">
                                     <option disabled selected>Country</option>
                                 </select>
 
                                 <input type="hidden" id="CodeID_1" name="CodeID[]">
 
-                                <input type="text" class="form-control tbtn ml-2" id="CountryCode_1"
-                                    name="CountryCode[]" style="padding-right:0px " placeholder="Country Code"
-                                    readonly />
+                                <input type="text" class="form-control tbtn " id="CountryCode_1" name="CountryCode[]"
+                                    style="padding-right:0px " placeholder="Country Code" readonly />
 
                                 <input type="hidden" id="PhoneID_1" name="PhoneID[]" value='0'>
-                                <input type="number" id="PhoneNo_1" name="PhoneNo[]" class="ml-2 form-control tbtn"
-                                    placeholder="Phone No." min="10" max="11" />
-                                <button class="btn btn-upload btn-success btn-add ml-4" onclick="addPhone()"
+                                <input type="number" id="PhoneNo_1" name="PhoneNo[]" class=" form-control tbtn"
+                                    placeholder="Phone No." />
+                                <button class="btn btn-upload btn-success btn-add " onclick="addPhone()"
                                     style="padding: 3px 8px;" type="button">
                                     <i class="fa fa-plus"> </i>
                                 </button>
@@ -298,12 +336,11 @@
                 
                                     <input type="hidden" id="PhoneID_`+ p + `" name="PhoneID[]" value='0'>
                                     <input type="number" id="PhoneNo_`+ p + `" name="PhoneNo[]" class="form-control"
-                                        placeholder="Enter your Phone No. *99999 99999" min="10" max="11" />
+                                        placeholder="Enter your Phone No. *99999 99999" />
                                     <button class="btn btn-upload btn-danger mb-1" onclick="removeCont(this);" style="padding: 4px 8px" type="button">
                                         <i class="fa fa-trash"> </i>
                                     </button>
                                 </div>`;
-
 
                         $(phoneHTML).appendTo(CloneDiv);
                         p++;
@@ -311,13 +348,65 @@
                     }
                     // });
                     function removeCont(_this) {
-                        if (i > 1) {
+                        if (p > 1) {
                             $(_this).parent().remove();
-                            i--;
+                            p--;
                         }
                     }
                 </script>
             </div>
+        </section>
+        <!-- for Documents -->
+        <section class="mt-2 mb-2">
+
+            <button class="btn Fbtn col-md-12" id="#dvDocbtn" type="button" data-toggle="collapse" data-target="#dvDoc"
+                aria-expanded="false" aria-controls="collapseExample">Upload Documents
+            </button>
+            <div id="dvDoc" class="collapse mt-2">
+                <div class="form-row">
+                    <div class="controls" style="min-width: 600px" id="DoccloneDiv">
+                        <div class="mb-1 input-group upload-input-group" id="DoccloneId">
+
+                            <input type="hidden" id="DocumentID" name="DocumentID" value="0">
+
+                            <input type="file" id="Document" name="Document" class="form-control"
+                                placeholder="Upload Document">
+                            <!-- <button class="btn btn-upload btn-success Sbtn-add " onclick="addDoc()"
+                                style="padding: 3px 8px;" type="button">
+                                <i class="fa fa-plus"> </i>
+                            </button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <script>
+                var DocCloneDiv = $("#DoccloneDiv");
+                var d = $("#DoccloneId").length + 1;
+
+                window.addDoc = function () {
+                    // console.log(s);
+                    var DocHtml = `<div class="mb-1 input-group upload-input-group" id="ScloneId">
+                            <input type="hidden" id="Document_`+ d + `" name="DocumentID[]" value="0">
+
+<input type="file" id="Document_`+ d + `" name="Document[]" class="form-control"
+    placeholder="Upload Document">
+                                    <button class="btn btn-upload btn-danger " onclick="removeDoc(this);" style="padding: 4px 8px" type="button">
+                                        <i class="fa fa-trash"> </i>
+                                    </button>
+                                </div>`;
+
+
+                    $(DocHtml).appendTo(DocCloneDiv);
+                    d++;
+                    return false;
+                }
+                function removeDoc(_this) {
+                    if (d > 1) {
+                        $(_this).parent().remove();
+                        d--;
+                    }
+                }
+            </script> -->
         </section>
         <!-- for Social -->
         <section class="mt-2 mb-2">
@@ -363,7 +452,7 @@
                     SocialHtml += `  </select>`
                     SocialHtml += `<input type="text" id="SocialMediaURL_` + s + `" name="url[]" class="form-control  "
                                 placeholder="Social Media URL">
-                                    <button class="btn btn-upload btn-danger " onclick="removeCont(this);" style="padding: 4px 8px" type="button">
+                                    <button class="btn btn-upload btn-danger " onclick="removeSocial(this);" style="padding: 4px 8px" type="button">
                                         <i class="fa fa-trash"> </i>
                                     </button>
                                 </div>`;
@@ -372,7 +461,12 @@
                     $(SocialHtml).appendTo(SCloneDiv);
                     s++;
                     return false;
-
+                }
+                function removeSocial(_this) {
+                    if (s > 1) {
+                        $(_this).parent().remove();
+                        s--;
+                    }
                 }
             </script>
         </section>
@@ -406,24 +500,13 @@
                 aria-expanded="false" aria-controls="collapseExample">Add Photo</button>
             <div id="dvPhoto" class="collapse mt-2">
                 <div class="form-row">
-                    <select class="form-control   tbtn" id="PhotoType" name="PhotoType">
+                    <!-- <input type="hidden" id="AddID_1" name="AddressID[]" value="0"> -->
+
+                    <select class="form-control tbtn" id="PhotoType" name="PhotoType">
                         <option disabled selected>PhotoType</option>
 
                     </select>
-                    <!-- <div class=" form-group">
-                        <div class="">
-                            <div class="control-group" id="fields">
-                                <div class="controls">
-                                    <div class="entry input-group upload-input-group">
-                                        <input class="form-control" name="fields[]" type="file">
-                                        <button class="btn btn-upload btn-success btn-add" type="button">
-                                            <i class="fa fa-plus"> </i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+
                     <input type="file" id="Photo" name="Photo" class="form-control mt-1" placeholder="Photo">
 
                 </div>
@@ -476,8 +559,8 @@
                                 </div>
                                 <div class="col-5">
 
-                                    <input type="number" class="form-control " min="6" max="6" id="ZipCode_1"
-                                        name="PinCode[]" placeholder="Pin Code">
+                                    <input type="number" class="form-control " min="6" id="ZipCode_1" name="PinCode[]"
+                                        placeholder="Pin Code">
                                 </div>
                                 <div class="col text-center">
 
@@ -540,7 +623,7 @@
                                 </div>
                                 <div class="col-5">
 
-                                    <input type="number" class="form-control " min="6" max="6" id="ZipCode_` + a + `" name="PinCode[]"
+                                    <input type="number" class="form-control " min="6" id="ZipCode_` + a + `" name="PinCode[]"
                                         placeholder="Pin Code">
                                 </div>
                                 <div class="col text-center">
@@ -560,9 +643,9 @@
                         }
 
                         function removeAdd(_this) {
-                            if (i > 1) {
+                            if (a > 1) {
                                 $(_this).closest('#AcloneId').remove();
-                                i--;
+                                a--;
                             }
                         }
                     </script>
@@ -580,16 +663,8 @@
 </div>
 
 <script>
+    var multipleCancelButton;
 
-    var isLogin = localStorage.getItem("isLogin")
-    if (isLogin != "true") {
-        window.location = "/crm_login"
-    }
-    var Msg = sessionStorage.getItem("Msg");
-    if (Msg) {
-        showToast(Msg);
-        sessionStorage.removeItem("Msg");
-    }
 
 
     let AToken = localStorage.getItem("accessToken");
@@ -599,8 +674,7 @@
     document.addEventListener('DOMContentLoaded', function (event) {
         event.preventDefault();
 
-
-
+        IsLogin();
 
         fetch(url + '/StaticDataApi', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
             .then((response) => {
@@ -611,7 +685,7 @@
                 }
             })
             .then((myJson) => {
-                console.log(myJson);
+                // console.log(myJson);
 
                 var ele = document.getElementById('Entitytype');
                 var entity = myJson['Entity_Type']
@@ -619,6 +693,56 @@
                     ele.innerHTML = ele.innerHTML +
                         '<option name="Entity_Type[EntityTypeID]"  value="' + entity[i]['EntityTypeID'] + '">' + entity[i]['EntityType'] + '</option>';
                 }
+
+                // for status
+                var status_ele = document.getElementById('Status');
+                var Status = myJson['Status']
+                for (var i = 0; i < Status.length; i++) {
+                    status_ele.innerHTML = status_ele.innerHTML +
+                        '<option value="' + Status[i]['Status'] + '">' + Status[i]['Status'] + '</option>';
+                }
+
+                // for Skill
+                var skill_ele = document.getElementById('Skill');
+                // console.log(skill_ele)
+                var Skill = myJson['Skill']
+                for (var i = 0; i < Skill.length; i++) {
+                    // console.log(Skill[i]['Skill'])
+                    skill_ele.innerHTML = skill_ele.innerHTML +
+                        '<option value="' + Skill[i]['Skill'] + '">' + Skill[i]['Skill'] + '</option>';
+                }
+                skill_ele.innerHTML += '<option id="other" value="other">Other</option>';
+
+                $("#Skill").change(function () {
+                    var selected = $(this).val();
+                    // var selected = $("#Skill :selected").map((_, e) => e.value).get();
+
+                    // console.log(selected)
+                    var isSelected = false;
+                    for (var i = 0; i < selected.length; i++) {
+                        if (selected[i] == "other") {
+                            isSelected = true;
+                        }
+                    }
+                    if (isSelected) {
+                        $("#otext").html('<input type="text" class="form-control mb-1" style="width: 81%;display: inline-block;" name="Skill[]" placeholder="Add other skill" required>');
+                    }
+                    else {
+                        $("#otext").html("");
+                    }
+                });
+                // <input type="text" name="OtherSkill" placeholder="Add other skill">
+
+
+                multipleCancelButton = new Choices('#Skill', {
+                    removeItemButton: true,
+                    shouldSort: false,
+                    // items: ['HTML', 'CSS'],
+                    // choices: ['HTML', 'CSS'],
+                    // maxItemCount: 5,
+                    // searchResultLimit: 5,
+                    // renderChoiceLimit: 5
+                });
 
                 //    for social media 
                 socialTypeData = myJson['SocialMedia_Type']
@@ -746,7 +870,7 @@
                     }
                 })
                 .then((myJson) => {
-                    console.log(myJson);
+                    // console.log(myJson);
                     // console.log(myJson['Entity']["EntityTypeIDF"]["EntityTypeID"])
                     document.getElementById("FullName").value = myJson['Entity']["FullName"];
                     document.getElementById("ShortName").value = myJson['Entity']["ShortName"];
@@ -764,10 +888,26 @@
                             document.getElementById("Gender").selectedIndex = 1;
 
                         }
+                        var Ex = $("#Experiance>option").map(function () { return $(this); });
+                        for (let e = 0; e < Ex.length; e++) {
+                            if (myJson['Person']["Experiance"] == Ex[e].val()) {
+                                document.getElementById("Experiance").selectedIndex = Ex[e].index();
+                            }
+                        }
+
+
                         document.getElementById("DOB").value = myJson['Person']["DOB"];
+                        document.getElementById("AboutPerson").value = myJson['Person']["AboutPerson"];
                         document.getElementById("SuffixType").value = myJson['Person']["SuffixIDF"]["SuffixID"];
                         document.getElementById("PersonType").selectedIndex = myJson['Person']["PersonTypeIDF"]["PersonTypeID"];
+                        document.getElementById("Status").selectedIndex = myJson['Person']["StatusIDF"]["StatusID"];
                         document.getElementById("Designation").value = myJson['Person']["Designation"];
+                        if (myJson['Skill']) {
+
+                            myJson['Skill'].map((skill, i) => {
+                                multipleCancelButton.setChoiceByValue(skill["SkillIDF"]["Skill"]);
+                            })
+                        }
                     } else {
                         $("#dvPerson").hide();
 
@@ -811,10 +951,8 @@
                             }
                             let j = i + 1;
                             // console.log(j)
-                            // console.log(document.getElementById("PhoneType_" + j))
                             document.getElementById("PhoneType_" + j).selectedIndex = myJson['Phone'][i]["PhoneIDF"]["PhoneTypeIDF"]["PhoneTypeID"];
                             document.getElementById("CountryName_" + j).selectedIndex = myJson['Phone'][i]["PhoneIDF"]["CodeIDF"]["CountryCodeIDF"]["CountryCodeID"];
-                            // console.log(document.getElementById("CodeID_" + j))
                             document.getElementById("CodeID_" + j).value = myJson['Phone'][i]["PhoneIDF"]["CodeIDF"]["CodeID"];
 
                             document.getElementById("CountryCode_" + j).value = myJson['Phone'][i]["PhoneIDF"]["CodeIDF"]["CountryCode"];
@@ -854,7 +992,6 @@
                                 addAddress();
                             }
                             let j = i + 1;
-                            // console.log(document.getElementById("AddressType_" + j))
                             document.getElementById("AddressType_" + j).selectedIndex = myJson['Address'][i]["AddressIDF"]["AddressTypeIDF"]["AddressTypeID"];
                             document.getElementById("Add_" + j).value = myJson['Address'][i]["AddressIDF"]["Address"];
                             document.getElementById("AddID_" + j).value = myJson['Address'][i]["AddressIDF"]["AddressID"];
@@ -897,42 +1034,48 @@
         let DOB = $.trim($('#DOB').val())
         let SuffixType = $('#SuffixType').val()
         let PersonType = $('#PersonType').val()
-        let Designation = $.trim($('#Designation').val())
+        // let Designation = $.trim($('#Designation').val())
         let EmailType = $('#EmailType_1').val()
         let EmailAddress = $.trim($('#EmailAddress_1').val())
         let PhoneType = $('#PhoneType_1').val()
         let CountryName = $('#CountryName_1').val()
         let PhoneNo = $.trim($('#PhoneNo_1').val())
-        let SocialMediaType = $('#SocialMediaType_1').val()
-        let SocialMediaURL = $.trim($('#SocialMediaURL_1').val())
-        let PhotoType = $('#PhotoType').val()
-        let Photo = $('#Photo').val()
-        let AddressType = $('#AddressType_1').val()
-        let Add = $.trim($('#Add_1').val())
-        let City = $.trim($('#City_1').val())
-        let District = $.trim($('#District_1').val())
-        let State = $.trim($('#State_1').val())
-        let Country = $.trim($('#Country_1').val())
-        let ZipCode = $.trim($('#ZipCode_1').val())
-        let CompanyName = $.trim($('#CompanyName').val())
-        let Headquarter = $.trim($('#Headquarter').val())
-        let WebsiteURL = $.trim($('#WebsiteURL').val())
-        let About = $.trim($('#About').val())
-        let Specialities = $.trim($('#Specialities').val())
-        let Founded = $.trim($('#Founded').val())
-        let AnnualRevenue = $.trim($('#AnnualRevenue').val())
-        let HeadCountType = $.trim($('#HeadCountType').val())
-        let HeadCount = $.trim($('#HeadCount').val())
-        let CompanyType = $.trim($('#CompanyType').val())
-        let IndustryType = $.trim($('#IndustryType').val())
+        // let SocialMediaType = $('#SocialMediaType_1').val()
+        // let SocialMediaURL = $.trim($('#SocialMediaURL_1').val())
+        // let PhotoType = $('#PhotoType').val()
+        // let Photo = $('#Photo').val()
+        // let AddressType = $('#AddressType_1').val()
+        // let Add = $.trim($('#Add_1').val())
+        // let City = $.trim($('#City_1').val())
+        // let District = $.trim($('#District_1').val())
+        // let State = $.trim($('#State_1').val())
+        // let Country = $.trim($('#Country_1').val())
+        // let ZipCode = $.trim($('#ZipCode_1').val())
+        // let CompanyName = $.trim($('#CompanyName').val())
+        // let Headquarter = $.trim($('#Headquarter').val())
+        // let WebsiteURL = $.trim($('#WebsiteURL').val())
+        // let About = $.trim($('#About').val())
+        // let Specialities = $.trim($('#Specialities').val())
+        // let Founded = $.trim($('#Founded').val())
+        // let AnnualRevenue = $.trim($('#AnnualRevenue').val())
+        // let HeadCountType = $.trim($('#HeadCountType').val())
+        // let HeadCount = $.trim($('#HeadCount').val())
+        // let CompanyType = $.trim($('#CompanyType').val())
+        // let IndustryType = $.trim($('#IndustryType').val())
+        let Skill = $('#Skill').val()
+        let Status = $('#Status').val()
+        let Experiance = $('#Experiance').val()
+        let Document = document.getElementById("Document")
+        console.log(Document)
+
 
 
         if (FullName == "" || FullName == null) {
             showToast("Full Name can't be blank");
-            return false;
+            return false
         } else if (ShortName == "" || ShortName == null) {
             showToast("Short Name can't be blank");
-            return false;
+            return false
 
         } else if (Entitytype == null) {
             showToast("Entity Type can't be blank");
@@ -959,95 +1102,116 @@
             } else if (PersonType == null) {
                 showToast("PersonType can't be blank");
                 return false
-            } else if (Designation == "" || Designation == null) {
-                showToast("Designation can't be blank");
+            } else if (Skill == null || Skill == '') {
+                showToast("Please select skills");
                 return false
             }
-        } else if (CompanyName != null || CompanyName != "") {
-            if (Headquarter == "" || Headquarter == null) {
-                showToast("Headquarter can't be blank");
+            else if (Experiance == null || Experiance == '') {
+                showToast("Please select Experiance");
                 return false
-            } else if (WebsiteURL == "" || WebsiteURL == null) {
-                showToast("WebsiteURL can't be blank");
-                return false
-            } else if (About == "" || About == null) {
-                showToast("About can't be blank");
-                return false
-            } else if (Specialities == "" || Specialities == null) {
-                showToast("Specialities can't be blank");
-                return false
-            } else if (Founded == "" || Founded == null) {
-                showToast("Founded can't be blank");
-                return false
-            } else if (AnnualRevenue == "" || AnnualRevenue == null) {
-                showToast("AnnualRevenue can't be blank");
-                return false
-            } else if (HeadCountType == "" || HeadCountType == null) {
-                showToast("HeadCountType can't be blank");
-                return false
-            } else if (HeadCount == "" || HeadCount == null) {
-                showToast("HeadCount can't be blank");
-                return false
-            } else if (CompanyType == "" || CompanyType == null) {
-                showToast("CompanyType can't be blank");
-                return false
-            } else if (IndustryType == "" || IndustryType == null) {
-                showToast("IndustryType can't be blank");
+            } else if (Status == null || Status == '') {
+                showToast("Please select Status");
                 return false
             }
-        } else if (EmailType == null) {
-            showToast("Email type can't be blank");
-            return false
-        } else if (EmailAddress == "" || EmailAddress == null) {
-            showToast("Email address  can't be blank");
-            return false
-        } else if (PhoneType == "" || PhoneType == null) {
-            showToast("Phone Type  can't be blank");
-            return false
-        } else if (CountryName == "" || CountryName == null) {
-            showToast("Country Name can't be blank");
-            return false
-        } else if (PhoneNo == "" || PhoneNo == null) {
-            showToast("Phone Number can't be blank");
-            return false
-        } else if (SocialMediaType == "" || SocialMediaType == null) {
-            showToast("Social Media Type can't be blank");
-            return false
-        } else if (SocialMediaURL == "" || SocialMediaURL == null) {
-            showToast("Social Media URL can't be blank");
-            return false
-        } else if (PhotoType == "" || PhotoType == null) {
-            showToast("Photo Type can't be blank");
-            return false
-        } else if (Photo == "" || Photo == null) {
-            showToast("Photo can't be blank");
-            return false
-        } else if (AddressType == null) {
-            showToast("Address Type can't be blank");
-            return false
-        } else if (Add == "" || Add == null) {
-            showToast("Address  can't be blank");
-            return false
-        } else if (City == "" || City == null) {
-            showToast("City Type can't be blank");
-            return false
-        } else if (District == "" || District == null) {
-            showToast("District Type can't be blank");
-            return false
-        } else if (State == "" || State == null) {
-            showToast("State Type can't be blank");
-            return false
-        } else if (Country == "" || Country == null) {
-            showToast("Country Type can't be blank");
-            return false
-        } else if (ZipCode == "" || ZipCode == null) {
-            showToast("ZipCode Type can't be blank");
-            return false
+            else if (EmailType == null) {
+                showToast("Email type can't be blank");
+                return false
+            } else if (EmailAddress == "" || EmailAddress == null) {
+                showToast("Email address  can't be blank");
+                return false
+            } else if (PhoneType == "" || PhoneType == null) {
+                showToast("Phone Type  can't be blank");
+                return false
+            } else if (CountryName == "" || CountryName == null) {
+                showToast("Country Name can't be blank");
+                return false
+            } else if (PhoneNo == "" || PhoneNo == null) {
+                showToast("Phone Number can't be blank");
+                return false
+            }
+            else if (Pid == '' || Pid == null) {
+
+                if (Document.files.length == 0) {
+                    showToast("Document can't be blank");
+                    return false
+                }
+            }
         }
+        // else if (CompanyName != null || CompanyName != "") {
+        //     if (Headquarter == "" || Headquarter == null) {
+        //         showToast("Headquarter can't be blank");
+        //         return false
+        //     } else if (WebsiteURL == "" || WebsiteURL == null) {
+        //         showToast("WebsiteURL can't be blank");
+        //         return false
+        //     } else if (About == "" || About == null) {
+        //         showToast("About can't be blank");
+        //         return false
+        //     } else if (Specialities == "" || Specialities == null) {
+        //         showToast("Specialities can't be blank");
+        //         return false
+        //     } else if (Founded == "" || Founded == null) {
+        //         showToast("Founded can't be blank");
+        //         return false
+        //     } else if (AnnualRevenue == "" || AnnualRevenue == null) {
+        //         showToast("AnnualRevenue can't be blank");
+        //         return false
+        //     } else if (HeadCountType == "" || HeadCountType == null) {
+        //         showToast("HeadCountType can't be blank");
+        //         return false
+        //     } else if (HeadCount == "" || HeadCount == null) {
+        //         showToast("HeadCount can't be blank");
+        //         return false
+        //     } else if (CompanyType == "" || CompanyType == null) {
+        //         showToast("CompanyType can't be blank");
+        //         return false
+        //     } else if (IndustryType == "" || IndustryType == null) {
+        //         showToast("IndustryType can't be blank");
+        //         return false
+        //     }
+        // }
+
+        // else if (SocialMediaType == "" || SocialMediaType == null) {
+        //     showToast("Social Media Type can't be blank");
+        //     return false
+        // } else if (SocialMediaURL == "" || SocialMediaURL == null) {
+        //     showToast("Social Media URL can't be blank");
+        //     return false
+        // } 
+        // else if (PhotoType == "" || PhotoType == null) {
+        //     showToast("Photo Type can't be blank");
+        //     return false
+        // }
+        // else if (Photo == "" || Photo == null) {
+        //     showToast("Photo can't be blank");
+        //     return false
+        // }
+        // else if (AddressType == null) {
+        //     showToast("Address Type can't be blank");
+        //     return false
+        // } else if (Add == "" || Add == null) {
+        //     showToast("Address  can't be blank");
+        //     return false
+        // } else if (City == "" || City == null) {
+        //     showToast("City Type can't be blank");
+        //     return false
+        // } else if (District == "" || District == null) {
+        //     showToast("District Type can't be blank");
+        //     return false
+        // } else if (State == "" || State == null) {
+        //     showToast("State Type can't be blank");
+        //     return false
+        // } else if (Country == "" || Country == null) {
+        //     showToast("Country Type can't be blank");
+        //     return false
+        // } else if (ZipCode == "" || ZipCode == null) {
+        //     showToast("ZipCode Type can't be blank");
+        //     return false
+        // }
         else {
             return true
         }
-
+        return true
     }
 
     $("#cform").submit(function (e) {
@@ -1056,21 +1220,24 @@
 
 
         var validateFunc = validateFunction();
-        console.log(validateFunc)
+        // console.log(validateFunc)
         if (validateFunc == true) {
-
-
             var f = document.getElementById("Photo").value;
             let value = $('#cform').serializeJSON();
-            var input = document.querySelector('input[type="file"]')
+            var Photo = document.querySelector('#Photo')
             const keys = Object.keys(value);
 
             var data = new FormData();
             for (let i = 0; i < keys.length; i++) {
                 data.append(keys[i], value[keys[i]]);
             }
-            data.append('Photo', input.files[0])
-            // console.log(input.files[0]);
+            data.append('Photo', Photo.files[0])
+
+            var Docs = document.querySelector("input[name='Document']")
+            // console.log(Docs);
+            data.append('Document', Docs.files[0])
+
+
 
             if (Pid) {
                 fetch(url + '/EntityDetailApi/' + Pid, { mode: 'cors', method: 'patch', body: data, headers: { "Authorization": "Bearer " + AToken } })
@@ -1098,8 +1265,6 @@
 
             } else {
 
-                // value.Photo = f
-                // console.log(value)
                 fetch(url + '/EntityDetailApi', { mode: 'cors', method: 'post', body: data, headers: { "Authorization": "Bearer " + AToken } })
                     .then((response) => {
                         if (response.status == 201) {
@@ -1118,6 +1283,9 @@
 
                     });
             }
+        } else {
+            // showToast("Something Went Wrong!")
+            // console.log("Something Went Wrong!")
         }
 
 
