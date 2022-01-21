@@ -664,6 +664,7 @@
 
 <script>
     var multipleCancelButton;
+    var url = '{{ url }}'
 
 
 
@@ -671,10 +672,13 @@
     // const url = "http://127.0.0.1:5000/api";
     let Pid = {{ Pid }}
     // console.log(Pid)
+    // let url = "http://127.0.0.1:5000/api";
     document.addEventListener('DOMContentLoaded', function (event) {
         event.preventDefault();
 
+
         IsLogin();
+
 
         fetch(url + '/StaticDataApi', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
             .then((response) => {

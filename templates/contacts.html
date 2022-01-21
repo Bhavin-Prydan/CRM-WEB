@@ -203,7 +203,8 @@ border-color: #ff7a59;color: #fff">Create contact</a>
 
 <script>
     document.addEventListener('DOMContentLoaded', function (event) {
-
+        var url = '{{url}}'
+        // console.log(url)
         IsLogin();
 
         window.Edit_Contact = function () {
@@ -221,7 +222,7 @@ border-color: #ff7a59;color: #fff">Create contact</a>
             }
         }
 
-        const url = "http://127.0.0.1:5000/api";
+        // const url = "http://127.0.0.1:5000/api";
 
         window.Delete_Contacts = function () {
             let EntityIDs = [];

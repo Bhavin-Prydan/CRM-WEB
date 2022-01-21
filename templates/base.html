@@ -141,6 +141,8 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function (event) {
+            var url = '{{url}}'
+
             var isLogin = localStorage.getItem("isLogin")
             if (isLogin != "true") {
                 $(".authentication-btn").html("<a  href='/crm_login'>Login</a>");
@@ -155,7 +157,7 @@
 
 
             var AToken = localStorage.getItem("accessToken");
-            var url = "http://127.0.0.1:5000/api";
+            // const url = "http://127.0.0.1:5000/api";
             fetch(url + '/userViewSet/', { mode: 'cors', method: 'get', headers: { "Content-type": "application/json; charset=UTF-8", "Authorization": "Bearer " + AToken } })
                 .then((response) => {
                     // debugger;

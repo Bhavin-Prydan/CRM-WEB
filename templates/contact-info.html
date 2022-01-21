@@ -620,6 +620,7 @@
 </div>
 
 <script>
+    var url = '{{ url }}'
     $('.cInfo,textarea').val("");
     $('.form-group-cInfo .cInfo, .form-group-cInfo textarea').focusout(function () {
         var text_val = $(this).val();
@@ -630,7 +631,7 @@
             $(this).addClass('has-value');
         }
     });
-    const url = "http://127.0.0.1:5000/api";
+    // const url = "http://127.0.0.1:5000/api";
 
     let AToken = localStorage.getItem("accessToken");
     // const url = "http://127.0.0.1:5000/api";
@@ -640,6 +641,7 @@
 
     document.addEventListener('DOMContentLoaded', function (event) {
         event.preventDefault();
+
         IsLogin();
 
         var now = new Date();
@@ -1031,7 +1033,7 @@
                                                             <div id="Call`+ i + `" class="card-body collapse"
                                                                 data-parent="#Callcard">
                                                                 <p class='font-weight-bold mb-1 '>Status : ${log['StatusIDF']['Status']}</p>
-                                                                <p><span class='font-weight-bold'>About Call : </span>  ${log['AboutCall']}</p>
+                                                                <p><span class='font-weight-bold'>About : </span>  ${log['AboutCall']}</p>
                                                                     <a class="card-link float-right" id=" ${log['EntityCallDetailsID']}" onclick="Delete_CallLog(${log['EntityCallDetailsID']})" href='#'><i class="fa fa-trash" style="font-size:20px"></i></a>
                                                             </div>
                                                         </div>
